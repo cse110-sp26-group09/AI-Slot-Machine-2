@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Prompt Palace Slots</title>
+    <link rel="stylesheet" href="styles/main.css" />
+  </head>
+  <body>
+    <main class="app">
+      <header class="app-header">
+        <p class="kicker">AI Token Economy Simulator</p>
+        <h1>Prompt Palace</h1>
+        <p class="subtitle">Burn credits, chase jackpots, ship nothing.</p>
+      </header>
+
+      <section class="machine-shell" aria-label="Slot machine">
+        <div id="slot-machine" class="slot-machine" role="img" aria-label="Three reel slot machine">
+          <div class="reel-window" data-reel-index="0">
+            <span class="reel-symbol">GPT</span>
+          </div>
+          <div class="reel-window" data-reel-index="1">
+            <span class="reel-symbol">TOKEN</span>
+          </div>
+          <div class="reel-window" data-reel-index="2">
+            <span class="reel-symbol">API</span>
+          </div>
+        </div>
+
+        <div class="status-panel" aria-live="polite" aria-atomic="true">
+          <p id="status-text">Ready. Click SPIN to run another expensive experiment.</p>
+        </div>
+      </section>
+
+      <section class="hud" aria-label="Player stats">
+        <article class="hud-card">
+          <p class="hud-label">Token Balance</p>
+          <p class="hud-value"><span id="balance-value">0</span> TK</p>
+        </article>
+        <article class="hud-card">
+          <p class="hud-label">Total Spins</p>
+          <p class="hud-value" id="spins-value">0</p>
+        </article>
+        <article class="hud-card">
+          <p class="hud-label">Win Rate</p>
+          <p class="hud-value" id="win-rate-value">0%</p>
+        </article>
+        <article class="hud-card">
+          <p class="hud-label">Streak / Best Win</p>
+          <p class="hud-value"><span id="streak-value">0</span> / <span id="best-win-value">0</span></p>
+        </article>
+      </section>
+
+      <section class="controls" aria-label="Game controls">
+        <button id="spin-btn" class="btn btn-primary" type="button">Spin (<span id="spin-cost">10</span> TK)</button>
+        <button id="bailout-btn" class="btn btn-secondary" type="button">VC Bailout (+80 TK)</button>
+        <button id="audio-btn" class="btn btn-tertiary" type="button" aria-pressed="false">Audio: On</button>
+      </section>
+    </main>
+
+    <script type="module" src="scripts/main.js"></script>
+  </body>
+</html>
