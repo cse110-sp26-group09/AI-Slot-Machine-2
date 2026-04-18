@@ -1,0 +1,4 @@
+-We will have 3 unique prompts  
+-We will run the prompts 5 times each which will result in 15 products
+-Out of those, we will choose the best 3 and refine those 
+-Once we have our best we can further refine it. 
