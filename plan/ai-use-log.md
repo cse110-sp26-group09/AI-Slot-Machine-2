@@ -11,9 +11,9 @@ The goal is to document our process in real time, including prompts, outputs, de
 - **Team Name:** Akatsuki
 - **Project:** AI Slot Machine SWE Warm-Up
 - **Primary Harness:** Codex
-- **Model Used:** [fill in exact model]
-- **Start Date:** [fill in]
-- **End Date:** [fill in]
+- **Model Used:** Codex 5.3 High Reasoning 
+- **Start Date:** 4/18
+- **End Date:** 4/21
 
 ---
 
