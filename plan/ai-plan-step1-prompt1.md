@@ -16,6 +16,10 @@ codex mcp add chrome-devtools -- npx -y @modelcontextprotocol/server-chrome-devt
 
 use context7
 
+## DESIGN REFERENCE
+Use https://www.hacksawgaming.com/games/slots as the primary design and layout
+inspiration. Match its vertical-first mobile layout, minimal chrome, bold symbol
+styling, dark colour palette, pill-shaped controls, and punchy win animations.
 ---
 
 Build a full-stack AI-satire slot machine web app.
