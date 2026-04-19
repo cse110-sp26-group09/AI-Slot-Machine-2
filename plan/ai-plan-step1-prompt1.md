@@ -16,11 +16,6 @@ codex mcp add chrome-devtools -- npx -y @modelcontextprotocol/server-chrome-devt
 
 use context7
 
-## MCP SERVERS ACTIVE
-- context7: resolve all API refs live (Web Crypto, esbuild, Express, WebSocket, JWT)
-- chrome_devtools: available for live browser debugging
-- cloudflare: available if deploying to Workers instead of Express
-
 ---
 
 Build a full-stack AI-satire slot machine web app.
