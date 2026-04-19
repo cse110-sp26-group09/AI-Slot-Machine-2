@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Token Terminal Slots</title>
+    <link rel="stylesheet" href="styles/main.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">AI Casino Beta</p>
+          <h1>Token Terminal Slots</h1>
+          <p class="subtitle">Win credits. Burn them on questionable model upgrades.</p>
+        </div>
+        <div class="balance-panel" aria-live="polite">
+          <span class="balance-label">Token Balance</span>
+          <strong id="balance-value" class="balance-value">120</strong>
+        </div>
+      </header>
+
+      <main class="machine-layout">
+        <section class="machine-card" aria-labelledby="machine-title">
+          <h2 id="machine-title" class="section-title">Inference Reels</h2>
+
+          <div id="reels" class="reels" aria-live="polite">
+            <div class="reel" data-reel="0" data-symbol-id="token">◎ Token</div>
+            <div class="reel" data-reel="1" data-symbol-id="prompt">✍ Prompt</div>
+            <div class="reel" data-reel="2" data-symbol-id="agent">🤖 Agent</div>
+          </div>
+
+          <p id="status-text" class="status" data-tone="neutral">
+            Ready. Place a wager and spin.
+          </p>
+        </section>
+
+        <aside class="control-card" aria-label="Game Controls">
+          <h2 class="section-title">Control Desk</h2>
+
+          <div class="control-row">
+            <label for="wager-select">Wager</label>
+            <select id="wager-select">
+              <option value="5">5 tokens</option>
+              <option value="10" selected>10 tokens</option>
+              <option value="20">20 tokens</option>
+              <option value="40">40 tokens</option>
+            </select>
+          </div>
+
+          <button id="spin-button" class="spin-button" type="button">
+            Spin Reels
+          </button>
+
+          <div class="control-row">
+            <button id="audio-toggle" class="audio-button" type="button" aria-pressed="true">
+              Sound: On
+            </button>
+          </div>
+
+          <div class="control-row volume-row">
+            <label for="volume-range">Volume</label>
+            <input id="volume-range" type="range" min="0" max="100" step="1" value="50" />
+          </div>
+
+          <div class="stats-grid" aria-live="polite">
+            <article>
+              <span class="stat-label">Spins</span>
+              <strong id="stats-spins">0</strong>
+            </article>
+            <article>
+              <span class="stat-label">Wins</span>
+              <strong id="stats-wins">0</strong>
+            </article>
+            <article>
+              <span class="stat-label">Net</span>
+              <strong id="stats-net">0</strong>
+            </article>
+          </div>
+        </aside>
+      </main>
+    </div>
+
+    <script type="module" src="scripts/main.js"></script>
+  </body>
+</html>
