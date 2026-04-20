@@ -1,0 +1,114 @@
+﻿<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AI Satire Slot Machine</title>
+    <link rel="stylesheet" href="./css/variables.css" />
+    <link rel="stylesheet" href="./css/layout.css" />
+    <link rel="stylesheet" href="./css/animations.css" />
+    <link rel="stylesheet" href="./css/components.css" />
+  </head>
+  <body>
+    <div class="age-gate modal is-open" id="ageGateModal" aria-hidden="false">
+      <div class="modal-card">
+        <h2>Age Confirmation</h2>
+        <p>This satire game includes gambling mechanics. Confirm you are of legal age.</p>
+        <label class="field-row" for="depositLimitInput">Session Deposit Limit (tokens)</label>
+        <input id="depositLimitInput" class="text-input" type="number" min="0.1" step="0.1" value="150" />
+        <button id="ageConfirmButton" class="pill pill-primary" type="button">I Confirm</button>
+      </div>
+    </div>
+
+    <div class="modal" id="realityModal" aria-hidden="true">
+      <div class="modal-card">
+        <h2>Reality Check</h2>
+        <p>60 minutes elapsed. Review your play before continuing.</p>
+        <button id="realityAcknowledgeButton" class="pill pill-primary" type="button">Acknowledge</button>
+      </div>
+    </div>
+
+    <div class="modal" id="paytableModal" aria-hidden="true">
+      <div class="modal-card paytable-card">
+        <div class="modal-header">
+          <h2>Paytable</h2>
+          <button id="closePaytableButton" class="pill pill-quiet" type="button">Close</button>
+        </div>
+        <div id="paytableContent" class="paytable-content"></div>
+      </div>
+    </div>
+
+    <main id="app" class="app is-hidden" aria-live="polite">
+      <header class="top-strip">
+        <div class="brand-block">
+          <h1>AI Hype Slots</h1>
+          <p class="subtitle">Minimal truth. Maximal valuation.</p>
+        </div>
+        <div class="tier-block">
+          <span id="tierBadge" class="tier-badge">Bronze</span>
+          <div class="xp-track" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+            <div id="xpFill" class="xp-fill"></div>
+          </div>
+        </div>
+      </header>
+
+      <section class="status-strip">
+        <div class="status-pill">
+          <span>Tokens</span>
+          <strong id="balanceValue">0.00</strong>
+        </div>
+        <div class="status-pill">
+          <span>Jackpot Pool</span>
+          <strong id="jackpotValue">0.00</strong>
+        </div>
+        <div class="status-pill spend-pill">
+          <span>Session Spend</span>
+          <strong id="sessionSpendValue">0.00</strong>
+        </div>
+      </section>
+
+      <section class="slot-shell">
+        <div id="reelGrid" class="reel-grid"></div>
+        <p id="winMessage" class="win-message">Ready to benchmark vibes.</p>
+      </section>
+
+      <section class="controls">
+        <label class="field-row" for="betSlider">Bet</label>
+        <div class="bet-row">
+          <input id="betSlider" type="range" />
+          <output id="betValue" for="betSlider">0.10</output>
+        </div>
+
+        <div class="button-row">
+          <button id="spinButton" class="pill pill-primary" type="button">Spin</button>
+          <button id="infoButton" class="pill" type="button">Paytable</button>
+        </div>
+
+        <div class="toggle-grid">
+          <label class="toggle-card" for="turboToggle">
+            <span>Turbo</span>
+            <input id="turboToggle" type="checkbox" />
+          </label>
+          <label class="toggle-card" for="ambientToggle">
+            <span>Ambient</span>
+            <input id="ambientToggle" type="checkbox" />
+          </label>
+        </div>
+
+        <div class="autoplay-row">
+          <label class="field-row" for="autoplayLimitInput">Autoplay (max 50)</label>
+          <div class="button-row">
+            <input id="autoplayLimitInput" class="text-input" type="number" min="1" max="50" value="10" />
+            <button id="autoplayButton" class="pill" type="button">Start Autoplay</button>
+          </div>
+        </div>
+
+        <div class="button-row">
+          <button id="selfExcludeButton" class="pill pill-danger" type="button">Self Exclude</button>
+        </div>
+      </section>
+    </main>
+
+    <script type="module" src="./js/main.js"></script>
+  </body>
+</html>

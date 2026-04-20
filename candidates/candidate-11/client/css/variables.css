@@ -1,0 +1,65 @@
+﻿:root {
+  --font-display: "Trebuchet MS", "Lucida Sans Unicode", "Segoe UI", sans-serif;
+  --font-body: "Verdana", "Geneva", sans-serif;
+
+  --color-bg-0: #05070c;
+  --color-bg-1: #0d121f;
+  --color-bg-2: #131c2e;
+  --color-panel: #151f33;
+  --color-panel-soft: #1d2940;
+  --color-surface: #243554;
+  --color-stroke: #2f4466;
+  --color-text: #e8f0ff;
+  --color-muted: #9db1d0;
+  --color-accent: #33d6a6;
+  --color-accent-2: #ffbb33;
+  --color-danger: #ff5f73;
+  --color-win: #49ffbc;
+
+  --shadow-soft: 0 0.75rem 2rem rgba(0, 0, 0, 0.45);
+  --shadow-pill: inset 0 0 0 0.0625rem rgba(255, 255, 255, 0.08), 0 0.35rem 1rem rgba(0, 0, 0, 0.25);
+
+  --radius-pill: 999rem;
+  --radius-card: 1rem;
+  --radius-cell: 0.75rem;
+
+  --space-2xs: 0.25rem;
+  --space-xs: 0.5rem;
+  --space-sm: 0.75rem;
+  --space-md: 1rem;
+  --space-lg: 1.5rem;
+  --space-xl: 2rem;
+
+  --line-tight: 1.2;
+  --line-base: 1.4;
+
+  --app-max-width: 30rem;
+  --header-gap: var(--space-sm);
+  --section-gap: var(--space-md);
+
+  --grid-columns: 5;
+  --grid-rows: 3;
+  --grid-gap: 0.45rem;
+  --cell-height: 4.9rem;
+  --cell-font-size: 0.92rem;
+  --cell-emoji-size: 1.35rem;
+
+  --spin-duration: 2500ms;
+  --cascade-duration: 600ms;
+  --flash-duration: 800ms;
+  --message-duration: 500ms;
+
+  --control-height: 2.85rem;
+  --button-font-size: 0.95rem;
+  --status-font-size: 0.78rem;
+  --value-font-size: 1.05rem;
+
+  --modal-backdrop: rgba(2, 5, 11, 0.82);
+  --ambient-opacity: 0.16;
+
+  --gradient-shell: radial-gradient(circle at 20% 10%, #1e3359 0%, #0d1527 45%, #06090f 100%);
+  --gradient-grid: linear-gradient(180deg, #182946 0%, #0f1a2f 100%);
+  --gradient-pill: linear-gradient(180deg, #243a5f 0%, #182742 100%);
+  --gradient-primary: linear-gradient(180deg, #35ebb6 0%, #1f9d7c 100%);
+  --gradient-danger: linear-gradient(180deg, #ff8795 0%, #c33b56 100%);
+}

@@ -1,0 +1,21 @@
+﻿{
+  "name": "ai-satire-slot-machine",
+  "version": "1.0.0",
+  "description": "Full-stack satirical slot machine with server-authoritative outcomes",
+  "type": "module",
+  "main": "server/index.js",
+  "scripts": {
+    "dev": "node server/index.js",
+    "start": "node server/index.js",
+    "build": "node scripts/build.mjs"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.21.2",
+    "jsonwebtoken": "^9.0.2",
+    "ws": "^8.18.3"
+  },
+  "devDependencies": {
+    "esbuild": "^0.25.4"
+  }
+}
