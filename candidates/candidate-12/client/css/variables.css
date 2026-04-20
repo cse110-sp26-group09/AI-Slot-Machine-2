@@ -1,0 +1,111 @@
+:root {
+  --font-display: 'Oswald', 'Franklin Gothic Medium', 'Nimbus Sans Narrow', sans-serif;
+  --font-body: 'Rajdhani', 'Trebuchet MS', sans-serif;
+
+  --color-bg: hsl(222 24% 8%);
+  --color-bg-top: hsl(228 30% 14%);
+  --color-bg-bottom: hsl(220 20% 6%);
+  --color-surface: hsl(223 22% 13%);
+  --color-surface-strong: hsl(225 23% 18%);
+  --color-border: hsl(212 35% 40% / 0.32);
+  --color-border-bright: hsl(198 84% 62% / 0.62);
+  --color-text: hsl(210 25% 92%);
+  --color-text-muted: hsl(210 15% 68%);
+  --color-accent: hsl(190 86% 56%);
+  --color-accent-strong: hsl(182 88% 47%);
+  --color-accent-contrast: hsl(224 40% 8%);
+  --color-danger: hsl(2 83% 62%);
+  --color-win: hsl(52 90% 58%);
+  --color-jackpot: hsl(24 96% 60%);
+  --color-glass: hsl(215 35% 98% / 0.08);
+  --color-shadow: hsl(0 0% 0% / 0.48);
+  --color-shadow-soft: hsl(0 0% 0% / 0.25);
+  --color-shadow-accent: hsl(185 95% 55% / 0.35);
+  --color-strip-alert: hsl(9 81% 58% / 0.5);
+  --color-track-bg: hsl(219 25% 11%);
+  --color-ticker-bg: hsl(212 25% 9%);
+  --color-input-bg: hsl(223 18% 12%);
+  --color-button-bg: hsl(221 23% 14%);
+  --color-button-border-primary: hsl(193 96% 66% / 0.7);
+  --color-button-border-danger: hsl(2 88% 66% / 0.72);
+  --color-button-danger-text: hsl(5 95% 74%);
+  --color-overlay: hsl(0 0% 0% / 0.66);
+  --color-paytable-bg: hsl(218 18% 11%);
+  --color-gradient-panel-top: hsl(226 24% 16%);
+  --color-gradient-panel-bottom: hsl(221 26% 11%);
+  --color-gradient-win-top: hsl(54 95% 62%);
+  --color-gradient-win-bottom: hsl(31 94% 54%);
+
+  --radius-soft: 0.75rem;
+  --radius-pill: 999rem;
+  --radius-card: 1.2rem;
+
+  --space-2xs: 0.2rem;
+  --space-xs: 0.4rem;
+  --space-sm: 0.6rem;
+  --space-md: 0.9rem;
+  --space-lg: 1.2rem;
+  --space-xl: 1.6rem;
+  --space-2xl: 2.1rem;
+
+  --size-shell-width: min(100vw, 33rem);
+  --size-grid-height: 23rem;
+  --size-cell-min-height: 4.5rem;
+  --size-cell-font: 0.95rem;
+  --size-symbol-emoji: 1.45rem;
+  --size-button-height: 2.8rem;
+  --size-header-height: 4.6rem;
+  --size-control-column-gap: 0.65rem;
+  --size-brand-kicker-font: 0.75rem;
+  --size-brand-title-font: 1.9rem;
+  --size-brand-title-font-desktop: 2.2rem;
+  --size-status-label-font: 0.68rem;
+  --size-status-value-font: 1.05rem;
+  --size-xp-height: 0.55rem;
+  --size-message-min-height: 1.8rem;
+  --size-message-font: 0.9rem;
+  --size-control-label-font: 0.72rem;
+  --size-control-value-font: 1.1rem;
+  --size-input-min-height: 2rem;
+  --size-input-thumb: 1rem;
+  --size-button-font: 0.95rem;
+  --size-paytable-emoji: 1.2rem;
+  --size-modal-width: min(100%, 30rem);
+  --size-modal-paytable-width: min(100%, 34rem);
+  --size-paytable-max-height: 24rem;
+
+  --line-thin: 0.06rem;
+  --line-thick: 0.14rem;
+
+  --duration-fast: 180ms;
+  --duration-ui: 300ms;
+  --duration-modal: 360ms;
+  --duration-win: 620ms;
+  --duration-glow: 900ms;
+  --duration-hum-fade: 420ms;
+  --spin-duration-ms: 2500ms;
+
+  --shadow-shell: 0 1rem 2.4rem var(--color-shadow);
+  --shadow-soft: 0 0.35rem 1rem var(--color-shadow-soft);
+  --shadow-accent: 0 0 1.6rem var(--color-shadow-accent);
+
+  --gradient-page: linear-gradient(180deg, var(--color-bg-top), var(--color-bg), var(--color-bg-bottom));
+  --gradient-panel: linear-gradient(160deg, var(--color-gradient-panel-top), var(--color-gradient-panel-bottom));
+  --gradient-button: linear-gradient(130deg, var(--color-accent), var(--color-accent-strong));
+  --gradient-win: linear-gradient(130deg, var(--color-gradient-win-top), var(--color-gradient-win-bottom));
+
+  --z-base: 1;
+  --z-modal: 20;
+
+  --opacity-hidden: 0;
+  --opacity-visible: 1;
+
+  --xp-min: 0%;
+  --xp-max: 100%;
+
+  --breakpoint-mobile: 48rem;
+  --motion-reel-shift: 6%;
+  --motion-modal-shift: 8%;
+  --motion-modal-scale-start: 0.94;
+  --motion-button-lift: -4%;
+}

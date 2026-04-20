@@ -208,7 +208,6 @@ ___
 
 Prompt 3:
 ```
-use context7
 
 ## DESIGN REFERENCE
 

@@ -1,0 +1,19 @@
+{
+  "name": "ai-satire-slot-machine",
+  "version": "1.0.0",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "dev": "node server/index.js",
+    "build": "node scripts/build.mjs",
+    "start": "NODE_ENV=production node server/index.js"
+  },
+  "dependencies": {
+    "express": "^4.21.2",
+    "jsonwebtoken": "^9.0.2",
+    "ws": "^8.18.3"
+  },
+  "devDependencies": {
+    "esbuild": "^0.25.3"
+  }
+}

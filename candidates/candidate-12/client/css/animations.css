@@ -1,0 +1,72 @@
+@keyframes reelSpin {
+  0% {
+    transform: translateY(0);
+    filter: saturate(1);
+  }
+
+  50% {
+    transform: translateY(var(--motion-reel-shift));
+    filter: saturate(1.25);
+  }
+
+  100% {
+    transform: translateY(0);
+    filter: saturate(1);
+  }
+}
+
+@keyframes winPulse {
+  0% {
+    transform: scale(1);
+    box-shadow: var(--shadow-soft);
+  }
+
+  50% {
+    transform: scale(1.04);
+    box-shadow: var(--shadow-accent);
+  }
+
+  100% {
+    transform: scale(1);
+    box-shadow: var(--shadow-soft);
+  }
+}
+
+@keyframes jackpotGlow {
+  0% {
+    filter: hue-rotate(0deg) brightness(1);
+  }
+
+  100% {
+    filter: hue-rotate(26deg) brightness(1.2);
+  }
+}
+
+@keyframes modalPop {
+  0% {
+    opacity: var(--opacity-hidden);
+    transform: translateY(var(--motion-modal-shift)) scale(var(--motion-modal-scale-start));
+  }
+
+  100% {
+    opacity: var(--opacity-visible);
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes tickerSweep {
+  0% {
+    letter-spacing: 0.02em;
+    opacity: 0.82;
+  }
+
+  50% {
+    letter-spacing: 0.03em;
+    opacity: 1;
+  }
+
+  100% {
+    letter-spacing: 0.02em;
+    opacity: 0.82;
+  }
+}
