@@ -1,0 +1,46 @@
+@keyframes reelSpin {
+  from {
+    transform: translateY(calc(var(--space-2) * -1));
+    filter: saturate(calc(var(--space-0) + 1));
+  }
+  to {
+    transform: translateY(var(--space-0));
+    filter: saturate(calc(var(--space-2) / var(--space-2)));
+  }
+}
+
+@keyframes winPop {
+  0% {
+    transform: scale(calc(var(--space-2) / var(--space-2)));
+  }
+  50% {
+    transform: scale(calc(var(--space-5) / var(--space-4)));
+  }
+  100% {
+    transform: scale(calc(var(--space-2) / var(--space-2)));
+  }
+}
+
+@keyframes nearMissPulse {
+  0% {
+    color: var(--color-text-1);
+  }
+  50% {
+    color: var(--color-accent-1);
+  }
+  100% {
+    color: var(--color-text-1);
+  }
+}
+
+.reel-grid.spinning .reel-cell {
+  animation: reelSpin var(--spin-duration) var(--easing-sharp);
+}
+
+.reel-cell.winning {
+  animation: winPop var(--spin-duration-turbo) var(--easing-soft);
+}
+
+.win-banner.near-miss {
+  animation: nearMissPulse var(--spin-duration-normal) var(--easing-soft);
+}

@@ -1,0 +1,178 @@
+.tier-badge {
+  padding: var(--space-2) var(--space-3);
+  border-radius: var(--radius-pill);
+  border: var(--border-thin) solid var(--color-accent-0);
+  color: var(--color-accent-0);
+  font-size: var(--size-caption);
+  text-transform: uppercase;
+  letter-spacing: var(--space-1);
+}
+
+.xp-label,
+.session-spend,
+.status-label,
+.control-label {
+  font-size: var(--size-caption);
+  color: var(--color-text-1);
+}
+
+.status-pill {
+  display: grid;
+  gap: var(--space-1);
+  padding: var(--space-3);
+  border-radius: var(--radius-card);
+  background: var(--color-bg-0);
+  border: var(--border-thin) solid var(--color-bg-3);
+}
+
+.status-value {
+  font-family: var(--font-display);
+  font-size: var(--size-body);
+}
+
+.reel-cell {
+  min-height: var(--size-cell-min);
+  border-radius: var(--radius-cell);
+  border: var(--border-thin) solid var(--color-bg-3);
+  background: linear-gradient(var(--color-bg-1), var(--color-bg-0));
+  display: grid;
+  place-items: center;
+  gap: var(--space-1);
+  padding: var(--space-2);
+}
+
+.reel-emoji {
+  font-size: var(--size-icon);
+  line-height: var(--line-height-tight);
+}
+
+.reel-label {
+  font-size: var(--size-caption);
+  text-align: center;
+}
+
+.reel-cell.winning {
+  border-color: var(--color-accent-0);
+  box-shadow: var(--glow-accent);
+}
+
+.win-banner {
+  min-height: var(--size-control-height);
+  border-radius: var(--radius-pill);
+  border: var(--border-thin) solid var(--color-bg-3);
+  background: var(--color-bg-0);
+  color: var(--color-accent-0);
+  display: grid;
+  place-items: center;
+  padding: var(--space-2) var(--space-4);
+  text-align: center;
+}
+
+.bet-group {
+  display: grid;
+  gap: var(--space-2);
+}
+
+.bet-slider {
+  width: 100%;
+}
+
+.bet-value {
+  font-family: var(--font-display);
+  color: var(--color-accent-2);
+}
+
+.pill-button {
+  min-height: var(--size-control-height);
+  border: var(--border-thin) solid var(--color-bg-3);
+  border-radius: var(--radius-pill);
+  background: linear-gradient(var(--color-bg-3), var(--color-bg-2));
+  color: var(--color-text-0);
+  font-family: var(--font-display);
+  font-size: var(--size-button-font);
+  cursor: pointer;
+  transition: transform var(--spin-duration-turbo) var(--easing-soft);
+}
+
+.pill-button:hover:not(:disabled) {
+  transform: translateY(calc(var(--space-1) * -1));
+}
+
+.pill-button:disabled {
+  opacity: calc(var(--space-2) / var(--space-3));
+  cursor: not-allowed;
+}
+
+.spin-button {
+  border-color: var(--color-accent-1);
+  color: var(--color-accent-1);
+}
+
+.setting-chip {
+  display: grid;
+  gap: var(--space-1);
+  padding: var(--space-2);
+  border-radius: var(--radius-card);
+  border: var(--border-thin) solid var(--color-bg-3);
+  background: var(--color-bg-0);
+}
+
+.setting-chip input {
+  min-height: var(--space-7);
+  border-radius: var(--radius-pill);
+  border: var(--border-thin) solid var(--color-bg-3);
+  background: var(--color-bg-1);
+  color: var(--color-text-0);
+  padding: var(--space-2) var(--space-3);
+}
+
+.modal-card {
+  width: min(var(--size-mobile-max), 100%);
+  display: grid;
+  gap: var(--space-3);
+  padding: var(--space-6);
+  border-radius: var(--radius-card);
+  border: var(--border-thin) solid var(--color-bg-3);
+  background: linear-gradient(var(--color-bg-2), var(--color-bg-1));
+  box-shadow: var(--glow-soft);
+}
+
+.modal-card h2 {
+  margin: var(--space-0);
+  font-family: var(--font-display);
+}
+
+.modal-card p {
+  margin: var(--space-0);
+  color: var(--color-text-1);
+}
+
+.modal-card input {
+  min-height: var(--size-control-height);
+  border-radius: var(--radius-pill);
+  border: var(--border-thin) solid var(--color-bg-3);
+  background: var(--color-bg-0);
+  color: var(--color-text-0);
+  padding: var(--space-2) var(--space-3);
+}
+
+.paytable-content {
+  display: grid;
+  gap: var(--space-2);
+  max-height: calc(var(--size-mobile-max) - var(--space-8));
+  overflow: auto;
+}
+
+.paytable-row {
+  display: grid;
+  grid-template-columns: minmax(var(--space-0), 1fr) auto;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-3);
+  border-radius: var(--radius-pill);
+  background: var(--color-bg-0);
+  border: var(--border-thin) solid var(--color-bg-3);
+}
+
+.danger-text {
+  color: var(--color-danger);
+}

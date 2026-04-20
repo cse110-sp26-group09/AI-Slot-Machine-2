@@ -1,0 +1,59 @@
+:root {
+  --font-display: "Rajdhani", "Segoe UI", sans-serif;
+  --font-body: "Barlow", "Segoe UI", sans-serif;
+
+  --color-bg-0: #090b11;
+  --color-bg-1: #121726;
+  --color-bg-2: #1b2238;
+  --color-bg-3: #2a3352;
+  --color-accent-0: #f4b400;
+  --color-accent-1: #ff5a2d;
+  --color-accent-2: #14d4c2;
+  --color-text-0: #f2f5ff;
+  --color-text-1: #b9c2de;
+  --color-danger: #ff4f5d;
+  --color-overlay: rgba(3, 5, 10, 0.84);
+  --color-shadow: rgba(0, 0, 0, 0.46);
+
+  --radius-pill: 999px;
+  --radius-card: 20px;
+  --radius-cell: 14px;
+  --border-thick: 2px;
+  --border-thin: 1px;
+
+  --space-0: 0;
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-7: 28px;
+  --space-8: 32px;
+
+  --size-mobile-max: 520px;
+  --size-control-height: 52px;
+  --size-cell-min: 56px;
+  --size-icon: 32px;
+  --size-button-font: 18px;
+  --size-title: 28px;
+  --size-body: 16px;
+  --size-caption: 13px;
+
+  --grid-rows: 3;
+  --grid-reels: 5;
+  --grid-gap: 10px;
+  --stage-padding: 14px;
+  --panel-padding: 16px;
+
+  --spin-duration-normal: 2500ms;
+  --spin-duration-turbo: 1000ms;
+  --spin-duration: var(--spin-duration-normal);
+  --easing-sharp: cubic-bezier(0.16, 0.84, 0.24, 1);
+  --easing-soft: cubic-bezier(0.22, 1, 0.36, 1);
+
+  --glow-soft: 0 12px 28px var(--color-shadow);
+  --glow-accent: 0 0 22px rgba(244, 180, 0, 0.48);
+  --line-height-tight: 1.1;
+  --line-height-normal: 1.4;
+}
