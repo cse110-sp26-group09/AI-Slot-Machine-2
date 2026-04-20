@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Prompt Reels - Transparent AI Slot</title>
+    <link rel="stylesheet" href="styles/main.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="app-header">
+        <h1 class="app-title">Prompt Reels</h1>
+        <p class="app-subtitle">
+          Classic 3-reel slot play with clear limits, transparent payouts, and readable controls.
+        </p>
+      </header>
+
+      <main class="layout" aria-label="Slot machine interface">
+        <section class="panel machine-grid" aria-labelledby="machine-heading">
+          <h2 class="panel-title" id="machine-heading">3-Reel Machine</h2>
+
+          <div class="reel-bank" role="group" aria-label="Reels">
+            <div class="reel-cell" id="reel-1" aria-live="off">GPT</div>
+            <div class="reel-cell" id="reel-2" aria-live="off">TOKEN</div>
+            <div class="reel-cell" id="reel-3" aria-live="off">PROMPT</div>
+          </div>
+
+          <section class="outcome-area" aria-live="polite" aria-atomic="true">
+            <p id="outcome-text" class="tone-neutral">Ready to spin.</p>
+            <p id="payline-text" class="tone-neutral">Line: Ready | Multiplier: 0x</p>
+          </section>
+
+          <section class="controls-grid" aria-label="Bet and spin controls">
+            <div class="bet-row">
+              <label for="bet-input">Bet Size (credits)</label>
+              <div class="bet-input-row">
+                <button id="bet-minus" class="secondary-button" type="button" aria-label="Lower bet">-1</button>
+                <input id="bet-input" type="number" min="1" max="25" value="5" inputmode="numeric" />
+                <button id="bet-plus" class="secondary-button" type="button" aria-label="Increase bet">+1</button>
+              </div>
+            </div>
+
+            <div class="action-row">
+              <button id="spin-button" class="primary-button" type="button">Spin Reels</button>
+              <button id="reset-button" class="ghost-button" type="button">Reset Session</button>
+            </div>
+
+            <p class="helper-text">
+              No autoplay. Every spin is manually triggered and tracked in your session summary.
+            </p>
+          </section>
+        </section>
+
+        <aside>
+          <section class="panel" aria-labelledby="summary-heading">
+            <h2 class="panel-title" id="summary-heading">Session Summary</h2>
+            <div class="summary-list">
+              <div class="summary-row"><span>Balance</span><strong id="balance-value">200 cr</strong></div>
+              <div class="summary-row"><span>Total Spend</span><strong id="spend-value">0 cr</strong></div>
+              <div class="summary-row"><span>Total Won</span><strong id="won-value">0 cr</strong></div>
+              <div class="summary-row"><span>Net Result</span><strong id="net-result">0 cr</strong></div>
+              <div class="summary-row"><span>Spins</span><strong id="spins-value">0</strong></div>
+            </div>
+
+            <h3 class="panel-title">Loyalty Progress</h3>
+            <div class="summary-list">
+              <div class="summary-row"><span>Tier</span><strong id="tier-value">Bronze</strong></div>
+              <div class="summary-row"><span>XP</span><strong id="xp-value">0 XP</strong></div>
+            </div>
+            <div class="tier-meter" aria-hidden="true">
+              <div class="tier-fill" id="tier-progress-fill"></div>
+            </div>
+            <p id="tier-progress-label">0% to Silver</p>
+
+            <div class="pause-banner" id="pause-banner" hidden>
+              <p><strong>Gameplay Paused</strong></p>
+              <p id="pause-reason"></p>
+              <button id="resume-button" class="secondary-button" type="button">Check Limits and Resume</button>
+            </div>
+          </section>
+
+          <section class="panel" aria-labelledby="limits-heading">
+            <h2 class="panel-title" id="limits-heading">Session Limits</h2>
+            <div class="limits-grid">
+              <label for="budget-input">Session Budget (total spend cap)</label>
+              <input id="budget-input" type="number" min="0" value="150" inputmode="numeric" />
+              <label for="loss-limit-input">Loss Limit (max net loss)</label>
+              <input id="loss-limit-input" type="number" min="0" value="60" inputmode="numeric" />
+              <p id="responsible-message" class="helper-text">
+                Limits are active. You can pause anytime with no penalty.
+              </p>
+            </div>
+          </section>
+
+          <section class="panel" aria-labelledby="fairness-heading">
+            <h2 class="panel-title" id="fairness-heading">Fairness and Payouts</h2>
+            <div class="summary-list">
+              <div class="summary-row"><span>Theoretical RTP</span><strong id="rtp-value">0.00%</strong></div>
+              <div class="summary-row"><span>Hit Rate</span><strong id="hit-rate-value">0.00%</strong></div>
+            </div>
+            <p id="fairness-note" class="info-note"></p>
+
+            <div class="table-wrap">
+              <table>
+                <caption class="sr-only">Paytable</caption>
+                <thead>
+                  <tr>
+                    <th scope="col">Combination</th>
+                    <th scope="col">Payout</th>
+                    <th scope="col">Notes</th>
+                  </tr>
+                </thead>
+                <tbody id="paytable-body"></tbody>
+              </table>
+            </div>
+          </section>
+
+          <section class="panel" aria-labelledby="settings-heading">
+            <h2 class="panel-title" id="settings-heading">Accessibility and Sound</h2>
+            <div class="settings-grid">
+              <div class="toggle-row">
+                <label for="high-contrast-toggle">High Contrast</label>
+                <input id="high-contrast-toggle" type="checkbox" />
+              </div>
+              <div class="toggle-row">
+                <label for="large-print-toggle">Large Print Mode</label>
+                <input id="large-print-toggle" type="checkbox" />
+              </div>
+              <div class="toggle-row">
+                <label for="reduced-motion-toggle">Reduced Motion</label>
+                <input id="reduced-motion-toggle" type="checkbox" />
+              </div>
+              <div class="toggle-row">
+                <label for="sound-toggle">Sound Effects</label>
+                <input id="sound-toggle" type="checkbox" checked />
+              </div>
+              <label for="volume-input">Sound Volume</label>
+              <input id="volume-input" type="range" min="0" max="1" step="0.05" value="0.4" />
+            </div>
+          </section>
+        </aside>
+      </main>
+    </div>
+
+    <script type="module" src="scripts/main.js"></script>
+  </body>
+</html>

@@ -208,98 +208,117 @@ ___
 
 Prompt 3:
 ```
-You are working in a student software engineering repository. Build a significantly improved slot machine web app as a maintainable team project, not as a one-off demo.
+use context7
 
-MODEL / TASK MODE
-Use a disciplined software-engineering workflow suitable for GPT-5.3-Codex at high reasoning effort:
-- plan first
-- keep the implementation coherent across files
-- prefer durable structure over flashy chaos
-- produce a runnable local static app
+## DESIGN REFERENCE
 
-TECH CONSTRAINTS
-- Use only vanilla HTML, CSS, JavaScript, and standard browser APIs
-- No frameworks
-- No TypeScript
-- No backend
-- No unnecessary dependencies
-- Keep the app self-contained
+Use https://www.hacksawgaming.com/games/slots as the primary design and layout
+inspiration. Match its vertical-first mobile layout, minimal chrome, bold symbol
+styling, dark colour palette, pill-shaped controls, and punchy win animations.
 
-PRODUCT DIRECTION
-This variant should optimize for realistic casino atmosphere, excitement, anticipation, replay value, and polished immersion while remaining readable and maintainable.
+---
 
-TARGET USERS
-1. Adi Zelersteins: regular entertainment-seeking slot player who values polished themes, loyalty progression, anticipation, and transparency about balance and spend.
-2. Jake Miller: online gambler who wants a casino-like experience at home, strong excitement, fast clear gameplay, jackpots, and bonus energy.
+Build a full-stack AI-satire slot machine web app.
 
-USER NEEDS TO SATISFY
-- Make the paytable understandable at a glance.
-- Create a realistic casino atmosphere on phone or laptop through pacing, sound, visuals, and interaction design.
-- Make spin and bet controls easy to use immediately.
-- Save session progress automatically so balance/state are not lost if the tab closes.
-- Include a daily return / replay hook.
+## THEME
+Satirical slot machine — all symbols are AI company logos, buzzwords, and tropes.
+Symbol set: GPT-5, Claude, Gemini, Grok, "Disruption", "10x Engineer", "Pivot",
+"AGI Soon", Hallucination (wild), Prompt (scatter).
+Tone: dry self-aware humour. Win messages reference AI hype
+("You've achieved AGI... of profits").
 
-APP REQUIREMENTS
-Build a polished 3-reel slot machine with:
-- token balance
-- adjustable bet
-- spin button
-- visible outcome feedback
-- paytable
-- replay hook such as daily reward, daily spin, or light progression
-- local session persistence using browser storage
-- AI satire theme based on prompts, tokens, credits, models, compute, or similar concepts
+## STACK
+- Frontend: Vanilla JS (ES modules), CSS custom properties only
+- Backend: Node.js + Express (or Cloudflare Workers)
+- No frameworks, no jQuery, no magic numbers, no hardcoded CSS values
+- All animations via CSS keyframes using :root variables
 
-UX REQUIREMENTS
-- create strong casino-like anticipation and satisfying reward feedback
-- use intentional reel timing and slowdown
-- use sound design to reinforce spin, near-miss, small win, large win, and loss states
-- keep the UI energetic but not messy
-- optimize the layout for mobile as well as desktop
-- near-miss visuals may be used, but the UI must stay understandable and not deceptive
+## ARCHITECTURE
+Mandatory client/server split — client renders only, all logic server-side.
 
-ENGINEERING REQUIREMENTS
-Organize the code like a real team project:
-- index.html
-- styles/main.css
-- scripts/main.js
-- scripts/game.js
-- scripts/reels.js
-- scripts/payouts.js
-- scripts/ui.js
-- scripts/audio.js
-- scripts/storage.js
-- assets/ as needed
+### Server
+- PRNG: Node crypto.randomInt() — seed never leaves server
+- Sign every spin result with HMAC-SHA256 before sending
+- Validate session token, balance, and bet on every request
+- JWT session tokens: 15-min expiry, tied to IP + user-agent fingerprint
+- Reject any request with invalid HMAC signature
+- WebSocket for real-time state: authenticated per session, rate-limited (30 req/min)
+- Input sanitisation on all POST bodies
+- CORS whitelist only, CSP headers, no inline scripts
 
-Code quality requirements:
-- meaningful names
-- small focused functions
-- minimal duplication
-- clear module boundaries
-- readable, maintainable code
-- comments and JSDoc where useful
-- lint-friendly structure
-- easy to test later
+### Client
+- Render reel animation only after HMAC signature verified
+- Never compute or infer outcome — display server result only
+- Build output: minified + obfuscated via esbuild
 
-WORKFLOW
-Do this in order:
-1. Briefly summarize the implementation plan.
-2. Propose the file structure.
-3. Implement a complete runnable MVP.
-4. Briefly list next improvements.
+## GAME MECHANICS
+Grid: 3 rows × 5 reels
+Paylines: 20 fixed lines
+RTP: 96% — configurable constant in config.js, never hardcoded inline
+Symbols: defined as [{ id, label, emoji, weight, payout }] in config.js only
 
-OUTPUT CONTRACT
-- Be concise.
-- Produce complete files, not pseudo-code.
-- Do not overbuild.
-- Do not add unrelated features.
-- Make the first result strong, coherent, and polished.
+Features:
+- Wild (Hallucination): substitutes all symbols
+- Scatter (Prompt): 3+ anywhere → Free Spins (10 spins, 2x multiplier)
+- Cascading reels: winning symbols removed, new ones fall from above
+- Progressive jackpot: 1% of each bet feeds pool; 5-of-a-kind GPT-5 triggers it
+- Near-miss: tunable frequency param in config.js only
 
-```
+## INTERFACE
+All colours, spacing, timings defined as CSS custom properties in :root.
 
-Notes: Expected to produce a more energetic and polished casino-style experience with stronger anticipation, sound, visual feedback, replay hooks, and session persistence. This variation should likely feel more exciting and entertainment-driven, while still keeping the core gameplay understandable.
+Components:
+- 5×3 reel grid with CSS spin animation
+- Bet slider ($0.10–$10.00, step $0.10)
+- Balance display in "tokens" (satirical credit label)
+- Spin button — disabled during animation
+- Autoplay: max 50 spins, requires explicit limit input (UK-compliant)
+- Turbo toggle: 2500ms normal / 1000ms turbo — stored as CSS var
+- Paytable modal via info button
+- XP bar + tier badge (Bronze → VIP) in header
+- Reality check modal at 60-min mark — requires button press to dismiss
+- Session spend tracker — always visible, cannot be hidden
 
-Result:
+Sound (Web Audio API only, no external files):
+- Win fanfare scaled to win size
+- Near-miss ascending tone
+- Silence on net loss (no LDW violation)
+- Ambient lo-fi hum (toggleable)
+
+## RESPONSIBLE GAMBLING COMPLIANCE
+- Autoplay hard cap: 50 spins
+- Spin floor: 2500ms (constant in config.js)
+- Net-loss spins: no win animation, no win sound
+- Reality check: modal at 60 min, button acknowledgement required
+- Session deposit limit: enforced server-side
+- Self-exclusion flag: checked server-side before every spin
+- Age gate: modal on first load, must confirm before game renders
+
+## FILE STRUCTURE
+/server
+  index.js      — Express app, routes, WebSocket
+  game.js       — RNG, HMAC signing, payout logic
+  config.js     — ALL constants (RTP, weights, limits, timings)
+  session.js    — JWT creation, validation, fingerprinting
+/client
+  index.html
+  /js
+    main.js     — Entry point, game loop
+    reels.js    — Animation, DOM
+    ui.js       — Controls, modals, sound
+    verify.js   — Client-side HMAC verification
+  /css
+    variables.css   — All :root custom properties
+    layout.css
+    animations.css
+    components.css
+/build            — esbuild output
+
+## DELIVERABLES
+1. Playable game in browser
+2. Zero magic numbers — all constants in config.js
+3. esbuild config for production build
+4. README: setup steps, env vars, compliance notes
 
 ___
 
