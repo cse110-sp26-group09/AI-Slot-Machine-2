@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Prompt Palace Slots</title>
+    <link rel="stylesheet" href="styles/main.css" />
+  </head>
+  <body>
+    <header class="app-header">
+      <h1>Prompt Palace Slots</h1>
+      <p class="tagline">Classic reels, transparent odds, responsible play.</p>
+    </header>
+
+    <main class="app-shell">
+      <section class="panel controls-panel" aria-label="Game controls">
+        <h2>Play Controls</h2>
+
+        <div class="stat-grid">
+          <div class="stat-card">
+            <span class="label">Balance</span>
+            <strong id="balanceValue">0</strong>
+          </div>
+          <div class="stat-card">
+            <span class="label">Current Bet</span>
+            <strong id="betValue">0</strong>
+          </div>
+          <div class="stat-card">
+            <span class="label">Last Result</span>
+            <strong id="lastDeltaValue">0</strong>
+          </div>
+        </div>
+
+        <div class="control-row" role="group" aria-label="Bet controls">
+          <button id="betDownBtn" class="btn btn-secondary" type="button">- Bet</button>
+          <label for="betInput" class="sr-only">Bet amount</label>
+          <input id="betInput" type="number" min="1" max="20" step="1" />
+          <button id="betUpBtn" class="btn btn-secondary" type="button">+ Bet</button>
+        </div>
+
+        <div class="control-row">
+          <button id="spinBtn" class="btn btn-primary" type="button">Spin Reels</button>
+          <button id="addCreditsBtn" class="btn btn-secondary" type="button">Add 50 Credits</button>
+        </div>
+
+        <div class="control-row limit-row" role="group" aria-label="Session loss limit controls">
+          <label for="lossLimitInput">Session Loss Limit</label>
+          <input id="lossLimitInput" type="number" min="0" step="5" value="100" />
+          <button id="applyLimitBtn" class="btn btn-secondary" type="button">Apply</button>
+        </div>
+
+        <p id="limitStatus" class="muted"></p>
+      </section>
+
+      <section class="panel reels-panel" aria-label="Slot reels and outcome">
+        <h2>3-Reel Machine</h2>
+
+        <div class="reels" aria-live="polite" aria-atomic="true">
+          <div class="reel" id="reel0">TOKEN</div>
+          <div class="reel" id="reel1">MODEL</div>
+          <div class="reel" id="reel2">PROMPT</div>
+        </div>
+
+        <p id="outcomeMessage" class="outcome" aria-live="polite"></p>
+        <p id="responsibleMessage" class="responsible" aria-live="polite"></p>
+      </section>
+
+      <section class="panel session-panel" aria-label="Session summary and loyalty progress">
+        <h2>Session Summary</h2>
+
+        <dl class="summary-grid">
+          <dt>Total Spend</dt>
+          <dd id="totalSpendValue">0</dd>
+          <dt>Total Payout</dt>
+          <dd id="totalPayoutValue">0</dd>
+          <dt>Net Result</dt>
+          <dd id="netResultValue">0</dd>
+          <dt>Spins</dt>
+          <dd id="spinsValue">0</dd>
+        </dl>
+
+        <button id="resetSessionBtn" class="btn btn-ghost" type="button">Start New Session Summary</button>
+
+        <h3>Loyalty Track</h3>
+        <div class="loyalty-row">
+          <span id="tierValue">Bronze</span>
+          <span id="xpValue">0 XP</span>
+        </div>
+        <div class="progress" aria-label="Loyalty progress">
+          <div id="xpProgressBar" class="progress-fill"></div>
+        </div>
+      </section>
+
+      <section class="panel info-panel" aria-label="Payout explanation and fairness details">
+        <h2>How Payouts Work</h2>
+        <table id="paytable" class="paytable">
+          <thead>
+            <tr>
+              <th scope="col">Pattern</th>
+              <th scope="col">Payout</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+
+        <h3>Fairness &amp; RTP</h3>
+        <ul class="fairness-list">
+          <li id="rtpValue"></li>
+          <li id="rngValue"></li>
+          <li id="fairnessNote"></li>
+        </ul>
+      </section>
+
+      <section class="panel settings-panel" aria-label="Accessibility and sound settings">
+        <h2>Accessibility &amp; Sound</h2>
+
+        <div class="setting-row">
+          <label for="highContrastToggle">High Contrast</label>
+          <input id="highContrastToggle" type="checkbox" />
+        </div>
+
+        <div class="setting-row">
+          <label for="largeTextToggle">Large Print + Buttons</label>
+          <input id="largeTextToggle" type="checkbox" />
+        </div>
+
+        <div class="setting-row">
+          <label for="reduceMotionToggle">Reduce Reel Motion</label>
+          <input id="reduceMotionToggle" type="checkbox" />
+        </div>
+
+        <div class="setting-row">
+          <label for="soundToggle">Sound</label>
+          <input id="soundToggle" type="checkbox" checked />
+        </div>
+
+        <div class="setting-row">
+          <label for="volumeInput">Volume</label>
+          <input id="volumeInput" type="range" min="0" max="1" step="0.05" value="0.4" />
+        </div>
+      </section>
+    </main>
+
+    <script type="module" src="scripts/main.js"></script>
+  </body>
+</html>
