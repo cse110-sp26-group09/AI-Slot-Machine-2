@@ -1,3 +1,9 @@
+/**
+ * @fileoverview Client-side slot machine module.
+ * @typedef {Record<string, unknown>} JsonRecord
+ * @typedef {(event: Event) => void} EventHandler
+ */
+
 import { animateSpin, collectWinningPositions, playCascades, renderGrid } from "./reels.js";
 import { AudioEngine, buildPaytableMarkup, toggleModal, updateDashboard } from "./ui.js";
 import { signRequestBody, verifySpinPayloadSignature } from "./verify.js";

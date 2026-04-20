@@ -1,3 +1,9 @@
+/**
+ * @fileoverview Server-side slot machine module.
+ * @typedef {import("express").Request} Request
+ * @typedef {import("express").Response} Response
+ */
+
 ﻿import path from "node:path";
 
 const ROW_TOP = 0;

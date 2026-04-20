@@ -1,3 +1,9 @@
+/**
+ * @fileoverview Client-side slot machine module.
+ * @typedef {Record<string, unknown>} JsonRecord
+ * @typedef {(event: Event) => void} EventHandler
+ */
+
 const STORAGE_KEY = 'prompt-palace-accessibility';
 
 function loadPreferences() {

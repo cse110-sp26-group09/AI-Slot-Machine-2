@@ -1,3 +1,9 @@
+/**
+ * @fileoverview Server-side slot machine module.
+ * @typedef {import("express").Request} Request
+ * @typedef {import("express").Response} Response
+ */
+
 const SECOND_MS = 1000;
 const MINUTE_SECONDS = 60;
 const MINUTE_MS = MINUTE_SECONDS * SECOND_MS;

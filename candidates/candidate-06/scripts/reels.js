@@ -1,3 +1,9 @@
+/**
+ * @fileoverview Client-side slot machine module.
+ * @typedef {Record<string, unknown>} JsonRecord
+ * @typedef {(event: Event) => void} EventHandler
+ */
+
 (function attachReelsModule(global) {
   const SlotApp = (global.SlotApp = global.SlotApp || {});
 

@@ -1,7 +1,21 @@
+/**
+ * @fileoverview DOM rendering and event wiring for the slot UI.
+ * @typedef {{text: string, tone: "neutral" | "win" | "break-even" | "partial" | "loss"}} OutcomeMessage
+ */
+
+/**
+ * @param {number} value
+ * @returns {string}
+ */
 function formatCredits(value) {
   return `${Math.round(value)} cr`;
 }
 
+/**
+ * @param {unknown} value
+ * @param {number} [fallback=0]
+ * @returns {number}
+ */
 function toNumber(value, fallback = 0) {
   const numericValue = Number(value);
   if (!Number.isFinite(numericValue)) {
@@ -10,6 +24,10 @@ function toNumber(value, fallback = 0) {
   return numericValue;
 }
 
+/**
+ * @param {any} spinResult
+ * @returns {OutcomeMessage}
+ */
 function getOutcomeMessage(spinResult) {
   if (!spinResult || !spinResult.ok) {
     return {
@@ -48,12 +66,29 @@ function getOutcomeMessage(spinResult) {
   };
 }
 
+/**
+ * @param {Element} element
+ * @returns {void}
+ */
 function clearToneClasses(element) {
   element.classList.remove("tone-win", "tone-loss", "tone-neutral", "tone-break-even", "tone-partial");
 }
 
 /**
  * UI controller: only DOM reads/writes and user event wiring.
+ * @param {{
+ *   getSymbolById: (symbolId: string) => {label: string, title: string},
+ *   getRandomSymbolId: () => string,
+ *   onSpin: () => Promise<any> | any,
+ *   onBetChange: (bet: number) => void,
+ *   onLimitsChange: (limits: {budget: number, lossLimit: number}) => void,
+ *   onResume: () => void,
+ *   onReset: () => void,
+ *   onToggleAccessibility: (settings: {highContrast: boolean, largePrint: boolean, reducedMotion: boolean}) => void,
+ *   onToggleSound: (enabled: boolean) => void,
+ *   onVolumeChange: (volume: number) => void
+ * }} options
+ * @returns {{init: (args: any) => void, renderState: (state: any) => void, renderAdvisory: (message: string) => void, setMessage: (text: string, tone?: string) => void}}
  */
 export function createUI({
   getSymbolById,

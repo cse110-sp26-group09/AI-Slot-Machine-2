@@ -1,3 +1,9 @@
+/**
+ * @fileoverview Server-side slot machine module.
+ * @typedef {import("express").Request} Request
+ * @typedef {import("express").Response} Response
+ */
+
 ﻿import crypto from "node:crypto";
 import jwt from "jsonwebtoken";
 import { CONFIG } from "./config.js";

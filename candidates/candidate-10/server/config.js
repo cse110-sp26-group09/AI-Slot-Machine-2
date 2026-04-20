@@ -1,3 +1,9 @@
+/**
+ * @fileoverview Server-side slot machine module.
+ * @typedef {import("express").Request} Request
+ * @typedef {import("express").Response} Response
+ */
+
 const parseList = (value, fallback) => {
   if (!value) {
     return fallback;

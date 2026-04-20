@@ -1,3 +1,8 @@
+/**
+ * @fileoverview Build configuration for candidate assets.
+ * @typedef {import("esbuild").BuildOptions} BuildOptions
+ */
+
 import { build } from "esbuild";
 import { cp, mkdir, readFile, writeFile } from "fs/promises";
 import path from "path";

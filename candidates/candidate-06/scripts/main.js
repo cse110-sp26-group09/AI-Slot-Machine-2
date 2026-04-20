@@ -1,3 +1,9 @@
+/**
+ * @fileoverview Client-side slot machine module.
+ * @typedef {Record<string, unknown>} JsonRecord
+ * @typedef {(event: Event) => void} EventHandler
+ */
+
 (function bootApp(global) {
   function formatSigned(value) {
     const sign = value > 0 ? "+" : "";

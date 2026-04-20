@@ -1,3 +1,9 @@
+/**
+ * @fileoverview Client-side slot machine module.
+ * @typedef {Record<string, unknown>} JsonRecord
+ * @typedef {(event: Event) => void} EventHandler
+ */
+
 function stableStringify(input) {
   if (Array.isArray(input)) {
     return `[${input.map((item) => stableStringify(item)).join(',')}]`;

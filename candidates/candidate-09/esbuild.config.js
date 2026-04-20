@@ -1,3 +1,8 @@
+/**
+ * @fileoverview Build configuration for candidate assets.
+ * @typedef {import("esbuild").BuildOptions} BuildOptions
+ */
+
 import fs from "node:fs/promises";
 import path from "node:path";
 import { build, transform } from "esbuild";

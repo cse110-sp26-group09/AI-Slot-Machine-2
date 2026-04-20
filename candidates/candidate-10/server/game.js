@@ -1,3 +1,9 @@
+/**
+ * @fileoverview Server-side slot machine module.
+ * @typedef {import("express").Request} Request
+ * @typedef {import("express").Response} Response
+ */
+
 import crypto from "crypto";
 import { APP_CONFIG, SYMBOLS, SYMBOL_IDS } from "./config.js";
 

@@ -1,3 +1,9 @@
+/**
+ * @fileoverview Client-side slot machine module.
+ * @typedef {Record<string, unknown>} JsonRecord
+ * @typedef {(event: Event) => void} EventHandler
+ */
+
 export function createAudioEngine(enabledAtStart = true) {
   let enabled = Boolean(enabledAtStart);
   let context = null;

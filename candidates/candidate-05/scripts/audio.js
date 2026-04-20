@@ -1,5 +1,17 @@
 /**
  * Lightweight Web Audio controller with gentle tones for spin outcomes.
+ * @typedef {{frequency: number, durationMs: number, type?: OscillatorType, offsetMs?: number, gain?: number}} ToneOptions
+ * @returns {{
+ *   prime: () => void,
+ *   playSpin: () => void,
+ *   playWin: (roundNet: number) => void,
+ *   playBreakEven: () => void,
+ *   playLoss: () => void,
+ *   playLimitReached: () => void,
+ *   setEnabled: (nextEnabled: boolean) => void,
+ *   setVolume: (nextVolume: number) => void,
+ *   getSettings: () => {enabled: boolean, volume: number}
+ * }}
  */
 export function createAudioController() {
   let enabled = true;
@@ -27,6 +39,10 @@ export function createAudioController() {
     return context;
   }
 
+  /**
+   * @param {ToneOptions} options
+   * @returns {void}
+   */
   function playTone({ frequency, durationMs, type = "sine", offsetMs = 0, gain = 1 }) {
     if (!enabled) {
       return;

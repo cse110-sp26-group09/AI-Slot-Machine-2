@@ -1,3 +1,9 @@
+/**
+ * @fileoverview Client-side slot machine module.
+ * @typedef {Record<string, unknown>} JsonRecord
+ * @typedef {(event: Event) => void} EventHandler
+ */
+
 import { applyAccessibility } from "./accessibility.js";
 import { createAudioController } from "./audio.js";
 import { createGame } from "./game.js";

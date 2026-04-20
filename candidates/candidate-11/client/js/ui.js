@@ -1,3 +1,9 @@
+/**
+ * @fileoverview Client-side slot machine module.
+ * @typedef {Record<string, unknown>} JsonRecord
+ * @typedef {(event: Event) => void} EventHandler
+ */
+
 ﻿const clamp = (value, min, max) => Math.min(Math.max(value, min), max);
 
 const formatTokens = (value) => Number(value).toFixed(2);

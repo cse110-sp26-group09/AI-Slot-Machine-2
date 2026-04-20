@@ -1,3 +1,7 @@
+/**
+ * @fileoverview Payout and fairness calculations for spin outcomes.
+ * @typedef {{payout: number, multiplier: number, line: string}} PayoutInfo
+ */
 import { getReelDistributions } from "./reels.js";
 
 const THREE_OF_A_KIND_MULTIPLIERS = Object.freeze({
@@ -29,6 +33,11 @@ const SPECIAL_COMBOS = Object.freeze([
   }
 ]);
 
+/**
+ * @param {string[]} symbols
+ * @param {number} betAmount
+ * @returns {PayoutInfo}
+ */
 export function evaluateSpinPayout(symbols, betAmount) {
   const matchedSpecial = SPECIAL_COMBOS.find(
     (combo) => combo.pattern.every((symbolId, index) => symbols[index] === symbolId)
@@ -79,6 +88,9 @@ export function evaluateSpinPayout(symbols, betAmount) {
   };
 }
 
+/**
+ * @returns {{combo: string, payout: string, note: string}[]}
+ */
 export function getPaytableRows() {
   return [
     { combo: "GPT TOKEN PROMPT", payout: "25x", note: "Special sequence" },
@@ -95,6 +107,10 @@ export function getPaytableRows() {
   ];
 }
 
+/**
+ * @param {string[]} symbols
+ * @returns {number}
+ */
 function getMultiplierForCombo(symbols) {
   return evaluateSpinPayout(symbols, 1).multiplier;
 }

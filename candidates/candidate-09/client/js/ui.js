@@ -1,3 +1,9 @@
+/**
+ * @fileoverview Client-side slot machine module.
+ * @typedef {Record<string, unknown>} JsonRecord
+ * @typedef {(event: Event) => void} EventHandler
+ */
+
 const formatTokens = (value) => `${Number(value).toFixed(2)} tokens`;
 
 const toggleModal = (modal, visible) => {

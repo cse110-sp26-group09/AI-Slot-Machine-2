@@ -3,6 +3,13 @@ const STORAGE_KEY = "prompt-palace-slots-v1";
 /**
  * Persistence wrapper around localStorage.
  * Keeps browser interaction isolated from game logic.
+ * @typedef {{[key: string]: unknown}} PersistedState
+ * @param {string} [key=STORAGE_KEY]
+ * @returns {{
+ *   loadState: () => PersistedState | null,
+ *   saveState: (state: PersistedState) => void,
+ *   clearState: () => void
+ * }}
  */
 export function createStorage(key = STORAGE_KEY) {
   return {

@@ -1,3 +1,9 @@
+/**
+ * @fileoverview Client-side slot machine module.
+ * @typedef {Record<string, unknown>} JsonRecord
+ * @typedef {(event: Event) => void} EventHandler
+ */
+
 import { createGameEngine } from "./game.js";
 import { getFairnessReport, getPaytableRows } from "./payouts.js";
 import { createUI } from "./ui.js";

@@ -1,3 +1,9 @@
+/**
+ * @fileoverview Client-side slot machine module.
+ * @typedef {Record<string, unknown>} JsonRecord
+ * @typedef {(event: Event) => void} EventHandler
+ */
+
 const cellId = (row, reel) => `${row}-${reel}`;
 
 const createReelCell = ({ symbol, row, reel }) => {
