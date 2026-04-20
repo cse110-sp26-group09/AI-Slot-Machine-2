@@ -3,7 +3,7 @@
 - **Team Member(s):**
 James Villanueva
 - **Phase:**
-2
+initial
 - **Goal:**
 Making initial output
 - **Prompt / Request to AI:**

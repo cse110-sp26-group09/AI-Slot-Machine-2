@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="description" content="AI Satire Slots - secure client/server slot machine with satirical AI tropes." />
+    <title>AI Satire Slots</title>
+    <link rel="stylesheet" href="/css/variables.css" />
+    <link rel="stylesheet" href="/css/layout.css" />
+    <link rel="stylesheet" href="/css/animations.css" />
+    <link rel="stylesheet" href="/css/components.css" />
+  </head>
+  <body>
+    <div id="ageGateModal" class="modal-overlay modal-overlay--visible" role="dialog" aria-modal="true" aria-labelledby="ageGateTitle">
+      <div class="modal-card modal-card--age">
+        <h1 id="ageGateTitle" class="modal-title">Age Gate</h1>
+        <p class="modal-copy">This satire demo imitates slot mechanics. Confirm you are of legal gambling age in your region.</p>
+        <button id="ageConfirmButton" class="pill-button pill-button--primary" type="button">I Confirm</button>
+      </div>
+    </div>
+
+    <div id="realityCheckModal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="realityTitle">
+      <div class="modal-card">
+        <h2 id="realityTitle" class="modal-title">Reality Check</h2>
+        <p class="modal-copy">You have been playing for 60 minutes. Please confirm you want to continue.</p>
+        <button id="realityAcknowledgeButton" class="pill-button pill-button--primary" type="button">Continue Session</button>
+      </div>
+    </div>
+
+    <div id="paytableModal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="paytableTitle">
+      <div class="modal-card modal-card--paytable">
+        <div class="modal-header">
+          <h2 id="paytableTitle" class="modal-title">Paytable</h2>
+          <button id="closePaytableButton" class="pill-button" type="button">Close</button>
+        </div>
+        <div id="paytableList" class="paytable-list"></div>
+      </div>
+    </div>
+
+    <main id="app" class="app app--hidden">
+      <header class="app-header">
+        <div class="brand-stack">
+          <p class="brand-kicker">AI Hype Volatility Engine</p>
+          <h1 class="brand-title">Satire Slots</h1>
+        </div>
+        <div class="xp-wrap">
+          <div class="tier-pill"><span id="tierLabel">Bronze</span></div>
+          <div class="xp-track" aria-label="Experience progress">
+            <div id="xpFill" class="xp-fill"></div>
+          </div>
+        </div>
+      </header>
+
+      <section class="status-strip" aria-label="Session status">
+        <div class="status-pill">
+          <span class="status-label">Tokens</span>
+          <strong id="balanceValue" class="status-value">0.00</strong>
+        </div>
+        <div class="status-pill">
+          <span class="status-label">Win</span>
+          <strong id="winValue" class="status-value">0.00</strong>
+        </div>
+        <div class="status-pill status-pill--alert">
+          <span class="status-label">Session Spend</span>
+          <strong id="spendValue" class="status-value">0.00</strong>
+        </div>
+      </section>
+
+      <section class="machine-shell" aria-label="Slot reels">
+        <div id="reelGrid" class="reel-grid" role="img" aria-label="3 by 5 slot reels"></div>
+        <p id="messageTicker" class="message-ticker">Awaiting market conditions...</p>
+      </section>
+
+      <section class="controls" aria-label="Game controls">
+        <label class="control-card" for="betRange">
+          <span class="control-label">Bet</span>
+          <span id="betValue" class="control-value">0.10</span>
+          <input id="betRange" class="bet-range" type="range" />
+        </label>
+
+        <div class="control-row">
+          <label class="pill-toggle" for="turboToggle">
+            <span>Turbo</span>
+            <input id="turboToggle" type="checkbox" />
+          </label>
+          <label class="pill-toggle" for="humToggle">
+            <span>Lo-Fi Hum</span>
+            <input id="humToggle" type="checkbox" />
+          </label>
+        </div>
+
+        <div class="control-row">
+          <label class="control-card control-card--compact" for="autoplayLimitInput">
+            <span class="control-label">Autoplay (max 50)</span>
+            <input id="autoplayLimitInput" class="number-input" type="number" min="1" />
+          </label>
+        </div>
+
+        <div class="action-row">
+          <button id="spinButton" class="pill-button pill-button--primary" type="button">Spin</button>
+          <button id="autoplayButton" class="pill-button" type="button">Autoplay</button>
+          <button id="paytableButton" class="pill-button" type="button">Info</button>
+        </div>
+
+        <div class="action-row">
+          <button id="depositButton" class="pill-button" type="button">+10 Tokens</button>
+          <button id="selfExcludeButton" class="pill-button pill-button--danger" type="button">Self-Exclude</button>
+        </div>
+      </section>
+    </main>
+
+    <script type="module" src="/js/main.js"></script>
+  </body>
+</html>

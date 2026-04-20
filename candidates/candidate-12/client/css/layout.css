@@ -1,0 +1,116 @@
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  min-height: 100dvh;
+}
+
+body {
+  font-family: var(--font-body);
+  color: var(--color-text);
+  background: var(--gradient-page);
+}
+
+.app {
+  width: var(--size-shell-width);
+  min-height: 100dvh;
+  margin: 0 auto;
+  padding: var(--space-md);
+  display: grid;
+  gap: var(--space-md);
+  grid-template-rows: auto auto auto auto;
+  position: relative;
+}
+
+.app--hidden {
+  visibility: hidden;
+  pointer-events: none;
+  opacity: var(--opacity-hidden);
+}
+
+.app-header {
+  min-height: var(--size-header-height);
+  display: grid;
+  gap: var(--space-sm);
+  align-content: center;
+}
+
+.brand-stack {
+  display: grid;
+  gap: var(--space-2xs);
+}
+
+.brand-kicker {
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 0.09em;
+  color: var(--color-text-muted);
+  font-size: var(--size-brand-kicker-font);
+}
+
+.brand-title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: var(--size-brand-title-font);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.status-strip {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--space-sm);
+}
+
+.machine-shell {
+  background: var(--gradient-panel);
+  border: var(--line-thick) solid var(--color-border);
+  border-radius: var(--radius-card);
+  padding: var(--space-md);
+  box-shadow: var(--shadow-shell);
+  display: grid;
+  gap: var(--space-sm);
+}
+
+.reel-grid {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  grid-template-rows: repeat(3, minmax(var(--size-cell-min-height), 1fr));
+  gap: var(--space-xs);
+  min-height: var(--size-grid-height);
+}
+
+.controls {
+  display: grid;
+  gap: var(--space-sm);
+}
+
+.control-row,
+.action-row {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--size-control-column-gap);
+}
+
+.action-row {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+@media (min-width: var(--breakpoint-mobile)) {
+  .app {
+    padding: var(--space-xl);
+    gap: var(--space-lg);
+  }
+
+  .brand-title {
+    font-size: var(--size-brand-title-font-desktop);
+  }
+
+  .controls {
+    gap: var(--space-md);
+  }
+}
