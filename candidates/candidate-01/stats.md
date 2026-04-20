@@ -1,27 +1,14 @@
-- **Date:**
-4/19
-- **Team Member(s):**
-Hieu Le
-- **Phase:**
-Implementation
-- **Goal:**
-Making initial output
-- **Prompt / Request to AI:**
-Prompt 1
-- **Why We Used AI Here:**
-Initial output of a slot machine
-- **AI Output Summary:**
-A basic slot machine game
-- **Result:**
-Success
-- **Issues / Observations:**
-Pretty basic but has ok sounds
-- **Decision Made:**
-TBD
-- **Manual Edit Needed?:** 
-no
-- **If Yes, Why?:**
-N/A
-- **What We Learned:**
-AI can make a decent basic model
-
+## Entry 01
+- **Date:** 4/18
+- **Team Member(s):** Hieu
+- **Phase:** 1
+- **Goal:** Use prompt #1 and see result if improved from last lab
+- **Prompt / Request to AI:** Prompt #1
+- **Why We Used AI Here:** ...
+- **AI Output Summary:** Generic slot machine
+- **Result:** Very similar to the previous warm up result. Less features but it does the job, nothing out of the oridinary.
+- **Issues / Observations:** Less features, when out of tokens no way to refresh / add more. 
+- **Decision Made:** N/A
+- **Manual Edit Needed?:** N/A
+- **If Yes, Why?:** N/A
+- **What We Learned:** We learned that we have to improve our prompt and incorporate user stories, more context, and research.
