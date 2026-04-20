@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Token Tycoon Slots</title>
+    <link rel="stylesheet" href="styles/main.css" />
+  </head>
+  <body>
+    <main class="app" aria-labelledby="game-title">
+      <header class="panel game-header">
+        <div>
+          <p class="kicker">AI Casino Division</p>
+          <h1 id="game-title">Token Tycoon Slots</h1>
+          <p class="subtitle">
+            Spin prompts into profit, burn tokens for glory, and dodge the rate-limit spiral.
+          </p>
+        </div>
+        <div class="bank" aria-live="polite" aria-atomic="true">
+          <p class="bank-label">Token Balance</p>
+          <p class="bank-value"><span id="balance-value">0</span> TK</p>
+          <p class="bank-meta">Spin Cost: <span id="spin-cost-value">10</span> TK</p>
+        </div>
+      </header>
+
+      <section class="panel reels-panel" aria-label="Slot machine reels">
+        <div class="reels" id="reels">
+          <article class="reel" data-reel-index="0">
+            <p class="symbol-emoji" aria-hidden="true">?</p>
+            <p class="symbol-label">Loading...</p>
+          </article>
+          <article class="reel" data-reel-index="1">
+            <p class="symbol-emoji" aria-hidden="true">?</p>
+            <p class="symbol-label">Loading...</p>
+          </article>
+          <article class="reel" data-reel-index="2">
+            <p class="symbol-emoji" aria-hidden="true">?</p>
+            <p class="symbol-label">Loading...</p>
+          </article>
+        </div>
+
+        <div class="controls">
+          <button id="spin-button" class="spin-button" type="button">Spin (10 TK)</button>
+          <p id="status-text" class="status" role="status" aria-live="polite">
+            Welcome to Token Tycoon. Place a spin.
+          </p>
+        </div>
+      </section>
+
+      <section class="panel lower-grid" aria-label="Session stats and settings">
+        <div class="stats" aria-live="polite" aria-atomic="true">
+          <h2>Session Stats</h2>
+          <dl>
+            <div>
+              <dt>Spins</dt>
+              <dd id="spins-value">0</dd>
+            </div>
+            <div>
+              <dt>Wins</dt>
+              <dd id="wins-value">0</dd>
+            </div>
+            <div>
+              <dt>Win Rate</dt>
+              <dd id="win-rate-value">0%</dd>
+            </div>
+            <div>
+              <dt>Net Gain</dt>
+              <dd id="net-value">0 TK</dd>
+            </div>
+          </dl>
+        </div>
+
+        <div class="settings">
+          <h2>Settings</h2>
+          <label class="toggle">
+            <input id="sound-toggle" type="checkbox" checked />
+            <span>Sound Enabled</span>
+          </label>
+
+          <label for="volume-range" class="range-label">Volume</label>
+          <input
+            id="volume-range"
+            class="volume"
+            type="range"
+            min="0"
+            max="100"
+            value="70"
+          />
+
+          <p class="hint">Tip: if audio is blocked, spin once to unlock sound.</p>
+        </div>
+      </section>
+    </main>
+
+    <script type="module" src="scripts/main.js"></script>
+  </body>
+</html>

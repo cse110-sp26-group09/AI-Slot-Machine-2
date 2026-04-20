@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Token Tycoon Slots</title>
+    <meta
+      name="description"
+      content="Token Tycoon Slots: a polished AI satire slot machine game built with vanilla web tech."
+    />
+    <link rel="stylesheet" href="styles/main.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="topbar">
+        <h1>Token Tycoon Slots</h1>
+        <p>Prompt boldly, spin recklessly, and chase synthetic fortune.</p>
+      </header>
+
+      <main class="machine" aria-label="Slot machine">
+        <section class="hud" aria-label="Game stats">
+          <div class="stat-card">
+            <span class="stat-label">Balance</span>
+            <strong id="balanceValue" class="stat-value">0</strong>
+          </div>
+          <div class="stat-card">
+            <span class="stat-label">Spin Cost</span>
+            <strong id="spinCostValue" class="stat-value">0</strong>
+          </div>
+          <div class="stat-card">
+            <span class="stat-label">Spins</span>
+            <strong id="spinsValue" class="stat-value">0</strong>
+          </div>
+          <div class="stat-card">
+            <span class="stat-label">Wins</span>
+            <strong id="winsValue" class="stat-value">0</strong>
+          </div>
+          <div class="stat-card">
+            <span class="stat-label">Best Win</span>
+            <strong id="bestWinValue" class="stat-value">0</strong>
+          </div>
+        </section>
+
+        <section class="reel-panel" aria-label="Reels and status">
+          <div id="reelGrid" class="reel-grid" aria-live="polite">
+            <div class="reel-window"><span id="reel0" class="reel-symbol">?</span></div>
+            <div class="reel-window"><span id="reel1" class="reel-symbol">?</span></div>
+            <div class="reel-window"><span id="reel2" class="reel-symbol">?</span></div>
+          </div>
+          <p id="statusText" class="status" role="status">Build your prompt budget. Hit spin.</p>
+        </section>
+
+        <section class="controls" aria-label="Game controls">
+          <button id="spinButton" class="btn btn-spin" type="button">Spin (-10 tokens)</button>
+          <button id="resetButton" class="btn btn-secondary" type="button">Reset Session</button>
+          <button id="muteButton" class="btn btn-secondary" type="button" aria-pressed="false">Sound: On</button>
+          <label class="volume" for="volumeRange">
+            Volume
+            <input id="volumeRange" type="range" min="0" max="100" value="70" />
+          </label>
+        </section>
+      </main>
+    </div>
+
+    <script type="module" src="scripts/main.js"></script>
+  </body>
+</html>

@@ -1,5 +1,5 @@
 - **Date:**
-4/19
+4/18
 - **Team Member(s):**
 James Villanueva
 - **Phase:**
@@ -15,7 +15,7 @@ A basic slot machine game
 - **Result:**
 Success
 - **Issues / Observations:**
-Pretty basic but has ok sounds
+Takes away spent tokens only after spin is finished which is wie
 - **Decision Made:**
 TBD
 - **Manual Edit Needed?:** 
