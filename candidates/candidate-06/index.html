@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Prompt Palace Slots</title>
+    <link rel="stylesheet" href="styles/main.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <h1>Prompt Palace Slots</h1>
+      <p class="tagline">Classic 3-reel play, transparent odds, and clear session controls.</p>
+    </header>
+
+    <main class="layout" aria-label="Slot machine application">
+      <section class="panel slot-panel" aria-labelledby="slot-title">
+        <h2 id="slot-title">AI Satire Slot Machine</h2>
+
+        <div class="reels" aria-live="polite" aria-label="Slot reels">
+          <div class="reel" id="reel-0"><span class="symbol-code">PRM</span><span class="symbol-label">Prompt</span></div>
+          <div class="reel" id="reel-1"><span class="symbol-code">TKN</span><span class="symbol-label">Token</span></div>
+          <div class="reel" id="reel-2"><span class="symbol-code">CRD</span><span class="symbol-label">Credit</span></div>
+        </div>
+
+        <div class="controls" aria-label="Bet and spin controls">
+          <div class="bet-control">
+            <label for="bet-input">Bet</label>
+            <div class="bet-row">
+              <button id="bet-decrease" class="button secondary" type="button" aria-label="Decrease bet">-</button>
+              <input id="bet-input" type="number" min="1" step="1" inputmode="numeric" />
+              <button id="bet-increase" class="button secondary" type="button" aria-label="Increase bet">+</button>
+            </div>
+          </div>
+
+          <button id="spin-button" class="button spin" type="button">Spin Reels</button>
+        </div>
+
+        <div id="outcome" class="outcome" role="status" aria-live="polite">
+          Set your session limits, then spin when ready.
+        </div>
+        <div id="responsible-message" class="prompt" role="status" aria-live="polite">
+          Tip: take short breaks every 20 spins to keep play enjoyable.
+        </div>
+      </section>
+
+      <section class="panel summary-panel" aria-labelledby="summary-title">
+        <h2 id="summary-title">Session Summary</h2>
+        <dl class="summary-grid">
+          <div><dt>Current Balance</dt><dd id="balance-value">0</dd></div>
+          <div><dt>Total Spend</dt><dd id="spend-value">0</dd></div>
+          <div><dt>Total Returned</dt><dd id="returned-value">0</dd></div>
+          <div><dt>Net Result</dt><dd id="net-value">0</dd></div>
+          <div><dt>Spins</dt><dd id="spins-value">0</dd></div>
+          <div><dt>Wins</dt><dd id="wins-value">0</dd></div>
+        </dl>
+
+        <h3 class="subheading">Loyalty Progress</h3>
+        <dl class="summary-grid compact">
+          <div><dt>Tier</dt><dd id="tier-value">Bronze</dd></div>
+          <div><dt>XP</dt><dd id="xp-value">0</dd></div>
+          <div><dt>Next Tier</dt><dd id="next-tier-value">Silver</dd></div>
+        </dl>
+        <div class="progress-track" aria-label="Tier progress">
+          <div id="xp-progress" class="progress-fill"></div>
+        </div>
+        <p id="tier-progress-text" class="small-text">0 XP to Silver</p>
+      </section>
+
+      <section class="panel guardrail-panel" aria-labelledby="guardrail-title">
+        <h2 id="guardrail-title">Session Guardrails</h2>
+        <p class="small-text">Gameplay pauses automatically when a limit is reached.</p>
+        <div class="field-grid">
+          <label for="start-balance-input">Starting Balance</label>
+          <input id="start-balance-input" type="number" min="10" step="10" value="200" inputmode="numeric" />
+
+          <label for="budget-cap-input">Spend Budget Cap</label>
+          <input id="budget-cap-input" type="number" min="0" step="10" value="250" inputmode="numeric" />
+
+          <label for="loss-limit-input">Loss Limit</label>
+          <input id="loss-limit-input" type="number" min="0" step="10" value="100" inputmode="numeric" />
+        </div>
+
+        <div class="row-buttons">
+          <button id="apply-guardrails" class="button secondary" type="button">Apply Limits</button>
+          <button id="reset-session" class="button secondary" type="button">Start New Session</button>
+        </div>
+        <div id="pause-banner" class="pause-banner hidden" role="alert"></div>
+      </section>
+
+      <section class="panel info-panel" aria-labelledby="paytable-title">
+        <h2 id="paytable-title">Paytable (Payout Multiplier × Bet)</h2>
+        <table>
+          <thead>
+            <tr>
+              <th scope="col">Symbol</th>
+              <th scope="col">3 of a Kind</th>
+              <th scope="col">Any Pair</th>
+            </tr>
+          </thead>
+          <tbody id="paytable-body"></tbody>
+        </table>
+      </section>
+
+      <section class="panel info-panel" aria-labelledby="fairness-title">
+        <h2 id="fairness-title">Fairness and RTP</h2>
+        <p id="rtp-line" class="small-text"></p>
+        <ul class="facts">
+          <li>Each reel stop is selected independently.</li>
+          <li>Symbol probabilities are equal on every spin.</li>
+          <li>Outcomes do not change based on your session history.</li>
+        </ul>
+        <p id="odds-line" class="small-text"></p>
+      </section>
+
+      <section class="panel settings-panel" aria-labelledby="settings-title">
+        <h2 id="settings-title">Accessibility and Sound</h2>
+
+        <h3 class="subheading">Accessibility</h3>
+        <div class="checkbox-grid">
+          <label><input id="toggle-high-contrast" type="checkbox" /> High Contrast Mode</label>
+          <label><input id="toggle-large-print" type="checkbox" /> Large Print Mode</label>
+          <label><input id="toggle-reduced-motion" type="checkbox" /> Reduced Motion</label>
+        </div>
+
+        <h3 class="subheading">Sound</h3>
+        <div class="checkbox-grid">
+          <label><input id="sound-enabled" type="checkbox" checked /> Enable Sound</label>
+        </div>
+        <label for="volume-input">Volume</label>
+        <input id="volume-input" type="range" min="0" max="100" step="1" value="45" />
+      </section>
+    </main>
+
+    <script src="scripts/payouts.js" defer></script>
+    <script src="scripts/reels.js" defer></script>
+    <script src="scripts/game.js" defer></script>
+    <script src="scripts/audio.js" defer></script>
+    <script src="scripts/accessibility.js" defer></script>
+    <script src="scripts/ui.js" defer></script>
+    <script src="scripts/main.js" defer></script>
+  </body>
+</html>
