@@ -318,7 +318,7 @@ Sound (Web Audio API only, no external files):
 2. Zero magic numbers — all constants in config.js
 3. esbuild config for production build
 4. README: setup steps, env vars, compliance notes
-
+```
 ___
 
 Prompt 4: 
