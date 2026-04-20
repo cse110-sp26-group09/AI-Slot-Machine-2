@@ -1,0 +1,147 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: var(--space-0);
+  padding: var(--space-0);
+  min-height: 100%;
+}
+
+body {
+  font-family: var(--font-body);
+  font-size: var(--size-body);
+  line-height: var(--line-height-normal);
+  color: var(--color-text-0);
+  background:
+    radial-gradient(circle at top, var(--color-bg-3), var(--color-bg-0)),
+    linear-gradient(var(--color-bg-2), var(--color-bg-0));
+  display: grid;
+  place-items: center;
+  padding: var(--space-4);
+}
+
+.app-shell {
+  width: min(var(--size-mobile-max), 100%);
+  display: grid;
+  gap: var(--space-4);
+}
+
+.app-header {
+  display: grid;
+  gap: var(--space-3);
+  padding: var(--panel-padding);
+  border: var(--border-thin) solid var(--color-bg-3);
+  border-radius: var(--radius-card);
+  background: linear-gradient(var(--color-bg-2), var(--color-bg-1));
+  box-shadow: var(--glow-soft);
+}
+
+.brand-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+}
+
+.brand-title {
+  margin: var(--space-0);
+  font-family: var(--font-display);
+  font-size: var(--size-title);
+  letter-spacing: var(--space-1);
+  line-height: var(--line-height-tight);
+}
+
+.xp-wrap {
+  display: grid;
+  gap: var(--space-2);
+}
+
+.xp-track {
+  width: 100%;
+  height: var(--space-4);
+  border-radius: var(--radius-pill);
+  background: var(--color-bg-0);
+  border: var(--border-thin) solid var(--color-bg-3);
+  overflow: hidden;
+}
+
+.xp-fill {
+  width: var(--space-0);
+  height: 100%;
+  background: linear-gradient(90deg, var(--color-accent-2), var(--color-accent-0));
+  transition: width var(--spin-duration) var(--easing-soft);
+}
+
+.game-main {
+  display: grid;
+  gap: var(--space-4);
+}
+
+.status-row {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(var(--space-0), 1fr));
+  gap: var(--space-2);
+}
+
+.reel-stage {
+  display: grid;
+  gap: var(--space-3);
+  padding: var(--stage-padding);
+  border-radius: var(--radius-card);
+  border: var(--border-thin) solid var(--color-bg-3);
+  background: linear-gradient(var(--color-bg-2), var(--color-bg-1));
+  box-shadow: var(--glow-soft);
+}
+
+.reel-grid {
+  display: grid;
+  grid-template-columns: repeat(var(--grid-reels), minmax(var(--size-cell-min), 1fr));
+  gap: var(--grid-gap);
+}
+
+.controls {
+  display: grid;
+  gap: var(--space-3);
+  padding: var(--panel-padding);
+  border-radius: var(--radius-card);
+  border: var(--border-thin) solid var(--color-bg-3);
+  background: linear-gradient(var(--color-bg-2), var(--color-bg-1));
+  box-shadow: var(--glow-soft);
+}
+
+.button-row {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(var(--space-0), 1fr));
+  gap: var(--space-2);
+}
+
+.settings-row {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(var(--space-0), 1fr));
+  gap: var(--space-2);
+}
+
+.modal-overlay {
+  position: fixed;
+  inset: var(--space-0);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-overlay);
+  padding: var(--space-4);
+  z-index: 10;
+}
+
+.modal-overlay.visible {
+  display: flex;
+}
+
+@media (min-width: 768px) {
+  .app-shell {
+    width: min(calc(var(--size-mobile-max) + var(--space-8)), 100%);
+  }
+}

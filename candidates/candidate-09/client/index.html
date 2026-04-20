@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AI Satire Slots</title>
+    <link rel="stylesheet" href="/css/variables.css" />
+    <link rel="stylesheet" href="/css/layout.css" />
+    <link rel="stylesheet" href="/css/components.css" />
+    <link rel="stylesheet" href="/css/animations.css" />
+  </head>
+  <body>
+    <div class="app-shell" id="app">
+      <header class="app-header">
+        <div class="brand-row">
+          <h1 class="brand-title">AI Satire Slots</h1>
+          <span class="tier-badge" id="tierBadge">Bronze</span>
+        </div>
+        <div class="xp-wrap">
+          <div class="xp-track" role="progressbar" aria-valuemin="0" aria-valuemax="100">
+            <div class="xp-fill" id="xpFill"></div>
+          </div>
+          <span class="xp-label" id="xpLabel">XP 0</span>
+        </div>
+        <div class="session-spend" id="sessionSpend">Session Spend: 0.00 tokens</div>
+      </header>
+
+      <main class="game-main">
+        <section class="status-row">
+          <div class="status-pill">
+            <span class="status-label">Balance</span>
+            <span class="status-value" id="balanceValue">0.00 tokens</span>
+          </div>
+          <div class="status-pill">
+            <span class="status-label">Jackpot</span>
+            <span class="status-value" id="jackpotValue">0.00 tokens</span>
+          </div>
+          <div class="status-pill">
+            <span class="status-label">Free Spins</span>
+            <span class="status-value" id="freeSpinsValue">0</span>
+          </div>
+        </section>
+
+        <section class="reel-stage">
+          <div class="reel-grid" id="reelGrid" aria-live="polite"></div>
+          <div class="win-banner" id="winBanner">Spin to disrupt.</div>
+        </section>
+
+        <section class="controls">
+          <label class="bet-group" for="betSlider">
+            <span class="control-label">Bet</span>
+            <input id="betSlider" class="bet-slider" type="range" />
+            <span class="bet-value" id="betValue">1.00</span>
+          </label>
+
+          <div class="button-row">
+            <button id="spinButton" class="pill-button spin-button" type="button">Spin</button>
+            <button id="autoplayButton" class="pill-button" type="button">Autoplay</button>
+            <button id="infoButton" class="pill-button" type="button">Paytable</button>
+          </div>
+
+          <div class="settings-row">
+            <label class="setting-chip" for="autoplayLimitInput">
+              <span>Auto Limit</span>
+              <input id="autoplayLimitInput" type="number" />
+            </label>
+
+            <label class="setting-chip" for="turboToggle">
+              <span>Turbo</span>
+              <input id="turboToggle" type="checkbox" />
+            </label>
+
+            <label class="setting-chip" for="ambientToggle">
+              <span>Ambient</span>
+              <input id="ambientToggle" type="checkbox" />
+            </label>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <div class="modal-overlay visible" id="ageGateModal" role="dialog" aria-modal="true">
+      <div class="modal-card">
+        <h2>Age Gate</h2>
+        <p>Confirm you are legally old enough to access gambling-style content.</p>
+        <label for="depositLimitInput">Session Deposit Limit (tokens)</label>
+        <input id="depositLimitInput" type="number" />
+        <button id="ageConfirmButton" class="pill-button" type="button">I Confirm</button>
+      </div>
+    </div>
+
+    <div class="modal-overlay" id="paytableModal" role="dialog" aria-modal="true">
+      <div class="modal-card">
+        <h2>Paytable</h2>
+        <div id="paytableContent" class="paytable-content"></div>
+        <button id="closePaytableButton" class="pill-button" type="button">Close</button>
+      </div>
+    </div>
+
+    <div class="modal-overlay" id="realityCheckModal" role="dialog" aria-modal="true">
+      <div class="modal-card">
+        <h2>Reality Check</h2>
+        <p>You have been spinning for 60 minutes. Please confirm to continue.</p>
+        <button id="realityCheckButton" class="pill-button" type="button">Acknowledge</button>
+      </div>
+    </div>
+
+    <script type="module" src="/js/main.js"></script>
+  </body>
+</html>

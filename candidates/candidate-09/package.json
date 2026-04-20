@@ -1,0 +1,19 @@
+{
+  "name": "candidate-09-ai-satire-slots",
+  "version": "1.0.0",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "dev": "node server/index.js",
+    "build": "node esbuild.config.js",
+    "start": "node server/index.js"
+  },
+  "dependencies": {
+    "express": "^5.1.0",
+    "jsonwebtoken": "^9.0.2",
+    "ws": "^8.18.3"
+  },
+  "devDependencies": {
+    "esbuild": "^0.25.10"
+  }
+}
