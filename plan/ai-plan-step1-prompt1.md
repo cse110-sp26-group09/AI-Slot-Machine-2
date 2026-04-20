@@ -2,6 +2,7 @@
 
 ## MCP
 I wanted to try using MCPs in order to have a better prompting process
+
 We will use for this prompt:
 - Context7 (live documentation of libraries)
 ```
