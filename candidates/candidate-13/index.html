@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Inference Jackpot</title>
+  <link rel="stylesheet" href="styles/main.css">
+</head>
+<body>
+  <div class="app-shell">
+    <header class="hero">
+      <p class="eyebrow">AI Casino Satire</p>
+      <h1>Inference Jackpot</h1>
+      <p class="subhead">
+        Spend tokens, spin models, and track every credit clearly.
+      </p>
+    </header>
+
+    <main class="layout">
+      <section class="panel panel-primary" aria-labelledby="play-title">
+        <h2 id="play-title">Spin Console</h2>
+
+        <div class="stats-strip">
+          <p><span class="label">Balance</span> <strong id="balanceValue">0</strong></p>
+          <p><span class="label">Bet</span> <strong id="betValue">0</strong></p>
+          <p><span class="label">Session Net</span> <strong id="summaryNet">0</strong></p>
+        </div>
+
+        <div class="bet-row" aria-label="Bet controls">
+          <button type="button" id="betDown" class="btn btn-secondary" aria-label="Decrease bet">-</button>
+          <label for="betInput">Bet</label>
+          <input id="betInput" type="number" min="5" max="100" step="5">
+          <button type="button" id="betUp" class="btn btn-secondary" aria-label="Increase bet">+</button>
+          <button type="button" id="spinButton" class="btn btn-spin">Spin</button>
+        </div>
+
+        <div class="reels" role="group" aria-label="Slot reels">
+          <div class="reel" id="reel0" aria-live="polite">PROMPT</div>
+          <div class="reel" id="reel1" aria-live="polite">TOKEN</div>
+          <div class="reel" id="reel2" aria-live="polite">MODEL</div>
+        </div>
+
+        <p id="outcomeText" class="outcome outcome-neutral" aria-live="polite">
+          Place your bet and spin.
+        </p>
+        <p id="responsiblePrompt" class="responsible responsible-neutral" aria-live="polite">
+          Set a session loss limit to keep play intentional.
+        </p>
+      </section>
+
+      <section class="panel" aria-labelledby="summary-title">
+        <h2 id="summary-title">Session Summary</h2>
+        <div class="summary-grid">
+          <p><span>Total Spent</span><strong id="summarySpent">0</strong></p>
+          <p><span>Total Won</span><strong id="summaryWon">0</strong></p>
+          <p><span>Current Loss</span><strong id="summaryLoss">0</strong></p>
+          <p><span>Spins</span><strong id="summarySpins">0</strong></p>
+          <p><span>Win Rate</span><strong id="summaryWinRate">0%</strong></p>
+          <p><span>Loyalty Level</span><strong id="summaryLoyalty">1</strong></p>
+          <p><span>Daily Reward</span><strong id="summaryDaily">Not claimed</strong></p>
+          <p><span>Loss Limit</span><strong id="summaryLimit">0</strong></p>
+        </div>
+      </section>
+
+      <section class="panel" aria-labelledby="paytable-title">
+        <h2 id="paytable-title">Paytable</h2>
+        <p class="panel-note">Payouts are multiplier × bet.</p>
+        <table>
+          <thead>
+            <tr>
+              <th>Match</th>
+              <th>Payout</th>
+              <th>Notes</th>
+            </tr>
+          </thead>
+          <tbody id="paytableBody"></tbody>
+        </table>
+      </section>
+
+      <section class="panel" aria-labelledby="settings-title">
+        <h2 id="settings-title">Settings & Guardrails</h2>
+        <div class="settings-list">
+          <label class="toggle">
+            <input type="checkbox" id="accessibilityMode">
+            High-Contrast + Large Print Mode
+          </label>
+          <label class="toggle">
+            <input type="checkbox" id="reducedMotionToggle">
+            Reduced Motion
+          </label>
+          <label class="toggle">
+            <input type="checkbox" id="soundToggle">
+            Sound Effects
+          </label>
+        </div>
+
+        <div class="limit-row">
+          <label for="lossLimitInput">Session Loss Limit</label>
+          <input id="lossLimitInput" type="number" min="0" step="10">
+          <button type="button" id="applyLossLimit" class="btn btn-secondary">Apply Limit</button>
+        </div>
+
+        <button type="button" id="resetSession" class="btn btn-danger">Reset Session Totals</button>
+      </section>
+
+      <section class="panel" aria-labelledby="fairness-title">
+        <h2 id="fairness-title">Fairness Snapshot</h2>
+        <p id="fairnessText">
+          Weighted random reel draws each spin. Theoretical RTP over long play:
+          <strong id="rtpValue">0%</strong>.
+        </p>
+      </section>
+    </main>
+  </div>
+
+  <script type="module" src="scripts/main.js"></script>
+</body>
+</html>
