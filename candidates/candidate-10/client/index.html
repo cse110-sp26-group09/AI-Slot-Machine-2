@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>AI Satire Slots</title>
+    <link rel="stylesheet" href="/css/variables.css" />
+    <link rel="stylesheet" href="/css/layout.css" />
+    <link rel="stylesheet" href="/css/components.css" />
+    <link rel="stylesheet" href="/css/animations.css" />
+  </head>
+  <body>
+    <main class="app-shell" id="app-shell" aria-live="polite">
+      <section class="top-strip">
+        <div class="tier-pill">
+          <span id="tier-badge">Bronze</span>
+        </div>
+        <div class="xp-track-wrap" aria-label="XP Progress">
+          <div class="xp-track">
+            <div class="xp-fill" id="xp-fill"></div>
+          </div>
+          <span class="xp-text" id="xp-text">XP 0</span>
+        </div>
+        <button class="pill-btn icon-btn" id="info-btn" type="button" aria-label="Paytable">
+          i
+        </button>
+      </section>
+
+      <section class="stat-strip">
+        <div class="stat-card">
+          <p class="stat-label">Tokens</p>
+          <p class="stat-value" id="balance-display">0.00</p>
+        </div>
+        <div class="stat-card">
+          <p class="stat-label">Jackpot Pool</p>
+          <p class="stat-value" id="jackpot-display">0.00</p>
+        </div>
+      </section>
+
+      <section class="spend-tracker" aria-label="Session Spend Tracker">
+        <p>Session Spend Tracker</p>
+        <p id="spend-display">0.00 tokens spent</p>
+      </section>
+
+      <section class="reel-frame">
+        <div class="reel-grid" id="reel-grid"></div>
+      </section>
+
+      <section class="message-strip">
+        <p id="result-message">Age confirmation required before launch.</p>
+      </section>
+
+      <section class="controls-stack">
+        <div class="control-row">
+          <label for="bet-slider">Bet</label>
+          <input id="bet-slider" type="range" />
+          <output id="bet-output">0.00</output>
+        </div>
+
+        <div class="control-row">
+          <button class="pill-btn primary-btn" id="spin-btn" type="button">Spin</button>
+          <label class="toggle-wrap" for="turbo-toggle">
+            <input id="turbo-toggle" type="checkbox" />
+            <span>Turbo</span>
+          </label>
+        </div>
+
+        <div class="control-row autoplay-row">
+          <label for="autoplay-count">Autoplay</label>
+          <input id="autoplay-count" type="number" inputmode="numeric" />
+          <button class="pill-btn" id="autoplay-btn" type="button">Start</button>
+        </div>
+
+        <div class="control-row">
+          <label for="deposit-input">Deposit</label>
+          <input id="deposit-input" type="number" inputmode="decimal" />
+          <button class="pill-btn" id="deposit-btn" type="button">Add</button>
+        </div>
+
+        <div class="control-row">
+          <label class="toggle-wrap" for="ambient-toggle">
+            <input id="ambient-toggle" type="checkbox" />
+            <span>Ambient Hum</span>
+          </label>
+          <button class="pill-btn danger-btn" id="exclude-btn" type="button">Self Exclude</button>
+        </div>
+      </section>
+    </main>
+
+    <dialog class="modal" id="age-gate-modal">
+      <form method="dialog" class="modal-card">
+        <h2>Age Gate</h2>
+        <p>You must confirm you are 18+ before this satire casino boots.</p>
+        <button class="pill-btn primary-btn" id="age-confirm-btn" value="confirm" type="button">
+          I am 18+
+        </button>
+      </form>
+    </dialog>
+
+    <dialog class="modal" id="reality-modal">
+      <form method="dialog" class="modal-card">
+        <h2>Reality Check</h2>
+        <p>You have been spinning for 60 minutes. Touch grass, then continue.</p>
+        <button class="pill-btn primary-btn" id="reality-ack-btn" type="button">Acknowledge</button>
+      </form>
+    </dialog>
+
+    <dialog class="modal" id="paytable-modal">
+      <form method="dialog" class="modal-card modal-card-wide">
+        <h2>Paytable</h2>
+        <div id="paytable-body"></div>
+        <button class="pill-btn" id="paytable-close-btn" type="button">Close</button>
+      </form>
+    </dialog>
+
+    <script type="module" src="/js/main.js"></script>
+  </body>
+</html>

@@ -1,0 +1,21 @@
+{
+  "name": "ai-satire-slot-machine",
+  "version": "1.0.0",
+  "description": "Full-stack AI satire slot machine with server-side game logic and signed outcomes.",
+  "type": "module",
+  "scripts": {
+    "dev": "node server/index.js",
+    "build": "node esbuild.config.js",
+    "start": "node server/index.js",
+    "check": "node --check server/index.js && node --check server/game.js && node --check server/session.js && node --check client/js/main.js && node --check client/js/reels.js && node --check client/js/ui.js && node --check client/js/verify.js"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.21.2",
+    "jsonwebtoken": "^9.0.2",
+    "ws": "^8.18.3"
+  },
+  "devDependencies": {
+    "esbuild": "^0.25.4"
+  }
+}

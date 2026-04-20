@@ -1,0 +1,55 @@
+:root {
+  --font-primary: "Rajdhani", "Segoe UI", sans-serif;
+  --font-secondary: "Space Grotesk", "Segoe UI", sans-serif;
+
+  --color-bg-base: #090d14;
+  --color-bg-surface: #12192a;
+  --color-bg-surface-soft: #172238;
+  --color-bg-pill: #1d2c46;
+  --color-text-main: #f5f7ff;
+  --color-text-muted: #9aa7c5;
+  --color-accent: #43e8b2;
+  --color-accent-strong: #68ff9f;
+  --color-danger: #ff5f73;
+  --color-gold: #f3cf66;
+  --color-shadow: rgba(0, 0, 0, 0.45);
+  --color-glow: rgba(67, 232, 178, 0.45);
+
+  --size-app-max-width: 28rem;
+  --size-screen-min-height: 100dvh;
+  --size-radius-large: 1.25rem;
+  --size-radius-pill: 100vmax;
+  --size-radius-small: 0.6rem;
+
+  --size-space-2xs: 0.35rem;
+  --size-space-xs: 0.5rem;
+  --size-space-sm: 0.75rem;
+  --size-space-md: 1rem;
+  --size-space-lg: 1.35rem;
+  --size-space-xl: 1.8rem;
+
+  --size-reel-cell: 4.55rem;
+  --size-reel-gap: 0.36rem;
+  --size-border: 0.08rem;
+  --size-shadow-blur: 1.25rem;
+  --size-shadow-spread: 0.2rem;
+
+  --timing-spin-normal: 2500ms;
+  --timing-spin-turbo: 1000ms;
+  --timing-spin-active: var(--timing-spin-normal);
+  --timing-cascade: 350ms;
+  --timing-pulse: 900ms;
+  --timing-fade: 220ms;
+
+  --gradient-bg: radial-gradient(circle at 35% 10%, #1f2944 0%, #090d14 56%, #070a11 100%);
+  --gradient-reel: linear-gradient(180deg, #1a243a 0%, #10192d 100%);
+  --gradient-pill: linear-gradient(180deg, #243a5c 0%, #1a2c49 100%);
+  --gradient-spin: linear-gradient(180deg, #5bffb8 0%, #2dc68f 100%);
+  --gradient-danger: linear-gradient(180deg, #ff7b89 0%, #e54557 100%);
+
+  --motion-reel-shift: -30%;
+  --motion-win-zoom-start: 1;
+  --motion-win-zoom-end: 1.08;
+  --motion-modal-rise: 0.7rem;
+  --opacity-disabled: 0.4;
+}

@@ -1,0 +1,48 @@
+@keyframes reel-spin {
+  0% {
+    transform: translateY(0);
+    filter: brightness(1);
+  }
+  50% {
+    transform: translateY(var(--motion-reel-shift));
+    filter: brightness(1.1);
+  }
+  100% {
+    transform: translateY(0);
+    filter: brightness(1);
+  }
+}
+
+@keyframes win-pulse {
+  0% {
+    transform: scale(var(--motion-win-zoom-start));
+    box-shadow: 0 0 0 var(--color-glow);
+  }
+  100% {
+    transform: scale(var(--motion-win-zoom-end));
+    box-shadow: 0 0 var(--size-shadow-blur) var(--color-glow);
+  }
+}
+
+@keyframes modal-rise {
+  0% {
+    opacity: 0;
+    transform: translateY(var(--motion-modal-rise));
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.spinning .reel-cell {
+  animation: reel-spin var(--timing-spin-active) ease;
+}
+
+.win-cell {
+  animation: win-pulse var(--timing-pulse) ease-in-out 2 alternate;
+}
+
+.modal[open] .modal-card {
+  animation: modal-rise var(--timing-fade) ease;
+}
