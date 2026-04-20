@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Prompt Palace Slots</title>
+    <link rel="stylesheet" href="styles/main.css" />
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">Skip to game controls</a>
+
+    <header class="app-header">
+      <p class="eyebrow">AI Satire Arcade</p>
+      <h1>Prompt Palace Slots</h1>
+      <p class="subtitle">
+        Spin for prompts, tokens, and model upgrades. Clear odds, clear controls, and no pressure.
+      </p>
+    </header>
+
+    <main id="main-content" class="app-shell" aria-label="Slot machine game">
+      <section class="panel machine-panel" aria-labelledby="machine-title">
+        <h2 id="machine-title">3-Reel Machine</h2>
+
+        <div class="reel-row" aria-live="polite" aria-label="Current reels">
+          <div class="reel-cell" id="reel-0" data-reel-index="0">PROMPT</div>
+          <div class="reel-cell" id="reel-1" data-reel-index="1">TOKEN</div>
+          <div class="reel-cell" id="reel-2" data-reel-index="2">MODEL</div>
+        </div>
+
+        <div class="machine-controls" aria-label="Bet and spin controls">
+          <div class="bet-control">
+            <span class="label">Bet</span>
+            <div class="bet-buttons">
+              <button id="bet-down" type="button" class="btn secondary" aria-label="Decrease bet">
+                -
+              </button>
+              <span id="bet-value" class="value" aria-live="polite">5</span>
+              <button id="bet-up" type="button" class="btn secondary" aria-label="Increase bet">
+                +
+              </button>
+            </div>
+          </div>
+
+          <button id="spin-button" type="button" class="btn primary spin">Spin</button>
+        </div>
+
+        <div id="outcome-message" class="outcome neutral" aria-live="polite">
+          Ready to spin.
+        </div>
+        <p id="status-message" class="status" aria-live="polite"></p>
+      </section>
+
+      <section class="panel summary-panel" aria-labelledby="summary-title">
+        <h2 id="summary-title">Session Summary</h2>
+
+        <dl class="metrics-grid">
+          <div class="metric-item">
+            <dt>Balance</dt>
+            <dd id="balance-value">200</dd>
+          </div>
+          <div class="metric-item">
+            <dt>Total Spend</dt>
+            <dd id="spent-value">0</dd>
+          </div>
+          <div class="metric-item">
+            <dt>Total Won</dt>
+            <dd id="won-value">0</dd>
+          </div>
+          <div class="metric-item">
+            <dt>Net Result</dt>
+            <dd id="net-value">0</dd>
+          </div>
+          <div class="metric-item">
+            <dt>Spins</dt>
+            <dd id="spins-value">0</dd>
+          </div>
+        </dl>
+
+        <div class="loyalty-box" aria-labelledby="loyalty-title">
+          <h3 id="loyalty-title">Loyalty Progress</h3>
+          <p>
+            Tier: <strong id="tier-value">Bronze</strong>
+            <span class="muted">| XP: <span id="xp-value">0</span></span>
+          </p>
+          <div class="progress-track" role="progressbar" aria-label="Tier progress" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="xp-progress">
+            <div id="xp-progress-fill" class="progress-fill"></div>
+          </div>
+          <p id="xp-next" class="muted">300 XP to Silver</p>
+        </div>
+      </section>
+
+      <section class="panel limits-panel" aria-labelledby="limits-title">
+        <h2 id="limits-title">Session Safeguards</h2>
+        <p class="muted">Set optional limits. Gameplay pauses automatically when a limit is reached.</p>
+
+        <div class="field-row">
+          <label for="budget-limit">Budget Limit (total spend)</label>
+          <input id="budget-limit" inputmode="numeric" type="number" min="1" placeholder="Optional" />
+        </div>
+
+        <div class="field-row">
+          <label for="loss-limit">Loss Limit (net loss)</label>
+          <input id="loss-limit" inputmode="numeric" type="number" min="1" placeholder="Optional" />
+        </div>
+
+        <div class="button-row">
+          <button id="apply-limits" type="button" class="btn secondary">Apply Limits</button>
+          <button id="reset-session" type="button" class="btn ghost">Reset Session</button>
+        </div>
+
+        <p id="responsible-note" class="responsible-note" aria-live="polite">
+          You can pause at any time. No streak guarantees, no hidden modes.
+        </p>
+      </section>
+
+      <section class="panel settings-panel" aria-labelledby="settings-title">
+        <h2 id="settings-title">Accessibility & Sound</h2>
+
+        <div class="toggle-row">
+          <label for="high-contrast-toggle">High Contrast</label>
+          <input id="high-contrast-toggle" type="checkbox" />
+        </div>
+
+        <div class="toggle-row">
+          <label for="large-print-toggle">Large Print</label>
+          <input id="large-print-toggle" type="checkbox" />
+        </div>
+
+        <div class="toggle-row">
+          <label for="sound-toggle">Enable Sound</label>
+          <input id="sound-toggle" type="checkbox" checked />
+        </div>
+
+        <div class="field-row">
+          <label for="sound-level">Sound Level</label>
+          <select id="sound-level">
+            <option value="0.15">Low</option>
+            <option value="0.3" selected>Medium</option>
+            <option value="0.5">High</option>
+          </select>
+        </div>
+      </section>
+
+      <section class="panel paytable-panel" aria-labelledby="paytable-title">
+        <h2 id="paytable-title">Payout Guide</h2>
+        <p class="muted">Payouts are multipliers of your current bet.</p>
+
+        <table>
+          <thead>
+            <tr>
+              <th>Combination</th>
+              <th>Payout</th>
+            </tr>
+          </thead>
+          <tbody id="paytable-body"></tbody>
+        </table>
+      </section>
+
+      <section class="panel fairness-panel" aria-labelledby="fairness-title">
+        <h2 id="fairness-title">Fairness & RTP</h2>
+        <ul>
+          <li id="rtp-line">Estimated RTP: --</li>
+          <li id="house-edge-line">Estimated House Edge: --</li>
+          <li id="random-line">Randomness: --</li>
+        </ul>
+      </section>
+    </main>
+
+    <script type="module" src="scripts/main.js"></script>
+  </body>
+</html>
