@@ -192,33 +192,106 @@ input[type="number"] {
 }
 
 .gameplay-screen {
+  position: relative;
+  isolation: isolate;
   flex-direction: column;
   background:
     linear-gradient(180deg, var(--bg-overlay) 0%, rgba(5, 36, 65, 0.62) 100%),
     url("../assets/images/spongebob-gameplay-bg.jpg") center / cover fixed no-repeat;
-  padding: 1.1rem 1rem 1.3rem;
+  padding: 0.8rem 1rem 1.05rem;
+}
+
+.ambient-bubbles {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.bubble {
+  position: absolute;
+  bottom: -130px;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.85), rgba(144, 223, 255, 0.22) 62%, transparent 68%),
+    radial-gradient(circle at 70% 72%, rgba(164, 231, 255, 0.25), transparent 70%);
+  border: 1px solid rgba(188, 236, 255, 0.4);
+  opacity: 0;
+  animation: bubbleFloat linear infinite;
+}
+
+.bubble-1 {
+  left: 7%;
+  width: 58px;
+  height: 58px;
+  animation-duration: 14s;
+  animation-delay: -2s;
+}
+
+.bubble-2 {
+  left: 19%;
+  width: 28px;
+  height: 28px;
+  animation-duration: 11s;
+  animation-delay: -8s;
+}
+
+.bubble-3 {
+  left: 46%;
+  width: 64px;
+  height: 64px;
+  animation-duration: 16s;
+  animation-delay: -3.5s;
+}
+
+.bubble-4 {
+  left: 68%;
+  width: 36px;
+  height: 36px;
+  animation-duration: 12.5s;
+  animation-delay: -9s;
+}
+
+.bubble-5 {
+  left: 82%;
+  width: 48px;
+  height: 48px;
+  animation-duration: 15s;
+  animation-delay: -4.5s;
+}
+
+.bubble-6 {
+  left: 92%;
+  width: 22px;
+  height: 22px;
+  animation-duration: 10.5s;
+  animation-delay: -7s;
 }
 
 .game-header {
+  position: relative;
+  z-index: 1;
   width: min(1160px, 100%);
-  margin: 0 auto 0.6rem;
+  margin: 0 auto 0.38rem;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
   gap: 0.8rem;
 }
 
 .banner-shell {
   position: relative;
-  width: min(100%, 440px);
-  padding: 0.5rem 1rem 0.6rem;
+  width: min(100%, 500px);
+  padding: 0.7rem 1.25rem 0.8rem;
   border-radius: 28px;
   border: 2px solid rgba(170, 230, 255, 0.7);
   background:
-    linear-gradient(180deg, rgba(11, 70, 113, 0.8) 0%, rgba(8, 44, 79, 0.72) 100%),
+    linear-gradient(180deg, rgba(16, 83, 130, 0.82) 0%, rgba(7, 41, 75, 0.75) 100%),
     url("../assets/images/spongebob-pattern-bg.jpg") center / cover;
   box-shadow:
-    inset 0 0 0 1px rgba(255, 243, 183, 0.42),
+    inset 0 0 0 1px rgba(255, 243, 183, 0.46),
+    inset 0 11px 14px rgba(144, 219, 255, 0.18),
     0 14px 24px rgba(0, 14, 33, 0.42);
 }
 
@@ -248,23 +321,45 @@ input[type="number"] {
   border: 2px solid rgba(190, 238, 255, 0.86);
 }
 
-.title-banner {
-  width: 100%;
-  height: auto;
-  display: block;
-  filter: drop-shadow(0 9px 14px rgba(0, 9, 18, 0.34));
+.game-title {
+  margin: 0;
+  font-size: clamp(1.6rem, 5vw, 2.5rem);
+  letter-spacing: 0.07em;
+  color: #fff9df;
+  text-transform: uppercase;
+  text-shadow:
+    0 2px 0 rgba(15, 43, 64, 0.85),
+    0 0 14px rgba(248, 238, 123, 0.7),
+    0 0 24px rgba(255, 248, 192, 0.5);
+  filter: drop-shadow(0 6px 10px rgba(0, 16, 32, 0.35));
 }
 
 .info-inline {
   margin-top: 0.45rem;
 }
 
+.header-actions {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.header-actions .info-inline {
+  margin-top: 0;
+}
+
 .game-layout {
+  position: relative;
+  z-index: 1;
   width: min(1160px, 100%);
   margin: 0 auto;
   display: grid;
   grid-template-columns: minmax(0, 2fr) minmax(320px, 1fr);
-  gap: 0.95rem;
+  gap: 0.78rem;
 }
 
 .slot-panel {
@@ -272,21 +367,69 @@ input[type="number"] {
   overflow: hidden;
 }
 
+.slot-panel.win-burst::before,
+.slot-panel.jackpot-burst::before {
+  content: "";
+  position: absolute;
+  inset: -18%;
+  border-radius: 24px;
+  pointer-events: none;
+  animation: winBurstFlash 780ms ease-out;
+}
+
+.slot-panel.win-burst::before {
+  background: radial-gradient(circle at 50% 48%, rgba(160, 235, 255, 0.34), rgba(16, 77, 119, 0) 62%);
+}
+
+.slot-panel.jackpot-burst::before {
+  background: radial-gradient(circle at 50% 48%, rgba(255, 238, 132, 0.45), rgba(13, 64, 99, 0) 62%);
+  animation-duration: 1020ms;
+}
+
 .slot-panel h2 {
-  margin: 0 0 0.75rem;
+  margin: 0 0 0.58rem;
   font-size: 1.5rem;
   color: #063b5e;
   text-shadow: 0 2px 0 rgba(255, 255, 255, 0.5);
 }
 
 .slot-frame {
-  border: 2px solid #114f7d;
+  position: relative;
+  border: 3px solid #114f7d;
   border-radius: 14px;
   padding: 1rem 0.9rem;
   background:
-    linear-gradient(180deg, rgba(0, 33, 60, 0.25) 0%, rgba(0, 46, 84, 0.2) 100%),
+    linear-gradient(180deg, rgba(0, 33, 60, 0.3) 0%, rgba(0, 46, 84, 0.23) 100%),
     url("../assets/images/spongebob-slot-bg.jpg") center / cover no-repeat;
-  margin-bottom: 0.9rem;
+  margin-bottom: 0.68rem;
+  box-shadow:
+    inset 0 0 0 1px rgba(208, 243, 255, 0.38),
+    inset 0 12px 16px rgba(154, 222, 255, 0.18),
+    0 7px 18px rgba(0, 21, 42, 0.28);
+  overflow: hidden;
+}
+
+.slot-frame::before,
+.slot-frame::after {
+  content: "";
+  position: absolute;
+  left: 8px;
+  right: 8px;
+  pointer-events: none;
+}
+
+.slot-frame::before {
+  top: 6px;
+  height: 16px;
+  border-radius: 999px;
+  background: linear-gradient(180deg, rgba(238, 252, 255, 0.7) 0%, rgba(186, 231, 255, 0) 100%);
+}
+
+.slot-frame::after {
+  bottom: 4px;
+  height: 12px;
+  border-radius: 999px;
+  background: linear-gradient(180deg, rgba(10, 49, 76, 0) 0%, rgba(2, 31, 52, 0.4) 100%);
 }
 
 .reels {
@@ -297,6 +440,7 @@ input[type="number"] {
 
 .reel {
   min-height: 190px;
+  position: relative;
   border: 3px solid #0f4c78;
   background: linear-gradient(180deg, rgba(237, 249, 255, 0.96) 0%, rgba(219, 237, 249, 0.98) 100%);
   border-radius: 12px;
@@ -306,15 +450,127 @@ input[type="number"] {
   justify-content: center;
   padding: 0.45rem;
   text-align: center;
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.55),
+    inset 0 10px 14px rgba(135, 206, 238, 0.2),
+    0 6px 12px rgba(0, 31, 55, 0.2);
   transition: transform 180ms ease, box-shadow 180ms ease;
+  overflow: hidden;
+}
+
+.reel::before {
+  content: "";
+  position: absolute;
+  top: 6px;
+  left: 10px;
+  right: 10px;
+  height: 12px;
+  border-radius: 999px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.72), rgba(255, 255, 255, 0));
+  pointer-events: none;
+}
+
+.reel::after {
+  content: "";
+  position: absolute;
+  top: 12px;
+  bottom: 12px;
+  left: 5px;
+  width: 12px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0));
+  pointer-events: none;
 }
 
 .reel.spinning {
-  transform: translateY(-4px) scale(1.01);
-  box-shadow: inset 0 0 0 2px rgba(255, 255, 255, 0.58), 0 9px 18px rgba(6, 66, 104, 0.38);
+  box-shadow:
+    inset 0 0 0 2px rgba(255, 255, 255, 0.64),
+    inset 0 14px 20px rgba(142, 215, 250, 0.34),
+    0 12px 22px rgba(6, 66, 104, 0.46);
+  animation: reelSpinBob 260ms ease-in-out infinite, reelSpinGlow 520ms linear infinite;
+}
+
+.reel.spinning .symbol-image-wrap {
+  animation: symbolShimmer 240ms linear infinite;
+}
+
+.reel.spinning::before {
+  animation: reelTopFlash 340ms ease-in-out infinite;
+}
+
+.reel.spinning::after {
+  animation: reelEdgeSweep 360ms linear infinite;
+}
+
+.reel.spinning .symbol-image-wrap::after {
+  content: "";
+  position: absolute;
+  inset: -130% -35%;
+  background: repeating-linear-gradient(
+    160deg,
+    rgba(255, 255, 255, 0) 0 16px,
+    rgba(255, 255, 255, 0.56) 16px 26px,
+    rgba(127, 208, 255, 0.28) 26px 34px
+  );
+  mix-blend-mode: soft-light;
+  opacity: 0.65;
+  animation: reelStripeRun 380ms linear infinite;
+}
+
+.reel.spinning .symbol-image-wrap img {
+  animation: reelIconRoll 180ms linear infinite;
+}
+
+.reel.spinning .symbol-code,
+.reel.spinning .symbol-label {
+  animation: reelTextFlicker 210ms steps(2, end) infinite;
+}
+
+.reel.win-highlight {
+  border-color: #6cd2ff;
+  box-shadow:
+    inset 0 0 0 2px rgba(255, 255, 255, 0.72),
+    inset 0 8px 14px rgba(184, 235, 255, 0.36),
+    0 0 0 2px rgba(122, 215, 255, 0.46),
+    0 0 18px rgba(103, 201, 255, 0.52);
+  animation: winReelPulse 520ms ease-in-out 2;
+}
+
+.reel.jackpot {
+  border-color: #ffe06a;
+  box-shadow:
+    inset 0 0 0 2px rgba(255, 251, 228, 0.82),
+    inset 0 10px 16px rgba(255, 230, 141, 0.42),
+    0 0 0 2px rgba(255, 226, 122, 0.52),
+    0 0 26px rgba(255, 223, 108, 0.64);
+  animation: jackpotReelPulse 620ms ease-in-out 3;
+}
+
+.win-spark {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  margin-top: -5px;
+  margin-left: -5px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, #ffffff, #9ce2ff 70%);
+  box-shadow: 0 0 10px rgba(146, 224, 255, 0.6);
+  pointer-events: none;
+  z-index: 3;
+  animation: sparkFly var(--spark-duration, 720ms) ease-out forwards;
+}
+
+.win-spark.jackpot {
+  width: 12px;
+  height: 12px;
+  margin-top: -6px;
+  margin-left: -6px;
+  background: radial-gradient(circle at 35% 35%, #fffef0, #ffd96a 70%);
+  box-shadow: 0 0 12px rgba(255, 222, 104, 0.72);
 }
 
 .symbol-image-wrap {
+  position: relative;
   width: 90px;
   height: 90px;
   border-radius: 10px;
@@ -348,9 +604,9 @@ input[type="number"] {
 .controls {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.75rem;
+  gap: 0.62rem;
   align-items: end;
-  margin-bottom: 0.78rem;
+  margin-bottom: 0.56rem;
 }
 
 .bet-control {
@@ -367,6 +623,66 @@ input[type="number"] {
   display: grid;
   grid-template-columns: 56px 1fr 56px;
   gap: 0.45rem;
+  align-items: center;
+}
+
+.button.secondary.chip-control {
+  position: relative;
+  width: 56px;
+  min-width: 56px;
+  height: 56px;
+  padding: 0;
+  border-radius: 50%;
+  border: 2px solid #236797;
+  background:
+    radial-gradient(circle at 30% 30%, #ffffff, #d7ebf7 50%, #8fc1e4 100%);
+  font-size: 1.3rem;
+  line-height: 1;
+  color: #123e5f;
+  box-shadow:
+    inset 0 0 0 2px rgba(255, 255, 255, 0.75),
+    inset 0 -6px 10px rgba(61, 118, 158, 0.34),
+    0 5px 10px rgba(8, 46, 73, 0.3);
+  transform: translateY(0);
+}
+
+.button.secondary.chip-control::before {
+  content: "";
+  position: absolute;
+  inset: 8px;
+  border: 2px dashed rgba(34, 107, 152, 0.45);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.button.secondary.chip-control:hover:not(:disabled) {
+  filter: none;
+  transform: translateY(-1px) scale(1.03);
+}
+
+.button.secondary.chip-control:active:not(:disabled) {
+  filter: none;
+  transform: translateY(1px) scale(0.98);
+}
+
+.bet-display {
+  text-align: center;
+  font-size: 1.12rem;
+  font-weight: 800;
+  border-radius: 12px;
+  border: 2px solid #2f79ac;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.95), rgba(228, 243, 253, 0.98));
+  box-shadow: inset 0 2px 0 rgba(255, 255, 255, 0.68);
+}
+
+.bet-display::-webkit-outer-spin-button,
+.bet-display::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.bet-display[type="number"] {
+  appearance: textfield;
 }
 
 .button {
@@ -682,6 +998,180 @@ input:focus-visible,
   }
 }
 
+@keyframes bubbleFloat {
+  0% {
+    transform: translate3d(0, 0, 0) scale(0.9);
+    opacity: 0;
+  }
+  15% {
+    opacity: 0.35;
+  }
+  70% {
+    opacity: 0.25;
+  }
+  100% {
+    transform: translate3d(-30px, -115vh, 0) scale(1.2);
+    opacity: 0;
+  }
+}
+
+@keyframes reelSpinBob {
+  0% {
+    transform: translateY(-1px) scale(1);
+  }
+  50% {
+    transform: translateY(-6px) scale(1.02);
+  }
+  100% {
+    transform: translateY(-1px) scale(1);
+  }
+}
+
+@keyframes reelSpinGlow {
+  0% {
+    border-color: #0f4c78;
+  }
+  50% {
+    border-color: #46a7de;
+  }
+  100% {
+    border-color: #0f4c78;
+  }
+}
+
+@keyframes reelTopFlash {
+  0% {
+    opacity: 0.35;
+    transform: translateY(0);
+  }
+  50% {
+    opacity: 0.92;
+    transform: translateY(-2px);
+  }
+  100% {
+    opacity: 0.35;
+    transform: translateY(0);
+  }
+}
+
+@keyframes reelEdgeSweep {
+  0% {
+    opacity: 0.2;
+    transform: translateY(20%);
+  }
+  50% {
+    opacity: 0.7;
+    transform: translateY(-2%);
+  }
+  100% {
+    opacity: 0.2;
+    transform: translateY(20%);
+  }
+}
+
+@keyframes reelStripeRun {
+  0% {
+    transform: translate3d(0, 0, 0) rotate(0deg);
+  }
+  100% {
+    transform: translate3d(0, 58%, 0) rotate(0deg);
+  }
+}
+
+@keyframes symbolShimmer {
+  0% {
+    filter: blur(0px) brightness(1);
+  }
+  40% {
+    filter: blur(1px) brightness(1.05);
+  }
+  100% {
+    filter: blur(0px) brightness(1);
+  }
+}
+
+@keyframes reelIconRoll {
+  0% {
+    transform: translateY(-13%) scale(1.06);
+    filter: saturate(1.1);
+  }
+  50% {
+    transform: translateY(11%) scale(1.08);
+    filter: saturate(1.18);
+  }
+  100% {
+    transform: translateY(-13%) scale(1.06);
+    filter: saturate(1.1);
+  }
+}
+
+@keyframes reelTextFlicker {
+  0% {
+    opacity: 0.8;
+  }
+  50% {
+    opacity: 0.4;
+  }
+  100% {
+    opacity: 0.8;
+  }
+}
+
+@keyframes winBurstFlash {
+  0% {
+    opacity: 0;
+    transform: scale(0.82);
+  }
+  30% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1.05);
+  }
+}
+
+@keyframes winReelPulse {
+  0% {
+    transform: translateY(0) scale(1);
+  }
+  45% {
+    transform: translateY(-4px) scale(1.03);
+  }
+  100% {
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes jackpotReelPulse {
+  0% {
+    transform: translateY(0) scale(1);
+  }
+  35% {
+    transform: translateY(-6px) scale(1.05);
+  }
+  70% {
+    transform: translateY(-2px) scale(1.02);
+  }
+  100% {
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes sparkFly {
+  0% {
+    opacity: 0;
+    transform: translate3d(0, 0, 0) scale(0.6);
+  }
+  15% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translate3d(var(--spark-drift, 0px), -70px, 0) scale(0.1);
+  }
+}
+
 .a11y-high-contrast {
   --panel: #ffffff;
   --panel-border: #000;
@@ -701,6 +1191,35 @@ input:focus-visible,
   background: #fff;
   color: #000;
   border-color: #000;
+}
+
+.a11y-high-contrast .chip-control,
+.a11y-high-contrast .bet-display,
+.a11y-high-contrast .slot-frame,
+.a11y-high-contrast .banner-shell {
+  background: #fff;
+  color: #000;
+  border-color: #000;
+  box-shadow: none;
+}
+
+.a11y-high-contrast .game-title {
+  color: #000;
+  text-shadow: none;
+  filter: none;
+}
+
+.a11y-high-contrast .reel.win-highlight,
+.a11y-high-contrast .reel.jackpot {
+  border-color: #000;
+  box-shadow: none;
+  animation: none;
+}
+
+.a11y-high-contrast .slot-panel.win-burst::before,
+.a11y-high-contrast .slot-panel.jackpot-burst::before,
+.a11y-high-contrast .win-spark {
+  display: none;
 }
 
 .a11y-high-contrast h1,
@@ -742,7 +1261,13 @@ input:focus-visible,
   }
 
   .game-header {
+    justify-content: space-between;
     align-items: flex-start;
+  }
+
+  .header-actions {
+    position: static;
+    transform: none;
   }
 
   .banner-shell {

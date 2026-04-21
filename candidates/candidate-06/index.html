@@ -43,11 +43,22 @@
     </section>
 
     <section id="game-screen" class="screen gameplay-screen" aria-label="Slot machine gameplay">
+      <div class="ambient-bubbles" aria-hidden="true">
+        <span class="bubble bubble-1"></span>
+        <span class="bubble bubble-2"></span>
+        <span class="bubble bubble-3"></span>
+        <span class="bubble bubble-4"></span>
+        <span class="bubble bubble-5"></span>
+        <span class="bubble bubble-6"></span>
+      </div>
       <header class="game-header">
         <div class="banner-shell">
-          <img class="title-banner" src="assets/images/spongebob-banner.png" alt="Bikini Bottom Slots banner" />
+          <h1 class="game-title">Bikini Bottom Slots</h1>
         </div>
-        <button id="open-info-game" class="button secondary info-inline" type="button">Info</button>
+        <div class="header-actions">
+          <button id="back-home-game" class="button secondary" type="button">Home</button>
+          <button id="open-info-game" class="button secondary info-inline" type="button">Info</button>
+        </div>
       </header>
 
       <main class="game-layout">
@@ -78,9 +89,13 @@
             <div class="bet-control">
               <label for="bet-input">Bet</label>
               <div class="bet-row">
-                <button id="bet-decrease" class="button secondary" type="button" aria-label="Decrease bet">-</button>
-                <input id="bet-input" type="number" min="1" max="100" step="1" inputmode="numeric" />
-                <button id="bet-increase" class="button secondary" type="button" aria-label="Increase bet">+</button>
+                <button id="bet-decrease" class="button secondary chip-control" type="button" aria-label="Decrease bet">
+                  -
+                </button>
+                <input id="bet-input" class="bet-display" type="number" min="1" max="100" step="1" inputmode="numeric" />
+                <button id="bet-increase" class="button secondary chip-control" type="button" aria-label="Increase bet">
+                  +
+                </button>
               </div>
             </div>
 

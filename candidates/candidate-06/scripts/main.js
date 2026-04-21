@@ -22,6 +22,15 @@
     });
   }
 
+  function getWinningReelIndexes(spinSymbols, symbolId) {
+    return spinSymbols.reduce(function collect(matches, symbol, index) {
+      if (symbol.id === symbolId) {
+        matches.push(index);
+      }
+      return matches;
+    }, []);
+  }
+
   function buildOutcomeText(outcome, result, symbols) {
     if (outcome.kind === "triple") {
       const symbol = findSymbolById(symbols, outcome.symbolId);
@@ -163,6 +172,11 @@
       ui.setScreen("entry");
     }
 
+    function handleBackToHome() {
+      ui.setAgeMessage("", "");
+      ui.setScreen("entry");
+    }
+
     function handleVerifyAge(rawDate) {
       const parsed = parseBirthDate(rawDate);
 
@@ -197,6 +211,7 @@
       }
 
       game.setSpinning(true);
+      ui.clearWinEffects();
       syncState();
       ui.setOutcome("Spinning reels...", "");
       audio.playSpinStart();
@@ -215,6 +230,9 @@
       const stateBeforeOutcome = game.getState();
       const outcome = Payouts.evaluateSpin(symbols, stateBeforeOutcome.currentBet);
       const result = game.applyOutcome({ symbols: symbols, outcome: outcome });
+      const winningReelIndexes = outcome.isWin
+        ? getWinningReelIndexes(symbols, outcome.symbolId)
+        : [];
 
       game.setSpinning(false);
       syncState();
@@ -224,12 +242,15 @@
 
       if (outcome.kind === "triple") {
         const symbol = findSymbolById(Payouts.SYMBOLS, outcome.symbolId);
+        ui.showWinEffects(winningReelIndexes, "jackpot");
         ui.showBigWin(symbol ? symbol.label : "Major", outcome.payout);
         audio.playWin("triple");
       } else if (outcome.payout > 0) {
+        ui.showWinEffects(winningReelIndexes, "pair");
         ui.showMinorWin();
         audio.playWin("pair");
       } else {
+        ui.clearWinEffects();
         audio.playLoss();
       }
 
@@ -244,6 +265,7 @@
       handlers: {
         onPlay: handlePlay,
         onBackToEntry: handleBackToEntry,
+        onBackToHome: handleBackToHome,
         onVerifyAge: handleVerifyAge,
         onBetIncrease: handleBetIncrease,
         onBetDecrease: handleBetDecrease,

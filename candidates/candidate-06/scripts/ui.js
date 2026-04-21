@@ -9,6 +9,7 @@
 
   function createUi() {
     const elements = {};
+    let winEffectResetTimer = 0;
 
     function byId(id) {
       return global.document.getElementById(id);
@@ -32,6 +33,7 @@
       elements.infoModal = byId("info-modal");
       elements.openInfoEntry = byId("open-info-entry");
       elements.openInfoGame = byId("open-info-game");
+      elements.backHomeGame = byId("back-home-game");
       elements.closeInfoModal = byId("close-info-modal");
 
       elements.reels = [byId("reel-0"), byId("reel-1"), byId("reel-2")];
@@ -186,6 +188,62 @@
       reel.classList.toggle("spinning", !isFinal);
     }
 
+    function clearWinEffects() {
+      if (winEffectResetTimer) {
+        global.clearTimeout(winEffectResetTimer);
+        winEffectResetTimer = 0;
+      }
+
+      elements.slotPanel.classList.remove("win-burst", "jackpot-burst");
+      elements.reels.forEach(function clearReelClasses(reel) {
+        reel.classList.remove("win-highlight", "jackpot");
+      });
+
+      const sparks = elements.slotPanel.querySelectorAll(".win-spark");
+      sparks.forEach(function removeSpark(spark) {
+        spark.remove();
+      });
+    }
+
+    function spawnWinSparks(count, isJackpot) {
+      for (let index = 0; index < count; index += 1) {
+        const spark = global.document.createElement("span");
+        spark.className = isJackpot ? "win-spark jackpot" : "win-spark";
+        spark.style.left = 6 + Math.random() * 88 + "%";
+        spark.style.top = 10 + Math.random() * 68 + "%";
+        spark.style.setProperty("--spark-duration", 560 + Math.floor(Math.random() * 320) + "ms");
+        spark.style.setProperty("--spark-drift", -44 + Math.floor(Math.random() * 88) + "px");
+        elements.slotPanel.appendChild(spark);
+
+        global.setTimeout(function () {
+          spark.remove();
+        }, 1000);
+      }
+    }
+
+    function showWinEffects(reelIndexes, level) {
+      const isJackpot = level === "jackpot";
+      clearWinEffects();
+
+      reelIndexes.forEach(function markReel(index) {
+        const reel = elements.reels[index];
+        if (!reel) {
+          return;
+        }
+        reel.classList.add("win-highlight");
+        if (isJackpot) {
+          reel.classList.add("jackpot");
+        }
+      });
+
+      elements.slotPanel.classList.add(isJackpot ? "jackpot-burst" : "win-burst");
+      spawnWinSparks(isJackpot ? 18 : 10, isJackpot);
+
+      winEffectResetTimer = global.setTimeout(function () {
+        clearWinEffects();
+      }, isJackpot ? 1900 : 1200);
+    }
+
     function showMinorWin() {
       elements.slotPanel.classList.remove("minor-win");
       void elements.slotPanel.offsetWidth;
@@ -326,6 +384,9 @@
 
       elements.openInfoEntry.addEventListener("click", openInfoModal);
       elements.openInfoGame.addEventListener("click", openInfoModal);
+      elements.backHomeGame.addEventListener("click", function () {
+        handlers.onBackToHome();
+      });
       elements.closeInfoModal.addEventListener("click", closeInfoModal);
 
       elements.infoModal.addEventListener("click", function (event) {
@@ -382,6 +443,8 @@
       renderReel: renderReel,
       showMinorWin: showMinorWin,
       showBigWin: showBigWin,
+      clearWinEffects: clearWinEffects,
+      showWinEffects: showWinEffects,
       animateLeverPull: animateLeverPull,
       getAccessibilityInputs: getAccessibilityInputs
     };
