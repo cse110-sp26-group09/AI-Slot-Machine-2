@@ -1,51 +1,66 @@
 const SYMBOL_DEFINITIONS = Object.freeze([
   {
-    id: 'prompt',
-    label: 'PROMPT',
-    weight: 20,
-    description: 'Carefully engineered prompt.'
-  },
-  {
-    id: 'token',
-    label: 'TOKEN',
+    id: 'spongebob',
+    label: 'SpongeBob',
     weight: 18,
-    description: 'The universal unit of AI spend.'
+    description: 'Bikini Bottom legend.',
+    iconPath: 'assets/icons/Spongebob.png'
   },
   {
-    id: 'credit',
-    label: 'CREDIT',
+    id: 'patrick',
+    label: 'Patrick',
     weight: 16,
-    description: 'Cloud credits that disappear fast.'
+    description: 'Best-friend bonus energy.',
+    iconPath: 'assets/icons/Patrick.png'
   },
   {
-    id: 'model',
-    label: 'MODEL',
-    weight: 14,
-    description: 'New model release energy.'
+    id: 'squidward',
+    label: 'Squidward',
+    weight: 13,
+    description: 'Clarinet-level composure.',
+    iconPath: 'assets/icons/Squidward_Tentacles.png'
   },
   {
-    id: 'cache',
-    label: 'CACHE',
+    id: 'sandy',
+    label: 'Sandy',
     weight: 12,
-    description: 'Cache hit. Latency drops.'
+    description: 'Science and karate boost.',
+    iconPath: 'assets/icons/Sandy.png'
   },
   {
-    id: 'gpu',
-    label: 'GPU',
+    id: 'mrcrabs',
+    label: 'Mr. Krabs',
+    weight: 11,
+    description: 'Money-minded momentum.',
+    iconPath: 'assets/icons/Mr.Crabs.png'
+  },
+  {
+    id: 'gary',
+    label: 'Gary',
     weight: 10,
-    description: 'A very expensive accelerant.'
+    description: 'Steady snail luck.',
+    iconPath: 'assets/icons/Gary.png'
   },
   {
-    id: 'latency',
-    label: 'LATENCY',
+    id: 'pearl',
+    label: 'Pearl',
+    weight: 9,
+    description: 'High-energy combo chance.',
+    iconPath: 'assets/icons/Pearl.png'
+  },
+  {
+    id: 'mrspuff',
+    label: 'Mrs. Puff',
     weight: 8,
-    description: 'Waiting on inference.'
+    description: 'Driving-school volatility.',
+    iconPath: 'assets/icons/Mrs.Puff.png'
   },
   {
-    id: 'wild',
-    label: 'WILD',
-    weight: 2,
-    description: 'Acts as any symbol for payouts.'
+    id: 'plankton',
+    label: 'Plankton WILD',
+    weight: 3,
+    description: 'Wildcard symbol for combo substitution.',
+    iconPath: 'assets/icons/Plankton.png'
   }
 ]);
 
@@ -54,7 +69,7 @@ const TOTAL_WEIGHT = SYMBOL_DEFINITIONS.reduce((sum, symbol) => sum + symbol.wei
 
 /**
  * Returns readonly reel symbol metadata.
- * @returns {Array<{id:string,label:string,weight:number,description:string}>}
+ * @returns {Array<{id:string,label:string,weight:number,description:string,iconPath:string}>}
  */
 export function getAllSymbols() {
   return SYMBOL_DEFINITIONS.slice();
@@ -63,7 +78,7 @@ export function getAllSymbols() {
 /**
  * Returns metadata for a single symbol.
  * @param {string} symbolId
- * @returns {{id:string,label:string,weight:number,description:string}|undefined}
+ * @returns {{id:string,label:string,weight:number,description:string,iconPath:string}|undefined}
  */
 export function getSymbolById(symbolId) {
   return SYMBOL_MAP.get(symbolId);

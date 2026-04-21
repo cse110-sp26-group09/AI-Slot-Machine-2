@@ -24,3 +24,31 @@ no
 N/A
 - **What We Learned:**
 AI can make a decent basic model
+
+- **Date:**
+4/21
+- **Team Member(s):**
+Hieu Le
+- **Phase:**
+Refinement
+- **Goal:**
+Testing out spongebob prompt
+- **Prompt / Request to AI:**
+Spongebob Prompt
+- **Why We Used AI Here:**
+To test out the capability of AI
+- **AI Output Summary:**
+A spongebob themed slot machine
+- **Result:**
+Success
+- **Issues / Observations:**
+Has a large gap underneath the game
+Was stuck on the payout screen
+- **Decision Made:**
+Re-prompt to fix the issue
+- **Manual Edit Needed?:** 
+Yes
+- **If Yes, Why?:**
+To fix the bug frozen on the payout screen
+- **What We Learned:**
+AI is capable of creating a generic slot machine but also fixated towards a theme!

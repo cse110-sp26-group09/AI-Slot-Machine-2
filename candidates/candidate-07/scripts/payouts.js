@@ -1,20 +1,25 @@
 import { getAllSymbols, getSymbolById, getSymbolProbabilities } from './reels.js';
 
+const WILD_SYMBOL_ID = 'plankton';
+
 const TRIPLE_PAYOUTS = Object.freeze({
-  wild: 20,
-  model: 12,
-  token: 10,
-  prompt: 8,
-  credit: 6,
-  cache: 5,
-  gpu: 4,
-  latency: 3
+  [WILD_SYMBOL_ID]: 20,
+  spongebob: 14,
+  patrick: 12,
+  mrcrabs: 10,
+  squidward: 9,
+  sandy: 8,
+  gary: 7,
+  pearl: 6,
+  mrspuff: 5
 });
 
 const PAIR_PAYOUTS = Object.freeze({
-  model: 2,
-  token: 1,
-  prompt: 1
+  spongebob: 2,
+  patrick: 2,
+  mrcrabs: 2,
+  squidward: 1,
+  sandy: 1
 });
 
 const SORTED_TRIPLE_SYMBOLS = Object.entries(TRIPLE_PAYOUTS)
@@ -30,7 +35,7 @@ const SORTED_PAIR_SYMBOLS = Object.entries(PAIR_PAYOUTS)
  * @returns {boolean}
  */
 function isAllWild(reels) {
-  return reels.every((symbolId) => symbolId === 'wild');
+  return reels.every((symbolId) => symbolId === WILD_SYMBOL_ID);
 }
 
 /**
@@ -40,9 +45,17 @@ function isAllWild(reels) {
  */
 function countMatchingOrWild(reels, targetId) {
   return reels.reduce(
-    (count, symbolId) => count + Number(symbolId === targetId || symbolId === 'wild'),
+    (count, symbolId) => count + Number(symbolId === targetId || symbolId === WILD_SYMBOL_ID),
     0
   );
+}
+
+/**
+ * @param {string[]} reels
+ * @returns {boolean}
+ */
+function isExactThreeOfAKind(reels) {
+  return reels.length === 3 && reels.every((symbolId) => symbolId === reels[0]);
 }
 
 /**
@@ -52,14 +65,14 @@ function countMatchingOrWild(reels, targetId) {
 function findBestRule(reels) {
   if (isAllWild(reels)) {
     return {
-      symbolId: 'wild',
-      multiplier: TRIPLE_PAYOUTS.wild,
+      symbolId: WILD_SYMBOL_ID,
+      multiplier: TRIPLE_PAYOUTS[WILD_SYMBOL_ID],
       kind: 'triple'
     };
   }
 
   for (const symbolId of SORTED_TRIPLE_SYMBOLS) {
-    if (symbolId === 'wild') {
+    if (symbolId === WILD_SYMBOL_ID) {
       continue;
     }
 
@@ -114,13 +127,14 @@ export function evaluateSpin(reels, bet) {
   const payout = safeBet * matchRule.multiplier;
   const symbolLabel = getSymbolById(matchRule.symbolId)?.label ?? matchRule.symbolId.toUpperCase();
   const result = payout > safeBet ? 'win' : payout === safeBet ? 'push' : 'loss';
+  const isJackpot = matchRule.kind === 'triple' && isExactThreeOfAKind(reels);
 
   if (matchRule.kind === 'triple') {
     return {
       payout,
       multiplier: matchRule.multiplier,
       result,
-      isJackpot: matchRule.symbolId === 'wild',
+      isJackpot,
       ruleLabel: `3 ${symbolLabel} = ${matchRule.multiplier}x bet`
     };
   }
@@ -130,7 +144,7 @@ export function evaluateSpin(reels, bet) {
     multiplier: matchRule.multiplier,
     result,
     isJackpot: false,
-    ruleLabel: `2 ${symbolLabel} (or WILD) = ${matchRule.multiplier}x bet`
+    ruleLabel: `2 ${symbolLabel} (Plankton WILD substitutes) = ${matchRule.multiplier}x bet`
   };
 }
 
@@ -141,13 +155,13 @@ export function evaluateSpin(reels, bet) {
 export function getPaytableRows() {
   const rows = [
     {
-      combination: '3 WILD',
-      payout: `${TRIPLE_PAYOUTS.wild}x`
+      combination: '3 Plankton WILD',
+      payout: `${TRIPLE_PAYOUTS[WILD_SYMBOL_ID]}x`
     }
   ];
 
   for (const symbolId of SORTED_TRIPLE_SYMBOLS) {
-    if (symbolId === 'wild') {
+    if (symbolId === WILD_SYMBOL_ID) {
       continue;
     }
 

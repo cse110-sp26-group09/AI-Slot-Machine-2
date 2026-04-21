@@ -1,8 +1,40 @@
+const AUDIO_FILES = Object.freeze({
+  bgm: 'assets/audio/spongebob-bgm.mp3',
+  welcome: 'assets/audio/spongebob-welcome.mp3',
+  spin: 'assets/audio/spongebob-spin.mp3',
+  bigwin: 'assets/audio/spongebob-bigwin.mp3',
+  win: 'assets/audio/spongebob-win.mp3',
+  loss: 'assets/audio/spongebob-loss.mp3'
+});
+
 export class AudioController {
   constructor() {
     this.enabled = true;
-    this.volume = 0.3;
-    this.audioContext = null;
+    this.volume = 0.4;
+    this.musicStarted = false;
+
+    this.tracks = {
+      bgm: this.createAudio(AUDIO_FILES.bgm, { loop: true }),
+      welcome: this.createAudio(AUDIO_FILES.welcome),
+      spin: this.createAudio(AUDIO_FILES.spin),
+      bigwin: this.createAudio(AUDIO_FILES.bigwin),
+      win: this.createAudio(AUDIO_FILES.win),
+      loss: this.createAudio(AUDIO_FILES.loss)
+    };
+
+    this.applyVolume();
+  }
+
+  /**
+   * @param {string} src
+   * @param {{loop?:boolean}} options
+   * @returns {HTMLAudioElement}
+   */
+  createAudio(src, options = {}) {
+    const audio = new Audio(src);
+    audio.preload = 'auto';
+    audio.loop = Boolean(options.loop);
+    return audio;
   }
 
   /**
@@ -10,6 +42,12 @@ export class AudioController {
    */
   setEnabled(enabled) {
     this.enabled = Boolean(enabled);
+    if (!this.enabled) {
+      this.tracks.bgm.pause();
+      return;
+    }
+
+    this.startBackgroundMusic();
   }
 
   /**
@@ -21,70 +59,86 @@ export class AudioController {
     }
 
     this.volume = Math.max(0, Math.min(1, volume));
-  }
-
-  ensureContext() {
-    if (this.audioContext) {
-      return this.audioContext;
-    }
-
-    const AudioContextClass = window.AudioContext || window.webkitAudioContext;
-    if (!AudioContextClass) {
-      return null;
-    }
-
-    this.audioContext = new AudioContextClass();
-    return this.audioContext;
+    this.applyVolume();
   }
 
   /**
-   * @param {number} frequency
-   * @param {number} startOffset
-   * @param {number} duration
-   * @param {'sine'|'square'|'triangle'|'sawtooth'} waveType
-   * @param {number} volumeFactor
+   * @returns {boolean}
    */
-  playTone(frequency, startOffset, duration, waveType = 'sine', volumeFactor = 1) {
+  isEnabled() {
+    return this.enabled;
+  }
+
+  /**
+   * @returns {number}
+   */
+  getVolume() {
+    return this.volume;
+  }
+
+  applyVolume() {
+    this.tracks.bgm.volume = this.volume * 0.55;
+    this.tracks.welcome.volume = this.volume;
+    this.tracks.spin.volume = this.volume * 0.85;
+    this.tracks.bigwin.volume = this.volume;
+    this.tracks.win.volume = this.volume * 0.95;
+    this.tracks.loss.volume = this.volume * 0.88;
+  }
+
+  async startBackgroundMusic() {
     if (!this.enabled) {
       return;
     }
 
-    const ctx = this.ensureContext();
-    if (!ctx) {
+    this.musicStarted = true;
+    try {
+      await this.tracks.bgm.play();
+    } catch {
+      // Browsers may block autoplay before user interaction.
+    }
+  }
+
+  /**
+   * Unlocks browser audio policies after a user gesture and starts BGM.
+   */
+  activateFromGesture() {
+    if (!this.musicStarted) {
+      this.startBackgroundMusic();
       return;
     }
 
-    if (ctx.state === 'suspended') {
-      ctx.resume().catch(() => {
-        // Ignore resume errors caused by browser autoplay policies.
-      });
+    if (this.enabled && this.tracks.bgm.paused) {
+      this.startBackgroundMusic();
+    }
+  }
+
+  /**
+   * @param {HTMLAudioElement} track
+   */
+  playTrack(track) {
+    if (!this.enabled || !track) {
+      return;
     }
 
-    const oscillator = ctx.createOscillator();
-    const gainNode = ctx.createGain();
+    try {
+      track.currentTime = 0;
+      const playPromise = track.play();
+      if (playPromise && typeof playPromise.catch === 'function') {
+        playPromise.catch(() => {
+          // Ignore blocked play calls.
+        });
+      }
+    } catch {
+      // Ignore playback exceptions.
+    }
+  }
 
-    oscillator.type = waveType;
-    oscillator.frequency.setValueAtTime(frequency, ctx.currentTime + startOffset);
-
-    const startTime = ctx.currentTime + startOffset;
-    const endTime = startTime + duration;
-    const finalVolume = this.volume * volumeFactor;
-
-    gainNode.gain.setValueAtTime(0, startTime);
-    gainNode.gain.linearRampToValueAtTime(finalVolume, startTime + 0.01);
-    gainNode.gain.exponentialRampToValueAtTime(0.0001, endTime);
-
-    oscillator.connect(gainNode);
-    gainNode.connect(ctx.destination);
-
-    oscillator.start(startTime);
-    oscillator.stop(endTime);
+  playWelcome() {
+    this.playTrack(this.tracks.welcome);
   }
 
   playSpin() {
-    this.playTone(420, 0, 0.05, 'square', 0.6);
-    this.playTone(500, 0.06, 0.05, 'square', 0.5);
-    this.playTone(580, 0.12, 0.05, 'square', 0.45);
+    this.playTrack(this.tracks.spin);
   }
 
   /**
@@ -96,26 +150,15 @@ export class AudioController {
     }
 
     if (outcome.isJackpot) {
-      this.playTone(523, 0, 0.16, 'triangle', 0.9);
-      this.playTone(659, 0.18, 0.16, 'triangle', 0.9);
-      this.playTone(784, 0.36, 0.24, 'triangle', 0.95);
+      this.playTrack(this.tracks.bigwin);
       return;
     }
 
-    if (outcome.result === 'win') {
-      this.playTone(440, 0, 0.11, 'triangle', 0.7);
-      this.playTone(554, 0.12, 0.11, 'triangle', 0.7);
-      this.playTone(659, 0.24, 0.16, 'triangle', 0.75);
+    if (outcome.result === 'loss') {
+      this.playTrack(this.tracks.loss);
       return;
     }
 
-    if (outcome.result === 'push') {
-      this.playTone(430, 0, 0.12, 'sine', 0.45);
-      this.playTone(470, 0.13, 0.12, 'sine', 0.45);
-      return;
-    }
-
-    this.playTone(240, 0, 0.1, 'sawtooth', 0.4);
-    this.playTone(190, 0.11, 0.12, 'sawtooth', 0.35);
+    this.playTrack(this.tracks.win);
   }
 }

@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initialBalance: 200,
     initialBet: 5,
     minBet: 1,
-    maxBet: 25
+    maxBet: 100
   });
 
   const audio = new AudioController();
