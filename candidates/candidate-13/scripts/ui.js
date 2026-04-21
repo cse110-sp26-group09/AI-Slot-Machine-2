@@ -1,23 +1,60 @@
 /**
- * @fileoverview Client-side slot machine module.
- * @typedef {Record<string, unknown>} JsonRecord
- * @typedef {(event: Event) => void} EventHandler
+ * @fileoverview DOM rendering and UI effects.
  */
 
-import { REEL_SYMBOLS } from "./reels.js";
+import { REEL_SYMBOLS, SYMBOL_META } from "./reels.js";
 
 function toneClass(prefix, tone) {
   return `${prefix}-${tone}`;
 }
 
+function renderReelSymbol(reelElement, symbol) {
+  const meta = SYMBOL_META[symbol] || { label: symbol, icon: "" };
+  reelElement.replaceChildren();
+
+  if (meta.icon) {
+    const image = document.createElement("img");
+    image.src = meta.icon;
+    image.alt = meta.label;
+    image.className = "reel-symbol-img";
+    reelElement.appendChild(image);
+  } else {
+    const fallback = document.createElement("span");
+    fallback.textContent = meta.label;
+    reelElement.appendChild(fallback);
+  }
+
+  reelElement.setAttribute("aria-label", meta.label);
+  reelElement.dataset.symbol = symbol;
+}
+
 export function getUIRefs() {
   return {
+    entryScreen: document.getElementById("entryScreen"),
+    ageGateScreen: document.getElementById("ageGateScreen"),
+    gameScreen: document.getElementById("gameScreen"),
+    playButton: document.getElementById("playButton"),
+    backToEntry: document.getElementById("backToEntry"),
+    ageGateForm: document.getElementById("ageGateForm"),
+    dobInput: document.getElementById("dobInput"),
+    ageGateMessage: document.getElementById("ageGateMessage"),
+    openInfoButton: document.getElementById("openInfoButton"),
+    openInfoInGame: document.getElementById("openInfoInGame"),
+    closeInfoButton: document.getElementById("closeInfoButton"),
+    closeInfoBackdrop: document.getElementById("closeInfoBackdrop"),
+    infoModal: document.getElementById("infoModal"),
+    infoPaytableBody: document.getElementById("infoPaytableBody"),
+    bigWinOverlay: document.getElementById("bigWinOverlay"),
+    bigWinText: document.getElementById("bigWinText"),
+    bigWinParticles: document.getElementById("bigWinParticles"),
+    slotMachineShell: document.querySelector(".slot-machine-shell"),
     balanceValue: document.getElementById("balanceValue"),
     betValue: document.getElementById("betValue"),
     betInput: document.getElementById("betInput"),
     betDown: document.getElementById("betDown"),
     betUp: document.getElementById("betUp"),
     spinButton: document.getElementById("spinButton"),
+    leverSpin: document.getElementById("leverSpin"),
     reels: [
       document.getElementById("reel0"),
       document.getElementById("reel1"),
@@ -38,6 +75,9 @@ export function getUIRefs() {
     accessibilityMode: document.getElementById("accessibilityMode"),
     reducedMotionToggle: document.getElementById("reducedMotionToggle"),
     soundToggle: document.getElementById("soundToggle"),
+    entrySoundToggle: document.getElementById("entrySoundToggle"),
+    volumeControl: document.getElementById("volumeControl"),
+    entryVolumeControl: document.getElementById("entryVolumeControl"),
     lossLimitInput: document.getElementById("lossLimitInput"),
     applyLossLimit: document.getElementById("applyLossLimit"),
     resetSession: document.getElementById("resetSession"),
@@ -45,22 +85,37 @@ export function getUIRefs() {
   };
 }
 
+export function showScreen(refs, screenName) {
+  refs.entryScreen.classList.toggle("is-active", screenName === "entry");
+  refs.ageGateScreen.classList.toggle("is-active", screenName === "age");
+  refs.gameScreen.classList.toggle("is-active", screenName === "game");
+}
+
+export function setModalOpen(refs, isOpen) {
+  refs.infoModal.hidden = !isOpen;
+}
+
 export function renderPaytable(refs, rows) {
-  refs.paytableBody.innerHTML = "";
-  rows.forEach((row) => {
-    const tr = document.createElement("tr");
+  [refs.paytableBody, refs.infoPaytableBody].forEach((tbody) => {
+    if (!tbody) {
+      return;
+    }
+    tbody.innerHTML = "";
+    rows.forEach((row) => {
+      const tr = document.createElement("tr");
 
-    const match = document.createElement("td");
-    match.textContent = row.match;
+      const match = document.createElement("td");
+      match.textContent = row.match;
 
-    const payout = document.createElement("td");
-    payout.textContent = row.payout;
+      const payout = document.createElement("td");
+      payout.textContent = row.payout;
 
-    const notes = document.createElement("td");
-    notes.textContent = row.notes;
+      const notes = document.createElement("td");
+      notes.textContent = row.notes;
 
-    tr.append(match, payout, notes);
-    refs.paytableBody.appendChild(tr);
+      tr.append(match, payout, notes);
+      tbody.appendChild(tr);
+    });
   });
 }
 
@@ -83,9 +138,14 @@ export function renderSummary(refs, state, summary) {
 }
 
 export function syncControls(refs, state) {
+  const volume = Math.round(state.settings.volume * 100);
+
   refs.betInput.value = String(state.bet);
   refs.lossLimitInput.value = String(state.lossLimit);
   refs.soundToggle.checked = state.settings.soundEnabled;
+  refs.entrySoundToggle.checked = state.settings.soundEnabled;
+  refs.volumeControl.value = String(volume);
+  refs.entryVolumeControl.value = String(volume);
   refs.accessibilityMode.checked =
     state.settings.highContrast && state.settings.largePrint;
   refs.reducedMotionToggle.checked = state.settings.reducedMotion;
@@ -93,11 +153,12 @@ export function syncControls(refs, state) {
 
 export function setSpinEnabled(refs, enabled) {
   refs.spinButton.disabled = !enabled;
+  refs.leverSpin.disabled = !enabled;
 }
 
 export function setReelSymbols(refs, symbols) {
   refs.reels.forEach((reel, index) => {
-    reel.textContent = symbols[index];
+    renderReelSymbol(reel, symbols[index]);
   });
 }
 
@@ -121,9 +182,47 @@ export function setRtp(refs, rtp) {
   refs.rtpValue.textContent = `${rtp.toFixed(1)}%`;
 }
 
+export function pulseMachine(refs) {
+  refs.slotMachineShell.classList.remove("machine-pulse");
+  void refs.slotMachineShell.offsetWidth;
+  refs.slotMachineShell.classList.add("machine-pulse");
+}
+
+export function animateLever(refs) {
+  refs.leverSpin.classList.remove("is-pulled");
+  void refs.leverSpin.offsetWidth;
+  refs.leverSpin.classList.add("is-pulled");
+
+  setTimeout(() => {
+    refs.leverSpin.classList.remove("is-pulled");
+  }, 260);
+}
+
+export function showBigWinOverlay(refs, text, options = {}) {
+  refs.bigWinText.textContent = text;
+  refs.bigWinOverlay.hidden = false;
+
+  if (options.reducedMotion) {
+    return;
+  }
+
+  refs.bigWinParticles.replaceChildren();
+  for (let i = 0; i < 22; i += 1) {
+    const particle = document.createElement("span");
+    particle.className = "win-particle";
+    particle.style.left = `${Math.random() * 100}%`;
+    particle.style.animationDelay = `${Math.random() * 0.6}s`;
+    refs.bigWinParticles.appendChild(particle);
+  }
+}
+
+export function hideBigWinOverlay(refs) {
+  refs.bigWinOverlay.hidden = true;
+  refs.bigWinParticles.replaceChildren();
+}
+
 export async function animateReels(refs, finalSymbols, options = {}) {
   const reducedMotion = Boolean(options.reducedMotion);
-  const onTick = typeof options.onTick === "function" ? options.onTick : null;
 
   if (reducedMotion) {
     setReelSymbols(refs, finalSymbols);
@@ -131,28 +230,27 @@ export async function animateReels(refs, finalSymbols, options = {}) {
     return;
   }
 
-  const durations = [760, 1060, 1360];
+  const durations = [760, 1080, 1380];
   await Promise.all(
     refs.reels.map((reel, index) =>
-      animateSingleReel(reel, finalSymbols[index], durations[index], onTick)
+      animateSingleReel(reel, finalSymbols[index], durations[index])
     )
   );
 }
 
-function animateSingleReel(reelElement, finalSymbol, duration, onTick) {
+function animateSingleReel(reelElement, finalSymbol, duration) {
   return new Promise((resolve) => {
-    const intervalMs = 90;
+    const intervalMs = 88;
     let elapsed = 0;
+
     const timer = setInterval(() => {
       elapsed += intervalMs;
       const randomIndex = Math.floor(Math.random() * REEL_SYMBOLS.length);
-      reelElement.textContent = REEL_SYMBOLS[randomIndex];
-      if (onTick) {
-        onTick();
-      }
+      renderReelSymbol(reelElement, REEL_SYMBOLS[randomIndex]);
+
       if (elapsed >= duration) {
         clearInterval(timer);
-        reelElement.textContent = finalSymbol;
+        renderReelSymbol(reelElement, finalSymbol);
         resolve();
       }
     }, intervalMs);

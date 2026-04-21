@@ -12,6 +12,7 @@ export const BET_CONFIG = Object.freeze({
 
 const DEFAULT_SETTINGS = Object.freeze({
   soundEnabled: true,
+  volume: 0.55,
   highContrast: false,
   largePrint: false,
   reducedMotion: false
@@ -80,6 +81,13 @@ export function createInitialState(savedState = {}) {
   merged.lossLimit = Math.max(0, Math.floor(Number(merged.lossLimit) || 0));
   merged.isPaused = Boolean(merged.isPaused);
   merged.isSpinning = false;
+  merged.settings.volume = Math.max(
+    0,
+    Math.min(1, Number(merged.settings.volume))
+  );
+  if (!Number.isFinite(merged.settings.volume)) {
+    merged.settings.volume = DEFAULT_SETTINGS.volume;
+  }
 
   if (!merged.pauseReason) {
     merged.pauseReason = "";
