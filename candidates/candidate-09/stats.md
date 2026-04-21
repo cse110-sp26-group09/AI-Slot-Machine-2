@@ -7,7 +7,7 @@
 
 - **Prompt / Request to AI:**  
   Paste the exact prompt or summarize it clearly.
-  Promt 3
+  Prompt 3
 
 - **Why We Used AI Here:**  
   Why was AI helpful for this step?
