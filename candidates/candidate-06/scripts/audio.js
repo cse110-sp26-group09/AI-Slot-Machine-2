@@ -10,93 +10,100 @@
   function createAudioController() {
     let enabled = true;
     let volume = 0.45;
-    let context = null;
-    let masterGain = null;
 
-    function ensureContext() {
-      if (context) {
-        return;
-      }
+    const bgm = new global.Audio("assets/audio/spongebob-bgm.mp3");
+    bgm.loop = true;
+    bgm.preload = "auto";
 
-      const AudioCtx = global.AudioContext || global.webkitAudioContext;
-      if (!AudioCtx) {
-        enabled = false;
-        return;
-      }
+    const sources = {
+      welcome: "assets/audio/spongebob-welcome.mp3",
+      spin: "assets/audio/spongebob-spin.mp3",
+      bigWin: "assets/audio/spongebob-bigwin.mp3",
+      win: "assets/audio/spongebob-win.mp3",
+      loss: "assets/audio/spongebob-loss.mp3"
+    };
 
-      context = new AudioCtx();
-      masterGain = context.createGain();
-      masterGain.gain.value = volume;
-      masterGain.connect(context.destination);
+    function applyVolume() {
+      bgm.volume = Math.max(0, Math.min(1, volume * 0.45));
     }
 
-    function playTone(frequency, durationMs, gainValue, type, delaySec) {
+    function playOneShot(path, gainScale) {
       if (!enabled) {
         return;
       }
 
-      ensureContext();
-      if (!context || !masterGain) {
+      try {
+        const clip = new global.Audio(path);
+        clip.volume = Math.max(0, Math.min(1, volume * gainScale));
+        clip.play().catch(function () {
+          // Playback can fail if browser interaction requirements are not yet met.
+        });
+      } catch (error) {
+        // Continue without hard-failing if an audio file is not available.
+      }
+    }
+
+    function startBackgroundMusic() {
+      if (!enabled) {
         return;
       }
 
-      if (context.state === "suspended") {
-        context.resume();
-      }
+      applyVolume();
+      bgm.play().catch(function () {
+        // Browser may block autoplay until a user gesture.
+      });
+    }
 
-      const oscillator = context.createOscillator();
-      const gainNode = context.createGain();
-      const startAt = context.currentTime + (delaySec || 0);
-      const durationSec = durationMs / 1000;
-
-      oscillator.type = type || "sine";
-      oscillator.frequency.setValueAtTime(frequency, startAt);
-
-      gainNode.gain.setValueAtTime(0.0001, startAt);
-      gainNode.gain.linearRampToValueAtTime(gainValue, startAt + 0.01);
-      gainNode.gain.exponentialRampToValueAtTime(0.0001, startAt + durationSec);
-
-      oscillator.connect(gainNode);
-      gainNode.connect(masterGain);
-      oscillator.start(startAt);
-      oscillator.stop(startAt + durationSec + 0.02);
+    function stopBackgroundMusic() {
+      bgm.pause();
     }
 
     function setEnabled(isEnabled) {
       enabled = Boolean(isEnabled);
+      if (enabled) {
+        startBackgroundMusic();
+      } else {
+        stopBackgroundMusic();
+      }
     }
 
     function setVolume(rawVolume) {
       volume = Math.max(0, Math.min(1, rawVolume));
-      if (masterGain) {
-        masterGain.gain.value = volume;
-      }
+      applyVolume();
+    }
+
+    function playWelcome() {
+      playOneShot(sources.welcome, 0.9);
     }
 
     function playSpinStart() {
-      playTone(210, 120, 0.13, "triangle", 0);
-      playTone(260, 120, 0.1, "triangle", 0.07);
+      playOneShot(sources.spin, 0.72);
     }
 
-    function playReelStop(reelIndex) {
-      const base = 310 + reelIndex * 38;
-      playTone(base, 70, 0.12, "square", 0);
+    function playReelStop() {
+      // Reel-stop clicks are intentionally omitted to keep the mix clean with themed spin SFX.
     }
 
-    function playWin(amount) {
-      const boost = Math.min(180, amount * 3);
-      playTone(420 + boost * 0.2, 130, 0.15, "triangle", 0);
-      playTone(540 + boost * 0.25, 150, 0.13, "triangle", 0.08);
-      playTone(680 + boost * 0.3, 200, 0.12, "triangle", 0.16);
+    function playWin(kind) {
+      if (kind === "triple") {
+        playOneShot(sources.bigWin, 0.95);
+        return;
+      }
+
+      playOneShot(sources.win, 0.85);
     }
 
     function playLoss() {
-      playTone(165, 160, 0.09, "sawtooth", 0);
+      playOneShot(sources.loss, 0.85);
     }
+
+    applyVolume();
 
     return {
       setEnabled: setEnabled,
       setVolume: setVolume,
+      startBackgroundMusic: startBackgroundMusic,
+      playWelcome: playWelcome,
       playSpinStart: playSpinStart,
       playReelStop: playReelStop,
       playWin: playWin,

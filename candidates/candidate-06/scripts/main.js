@@ -5,16 +5,30 @@
  */
 
 (function bootApp(global) {
+  const AGE_GATE_MAX_BIRTHDATE = {
+    year: 2005,
+    month: 4,
+    day: 22
+  };
+
   function formatSigned(value) {
     const sign = value > 0 ? "+" : "";
     return sign + value.toFixed(2);
   }
 
-  function buildOutcomeText(outcome, result) {
+  function findSymbolById(symbols, id) {
+    return symbols.find(function (symbol) {
+      return symbol.id === id;
+    });
+  }
+
+  function buildOutcomeText(outcome, result, symbols) {
     if (outcome.kind === "triple") {
+      const symbol = findSymbolById(symbols, outcome.symbolId);
+      const symbolName = symbol ? symbol.label : outcome.symbolId.toUpperCase();
       return (
         "Triple " +
-        outcome.symbolId.toUpperCase() +
+        symbolName +
         "! Payout " +
         outcome.payout.toFixed(2) +
         " (net " +
@@ -24,9 +38,11 @@
     }
 
     if (outcome.kind === "pair") {
+      const pairSymbol = findSymbolById(symbols, outcome.symbolId);
+      const pairName = pairSymbol ? pairSymbol.label : outcome.symbolId.toUpperCase();
       return (
         "Pair " +
-        outcome.symbolId.toUpperCase() +
+        pairName +
         ": payout " +
         outcome.payout.toFixed(2) +
         " (net " +
@@ -36,6 +52,49 @@
     }
 
     return "No match this spin (net " + formatSigned(result.netChange) + ").";
+  }
+
+  function parseBirthDate(rawValue) {
+    const trimmed = String(rawValue || "").trim();
+    const match = /^(\d{2})\/(\d{2})\/(\d{4})$/.exec(trimmed);
+
+    if (!match) {
+      return { ok: false, reason: "Use MM/DD/YYYY format (example: 04/22/2005)." };
+    }
+
+    const month = Number(match[1]);
+    const day = Number(match[2]);
+    const year = Number(match[3]);
+
+    if (month < 1 || month > 12) {
+      return { ok: false, reason: "Month must be between 01 and 12." };
+    }
+
+    const maxDays = new Date(year, month, 0).getDate();
+    if (day < 1 || day > maxDays) {
+      return { ok: false, reason: "Enter a valid calendar date." };
+    }
+
+    return {
+      ok: true,
+      value: {
+        year: year,
+        month: month,
+        day: day
+      }
+    };
+  }
+
+  function isAtMost(dateValue, upperBound) {
+    if (dateValue.year !== upperBound.year) {
+      return dateValue.year < upperBound.year;
+    }
+
+    if (dateValue.month !== upperBound.month) {
+      return dateValue.month < upperBound.month;
+    }
+
+    return dateValue.day <= upperBound.day;
   }
 
   global.document.addEventListener("DOMContentLoaded", function () {
@@ -93,11 +152,48 @@
       ui.setOutcome("New session started with your selected limits.", "");
     }
 
-    async function handleSpin() {
+    function handlePlay() {
+      audio.startBackgroundMusic();
+      ui.setAgeMessage("", "");
+      ui.setScreen("age");
+    }
+
+    function handleBackToEntry() {
+      ui.setAgeMessage("", "");
+      ui.setScreen("entry");
+    }
+
+    function handleVerifyAge(rawDate) {
+      const parsed = parseBirthDate(rawDate);
+
+      if (!parsed.ok) {
+        ui.setAgeMessage(parsed.reason, "negative");
+        return;
+      }
+
+      const isOldEnough = isAtMost(parsed.value, AGE_GATE_MAX_BIRTHDATE);
+      if (!isOldEnough) {
+        ui.setAgeMessage(
+          "Access denied. This experience is only available to users 21+. Valid dates must be on or before 04/22/2005.",
+          "negative"
+        );
+        return;
+      }
+
+      ui.setAgeMessage("Age verified. Entering the game...", "positive");
+      ui.setScreen("game");
+      audio.playWelcome();
+    }
+
+    async function handleSpin(source) {
       const canSpin = game.getCanSpin();
       if (!canSpin.ok) {
         ui.setOutcome(canSpin.reason, "negative");
         return;
+      }
+
+      if (source === "lever") {
+        ui.animateLeverPull();
       }
 
       game.setSpinning(true);
@@ -124,16 +220,21 @@
       syncState();
 
       const tone = result.netChange > 0 ? "positive" : "negative";
-      ui.setOutcome(buildOutcomeText(outcome, result), tone);
+      ui.setOutcome(buildOutcomeText(outcome, result, Payouts.SYMBOLS), tone);
 
-      if (outcome.payout > 0) {
-        audio.playWin(outcome.payout);
+      if (outcome.kind === "triple") {
+        const symbol = findSymbolById(Payouts.SYMBOLS, outcome.symbolId);
+        ui.showBigWin(symbol ? symbol.label : "Major", outcome.payout);
+        audio.playWin("triple");
+      } else if (outcome.payout > 0) {
+        ui.showMinorWin();
+        audio.playWin("pair");
       } else {
         audio.playLoss();
       }
 
       if (result.isPaused) {
-        ui.setOutcome(result.pauseReason + " " + buildOutcomeText(outcome, result), "negative");
+        ui.setOutcome(result.pauseReason + " " + buildOutcomeText(outcome, result, Payouts.SYMBOLS), "negative");
       }
     }
 
@@ -141,6 +242,9 @@
       paytableRows: Payouts.getPaytableRows(),
       fairnessInfo: Payouts.getFairnessInfo(),
       handlers: {
+        onPlay: handlePlay,
+        onBackToEntry: handleBackToEntry,
+        onVerifyAge: handleVerifyAge,
         onBetIncrease: handleBetIncrease,
         onBetDecrease: handleBetDecrease,
         onBetSet: handleBetSet,
@@ -156,6 +260,14 @@
       }
     });
 
+    global.document.body.addEventListener(
+      "pointerdown",
+      function () {
+        audio.startBackgroundMusic();
+      },
+      { once: true }
+    );
+
     accessibility.init(ui.getAccessibilityInputs(), function (preferences) {
       reducedMotion = preferences.reducedMotion;
     });
@@ -166,6 +278,6 @@
     ui.renderReel(2, seedSymbols[2], true);
 
     syncState();
-    ui.setOutcome("Session ready. Press Spin Reels when comfortable.", "");
+    ui.setOutcome("Session ready. Pull the lever or press Spin when comfortable.", "");
   });
 })(window);

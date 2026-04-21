@@ -8,30 +8,84 @@
   const SlotApp = (global.SlotApp = global.SlotApp || {});
 
   const SYMBOLS = [
-    { id: "prompt", code: "PRM", label: "Prompt" },
-    { id: "token", code: "TKN", label: "Token" },
-    { id: "credit", code: "CRD", label: "Credit" },
-    { id: "model", code: "MDL", label: "Model" },
-    { id: "infer", code: "INF", label: "Inference" },
-    { id: "bug", code: "404", label: "Bug" }
+    {
+      id: "spongebob",
+      code: "SPG",
+      label: "SpongeBob",
+      icon: "assets/icons/Spongebob.png"
+    },
+    {
+      id: "patrick",
+      code: "PAT",
+      label: "Patrick",
+      icon: "assets/icons/Patrick.png"
+    },
+    {
+      id: "squidward",
+      code: "SQD",
+      label: "Squidward",
+      icon: "assets/icons/Squidward_Tentacles.png"
+    },
+    {
+      id: "sandy",
+      code: "SND",
+      label: "Sandy",
+      icon: "assets/icons/Sandy.png"
+    },
+    {
+      id: "mrcrabs",
+      code: "MRC",
+      label: "Mr. Krabs",
+      icon: "assets/icons/Mr.Crabs.png"
+    },
+    {
+      id: "mrspuff",
+      code: "MRP",
+      label: "Mrs. Puff",
+      icon: "assets/icons/Mrs.Puff.png"
+    },
+    {
+      id: "pearl",
+      code: "PRL",
+      label: "Pearl",
+      icon: "assets/icons/Pearl.png"
+    },
+    {
+      id: "plankton",
+      code: "PLK",
+      label: "Plankton",
+      icon: "assets/icons/Plankton.png"
+    },
+    {
+      id: "gary",
+      code: "GRY",
+      label: "Gary",
+      icon: "assets/icons/Gary.png"
+    }
   ];
 
   const TRIPLE_MULTIPLIER = {
-    model: 20,
-    token: 15,
-    prompt: 12,
-    infer: 9,
-    credit: 7,
-    bug: 5
+    spongebob: 30,
+    patrick: 24,
+    squidward: 22,
+    sandy: 20,
+    mrcrabs: 18,
+    mrspuff: 16,
+    pearl: 14,
+    plankton: 12,
+    gary: 10
   };
 
   const PAIR_MULTIPLIER = {
-    model: 2.2,
-    token: 1.9,
-    prompt: 1.7,
-    infer: 1.5,
-    credit: 1.3,
-    bug: 1.1
+    spongebob: 3.1,
+    patrick: 2.8,
+    squidward: 2.6,
+    sandy: 2.4,
+    mrcrabs: 2.2,
+    mrspuff: 2,
+    pearl: 1.8,
+    plankton: 1.6,
+    gary: 1.4
   };
 
   function roundToCents(value) {
