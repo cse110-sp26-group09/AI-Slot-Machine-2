@@ -1,47 +1,102 @@
 /**
- * Lightweight Web Audio controller for slot feedback sounds.
+ * Audio controller for themed media and fallback Web Audio cues.
  */
 export function createAudioController(initialState = { enabled: true, volume: 0.6 }) {
   let enabled = Boolean(initialState.enabled);
   let volume = clampVolume(initialState.volume);
   let audioContext = null;
+  let unlockedByGesture = false;
+
+  const tracks = {
+    bgm: createTrack("assets/audio/akatsuki-song.mp3", true, 0.36),
+    welcome: createTrack("assets/audio/akatsuki-welcome.mp3", false, 0.8),
+    spin: createTrack("assets/audio/akatsuki-spin.mp3", false, 0.7),
+    win: createTrack("assets/audio/akatsuki-win.mp3", false, 0.9),
+  };
+
+  syncTrackVolumes();
 
   function setEnabled(nextEnabled) {
     enabled = Boolean(nextEnabled);
+    if (!enabled) {
+      stopTrack(tracks.bgm);
+      stopTrack(tracks.spin);
+      return;
+    }
+
+    if (unlockedByGesture) {
+      startBgm();
+    }
   }
 
   function setVolume(nextVolume) {
     volume = clampVolume(nextVolume);
+    syncTrackVolumes();
+  }
+
+  function unlockByGesture() {
+    unlockedByGesture = true;
+    const context = getContext();
+    if (context && context.state === "suspended") {
+      context.resume().catch(() => {});
+    }
+
+    if (enabled) {
+      startBgm();
+    }
+  }
+
+  function startBgm() {
+    playTrack(tracks.bgm, { restart: false });
+  }
+
+  function playWelcome() {
+    playTrack(tracks.welcome, { restart: true });
+  }
+
+  function playSpinStart() {
+    playTrack(tracks.spin, { restart: true });
+  }
+
+  function stopSpinLoop() {
+    stopTrack(tracks.spin);
   }
 
   function playSpinTick() {
-    beep({ frequency: 330, duration: 0.05, gain: 0.02, type: "square" });
+    beep({ frequency: 280, duration: 0.03, gain: 0.012, type: "square" });
   }
 
   function playReelStop(reelIndex) {
-    beep({ frequency: 440 + reelIndex * 55, duration: 0.08, gain: 0.026, type: "triangle" });
+    beep({ frequency: 320 + reelIndex * 44, duration: 0.06, gain: 0.018, type: "triangle" });
   }
 
   function playWin(multiplier) {
-    const base = multiplier >= 8 ? 520 : 430;
-    beep({ frequency: base, duration: 0.12, gain: 0.05, type: "triangle", delay: 0.0 });
-    beep({ frequency: base + 130, duration: 0.14, gain: 0.05, type: "triangle", delay: 0.12 });
-    beep({ frequency: base + 250, duration: 0.18, gain: 0.055, type: "triangle", delay: 0.26 });
+    playTrack(tracks.win, { restart: true });
+
+    if (multiplier >= 8) {
+      beep({ frequency: 540, duration: 0.13, gain: 0.045, type: "triangle", delay: 0.0 });
+      beep({ frequency: 680, duration: 0.16, gain: 0.05, type: "triangle", delay: 0.11 });
+      beep({ frequency: 820, duration: 0.2, gain: 0.055, type: "triangle", delay: 0.24 });
+      return;
+    }
+
+    beep({ frequency: 430, duration: 0.1, gain: 0.032, type: "triangle", delay: 0.0 });
+    beep({ frequency: 560, duration: 0.12, gain: 0.035, type: "triangle", delay: 0.1 });
   }
 
   function playLoss() {
-    beep({ frequency: 180, duration: 0.14, gain: 0.03, type: "sawtooth" });
+    beep({ frequency: 180, duration: 0.13, gain: 0.025, type: "sawtooth" });
   }
 
   function playLimit() {
-    beep({ frequency: 240, duration: 0.1, gain: 0.032, type: "square", delay: 0.0 });
-    beep({ frequency: 200, duration: 0.14, gain: 0.035, type: "square", delay: 0.12 });
+    beep({ frequency: 230, duration: 0.1, gain: 0.03, type: "square", delay: 0.0 });
+    beep({ frequency: 200, duration: 0.12, gain: 0.032, type: "square", delay: 0.12 });
   }
 
   function playReward() {
-    beep({ frequency: 420, duration: 0.1, gain: 0.045, type: "triangle", delay: 0.0 });
-    beep({ frequency: 560, duration: 0.12, gain: 0.045, type: "triangle", delay: 0.11 });
-    beep({ frequency: 700, duration: 0.16, gain: 0.045, type: "triangle", delay: 0.24 });
+    beep({ frequency: 410, duration: 0.09, gain: 0.035, type: "triangle", delay: 0.0 });
+    beep({ frequency: 540, duration: 0.11, gain: 0.036, type: "triangle", delay: 0.1 });
+    beep({ frequency: 680, duration: 0.15, gain: 0.038, type: "triangle", delay: 0.22 });
   }
 
   /**
@@ -90,16 +145,52 @@ export function createAudioController(initialState = { enabled: true, volume: 0.
       audioContext = new AudioCtor();
     }
 
-    if (audioContext.state === "suspended") {
-      audioContext.resume().catch(() => {});
+    return audioContext;
+  }
+
+  /**
+   * @param {HTMLAudioElement} track
+   * @param {{restart: boolean}} options
+   */
+  function playTrack(track, options) {
+    if (!enabled || !track) {
+      return;
     }
 
-    return audioContext;
+    if (options.restart) {
+      track.currentTime = 0;
+    }
+
+    track.play().catch(() => {});
+  }
+
+  /**
+   * @param {HTMLAudioElement} track
+   */
+  function stopTrack(track) {
+    if (!track) {
+      return;
+    }
+
+    track.pause();
+    track.currentTime = 0;
+  }
+
+  function syncTrackVolumes() {
+    tracks.bgm.volume = volume * 0.36;
+    tracks.welcome.volume = volume * 0.8;
+    tracks.spin.volume = volume * 0.7;
+    tracks.win.volume = volume * 0.9;
   }
 
   return {
     setEnabled,
     setVolume,
+    unlockByGesture,
+    startBgm,
+    playWelcome,
+    playSpinStart,
+    stopSpinLoop,
     playSpinTick,
     playReelStop,
     playWin,
@@ -107,6 +198,20 @@ export function createAudioController(initialState = { enabled: true, volume: 0.
     playLimit,
     playReward,
   };
+}
+
+/**
+ * @param {string} source
+ * @param {boolean} loop
+ * @param {number} baseVolume
+ * @returns {HTMLAudioElement}
+ */
+function createTrack(source, loop, baseVolume) {
+  const audio = new Audio(source);
+  audio.loop = loop;
+  audio.preload = "auto";
+  audio.volume = baseVolume;
+  return audio;
 }
 
 /**
