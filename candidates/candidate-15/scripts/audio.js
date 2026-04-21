@@ -1,7 +1,5 @@
 /**
- * @fileoverview Client-side slot machine module.
- * @typedef {Record<string, unknown>} JsonRecord
- * @typedef {(event: Event) => void} EventHandler
+ * @fileoverview Client-side slot machine audio module.
  */
 
 (function attachAudioModule(global) {
@@ -13,6 +11,21 @@
   let context = null;
   let enabled = true;
   let volume = 0.6;
+  let bgmRequested = false;
+
+  const tracks = {
+    bgm: createTrack("assets/audio/akatsuki-song.mp3", true),
+    welcome: createTrack("assets/audio/akatsuki-welcome.mp3"),
+    spin: createTrack("assets/audio/akatsuki-spin.mp3"),
+    win: createTrack("assets/audio/akatsuki-win.mp3")
+  };
+
+  function createTrack(src, loop) {
+    const audio = new global.Audio(src);
+    audio.preload = "auto";
+    audio.loop = Boolean(loop);
+    return audio;
+  }
 
   function ensureContext() {
     if (!AudioContextRef || context) {
@@ -21,49 +34,103 @@
     context = new AudioContextRef();
   }
 
+  function resumeContext() {
+    ensureContext();
+    if (context && context.state === "suspended") {
+      context.resume().catch(() => {});
+    }
+  }
+
   function setEnabled(nextEnabled) {
     enabled = Boolean(nextEnabled);
+    if (!enabled) {
+      tracks.bgm.pause();
+      return;
+    }
+
+    if (bgmRequested) {
+      startBackgroundMusic();
+    }
   }
 
   function setVolume(nextVolume) {
     volume = clamp(nextVolume, 0, 1);
+    tracks.bgm.volume = volume * 0.42;
+  }
+
+  function startBackgroundMusic() {
+    bgmRequested = true;
+    if (!enabled) {
+      return;
+    }
+
+    tracks.bgm.volume = volume * 0.42;
+    safePlay(tracks.bgm);
+  }
+
+  function playWelcome() {
+    playClip(tracks.welcome, 0.9);
+  }
+
+  function playSpin() {
+    playClip(tracks.spin, 0.7);
   }
 
   function playSpinTick() {
-    playTone(220, 0.03, 0.03, "triangle");
+    playTone(250, 0.02, 0.025, "triangle");
   }
 
   function playReelStop(reelIndex) {
-    const base = 320 - reelIndex * 30;
-    playTone(base, 0.07, 0.07, "square");
+    const base = 320 - reelIndex * 24;
+    playTone(base, 0.05, 0.045, "square");
   }
 
   function playAnticipation() {
-    playTone(430, 0.18, 0.06, "sawtooth");
+    playTone(420, 0.14, 0.05, "sawtooth");
   }
 
   function playWin(outcome) {
+    const winGain = outcome === "jackpot" ? 1 : outcome === "big-win" ? 0.92 : 0.82;
+    playClip(tracks.win, winGain);
+
     if (outcome === "jackpot") {
-      playTone(620, 0.2, 0.08, "sine");
-      playTone(880, 0.26, 0.08, "sine", 0.07);
+      playTone(720, 0.14, 0.05, "sine");
+      playTone(920, 0.2, 0.045, "triangle", 0.08);
       return;
     }
 
     if (outcome === "big-win") {
-      playTone(520, 0.13, 0.08, "sine");
-      playTone(690, 0.16, 0.07, "triangle", 0.06);
-      return;
+      playTone(610, 0.12, 0.04, "sine");
+      playTone(760, 0.16, 0.04, "triangle", 0.06);
     }
-
-    playTone(470, 0.1, 0.08, "sine");
   }
 
   function playLoss() {
-    playTone(180, 0.06, 0.05, "triangle");
+    playTone(180, 0.07, 0.04, "triangle");
   }
 
   function playGuardrail() {
-    playTone(240, 0.14, 0.05, "square");
+    playTone(220, 0.16, 0.04, "square");
+  }
+
+  function playClip(audio, gainMultiplier) {
+    if (!enabled) {
+      return;
+    }
+
+    resumeContext();
+    audio.currentTime = 0;
+    if (audio !== tracks.bgm) {
+      audio.volume = clamp(volume * gainMultiplier, 0, 1);
+    }
+    safePlay(audio);
+  }
+
+  function safePlay(audio) {
+    const playPromise = audio.play();
+    if (playPromise && typeof playPromise.catch === "function") {
+      playPromise.catch(() => {});
+    }
   }
 
   function playTone(frequency, duration, gain, type, delaySeconds) {
@@ -71,7 +138,7 @@
       return;
     }
 
-    ensureContext();
+    resumeContext();
     if (!context) {
       return;
     }
@@ -82,7 +149,6 @@
 
     oscillator.type = type || "sine";
     oscillator.frequency.setValueAtTime(frequency, now);
-
     amp.gain.setValueAtTime(0, now);
     amp.gain.linearRampToValueAtTime(gain * volume, now + 0.01);
     amp.gain.exponentialRampToValueAtTime(0.0001, now + duration);
@@ -100,6 +166,9 @@
   root.Audio = {
     setEnabled,
     setVolume,
+    startBackgroundMusic,
+    playWelcome,
+    playSpin,
     playSpinTick,
     playReelStop,
     playAnticipation,

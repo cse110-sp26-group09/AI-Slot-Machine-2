@@ -4,12 +4,12 @@
   const root = (global.SlotMachine = global.SlotMachine || {});
   const { Payouts, Reels, Storage, Accessibility, Audio } = root;
 
-  const BET_STEPS = [10, 20, 30, 50, 75, 100, 150, 200];
+  const BET_STEPS = [10, 20, 30, 50, 75, 100];
   const LOYALTY_POINTS_PER_LEVEL = 14;
 
   /**
    * Main game coordinator.
-   * @param {{setHandlers:function,render:function,renderPaytable:function,animateSpin:function}} ui
+   * @param {{setHandlers:function,render:function,renderPaytable:function,animateSpin:function,playRewardSequence:function}} ui
    */
   function GameController(ui) {
     this.ui = ui;
@@ -31,6 +31,7 @@
       onChangeBet: this.handleBetChange.bind(this),
       onToggleLossLimit: this.handleLossLimitToggle.bind(this),
       onApplyLossLimit: this.handleLossLimitApply.bind(this),
+      onToggleVfx: this.handleVfxToggle.bind(this),
       onToggleSound: this.handleSoundToggle.bind(this),
       onSetVolume: this.handleVolumeChange.bind(this),
       onToggleContrast: this.handleContrastToggle.bind(this),
@@ -68,7 +69,11 @@
       soundEnabled: saved.settings ? Boolean(saved.settings.soundEnabled) : merged.settings.soundEnabled,
       volume: saved.settings ? clamp(Number(saved.settings.volume), 0, 1) : merged.settings.volume,
       highContrast: saved.settings ? Boolean(saved.settings.highContrast) : merged.settings.highContrast,
-      reducedMotion: saved.settings ? Boolean(saved.settings.reducedMotion) : merged.settings.reducedMotion
+      reducedMotion: saved.settings ? Boolean(saved.settings.reducedMotion) : merged.settings.reducedMotion,
+      vfxEnabled:
+        saved.settings && Object.prototype.hasOwnProperty.call(saved.settings, "vfxEnabled")
+          ? Boolean(saved.settings.vfxEnabled)
+          : merged.settings.vfxEnabled
     };
     merged.daily = {
       lastClaimDate:
@@ -110,13 +115,15 @@
       this.state.outcomeText = "Spinning...";
       this.state.outcomeType = "neutral";
       this.persistAndRender();
+      Audio.playSpin();
 
       const spinData = Reels.buildSpin();
       await this.ui.animateSpin(spinData, {
         reducedMotion: this.state.settings.reducedMotion,
-        onTick: () => Audio.playSpinTick(),
-        onReelStop: (reelIndex) => Audio.playReelStop(reelIndex),
-        onAnticipation: () => Audio.playAnticipation()
+        vfxEnabled: this.state.settings.vfxEnabled,
+        onTick: this.state.settings.vfxEnabled ? () => Audio.playSpinTick() : null,
+        onReelStop: this.state.settings.vfxEnabled ? (reelIndex) => Audio.playReelStop(reelIndex) : null,
+        onAnticipation: this.state.settings.vfxEnabled ? () => Audio.playAnticipation() : null
       });
 
       this.state.reelSymbolIds = spinData.result;
@@ -139,6 +146,13 @@
       } else {
         Audio.playWin(evaluation.outcome);
       }
+
+      await this.ui.playRewardSequence(
+        evaluation.outcome,
+        this.state.outcomeText,
+        this.state.settings.reducedMotion,
+        this.state.settings.vfxEnabled
+      );
     } finally {
       this.isSpinning = false;
       this.persistAndRender();
@@ -181,6 +195,11 @@
   GameController.prototype.handleSoundToggle = function handleSoundToggle(enabled) {
     this.state.settings.soundEnabled = enabled;
     Audio.setEnabled(enabled);
+    this.persistAndRender();
+  };
+
+  GameController.prototype.handleVfxToggle = function handleVfxToggle(enabled) {
+    this.state.settings.vfxEnabled = enabled;
     this.persistAndRender();
   };
 
@@ -272,7 +291,7 @@
       return;
     }
 
-    const prefix = evaluation.outcome === "jackpot" ? "Jackpot!" : "Win!";
+    const prefix = evaluation.outcome === "jackpot" ? "Legendary Jackpot!" : "Win!";
     this.state.outcomeText = `${prefix} 3 ${matchLabel}s paid ${payout} credits, net +${net} credits.`;
     this.state.outcomeType = "win";
     if (loyaltyBonus > 0) {
@@ -377,6 +396,7 @@
       volume: this.state.settings.volume,
       highContrast: this.state.settings.highContrast,
       reducedMotion: this.state.settings.reducedMotion,
+      vfxEnabled: this.state.settings.vfxEnabled,
       dailyAvailable: this.state.daily.availableReward > 0,
       dailyText:
         this.state.daily.availableReward > 0
@@ -385,7 +405,7 @@
               this.state.daily.streak + 1
             )}).`
           : "Daily reward claimed today. Come back tomorrow for your next bonus.",
-      loyaltyText: `Loyalty tier ${this.state.loyaltyLevel} • ${this.state.loyaltyPoints}/${nextGoal} spins to next tier`,
+      loyaltyText: `Loyalty tier ${this.state.loyaltyLevel} | ${this.state.loyaltyPoints}/${nextGoal} spins to next tier`,
       loyaltyProgressPercent: progressPercent
     };
   };
@@ -409,7 +429,7 @@
       outcomeText: "Set your bet and spin.",
       outcomeType: "neutral",
       responsibleMessage: "Tip: Enable a loss limit to cap downside this session.",
-      reelSymbolIds: ["token", "prompt", "credit"],
+      reelSymbolIds: ["aditya", "alexis", "daniel"],
       loyaltyLevel: 1,
       loyaltyPoints: 0,
       daily: {
@@ -421,7 +441,8 @@
         soundEnabled: true,
         volume: 0.6,
         highContrast: false,
-        reducedMotion: false
+        reducedMotion: false,
+        vfxEnabled: true
       }
     };
   }

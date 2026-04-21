@@ -60,7 +60,6 @@ export function createUI(callbacks) {
     betRange: document.getElementById("bet-range"),
     betDownButton: document.getElementById("bet-down-button"),
     betUpButton: document.getElementById("bet-up-button"),
-    spinButton: document.getElementById("spin-button"),
     leverButton: document.getElementById("lever-button"),
     outcomeMessage: document.getElementById("outcome-message"),
     outcomeDetail: document.getElementById("outcome-detail"),
@@ -148,7 +147,7 @@ export function createUI(callbacks) {
 
   function renderOutcome(viewModel) {
     if (!viewModel.lastOutcome) {
-      elements.outcomeMessage.textContent = "Choose a bet and spin.";
+      elements.outcomeMessage.textContent = "Choose a bet and pull the lever.";
       elements.outcomeDetail.textContent = "Payout details appear here.";
       return;
     }
@@ -170,9 +169,7 @@ export function createUI(callbacks) {
     const controlsDisabled = spinInProgress || viewModel.pendingBet !== null;
     const spinDisabled = controlsDisabled || !viewModel.canSpin;
 
-    elements.spinButton.disabled = spinDisabled;
     elements.leverButton.disabled = spinDisabled;
-    elements.spinButton.textContent = spinInProgress ? "Spinning..." : "Spin";
     elements.betDownButton.disabled = controlsDisabled || viewModel.currentBet <= MIN_BET;
     elements.betUpButton.disabled = controlsDisabled || viewModel.currentBet >= MAX_BET;
     elements.betRange.disabled = controlsDisabled;
@@ -250,10 +247,6 @@ export function createUI(callbacks) {
       }
     }
   }
-
-  elements.spinButton.addEventListener("click", () => {
-    callbacks.onSpin();
-  });
 
   elements.leverButton.addEventListener("click", () => {
     callbacks.onSpin();

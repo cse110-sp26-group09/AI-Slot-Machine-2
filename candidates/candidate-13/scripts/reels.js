@@ -1,18 +1,25 @@
 /**
- * @fileoverview Client-side slot machine module.
- * @typedef {Record<string, unknown>} JsonRecord
- * @typedef {(event: Event) => void} EventHandler
+ * @fileoverview Reel symbols and weighted spin utilities.
  */
 
-export const REEL_SYMBOLS = Object.freeze([
-  "PROMPT",
-  "TOKEN",
-  "MODEL",
-  "GPU",
-  "CACHE",
-  "CREDIT",
-  "404"
+const SYMBOL_CATALOG = Object.freeze([
+  { id: "PAIN", label: "Pain", icon: "assets/icons/symbol-hieu.png" },
+  { id: "ITACHI", label: "Itachi", icon: "assets/icons/symbol-james.png" },
+  { id: "KONAN", label: "Konan", icon: "assets/icons/symbol-alexis.png" },
+  { id: "KISAME", label: "Kisame", icon: "assets/icons/symbol-jason.png" },
+  { id: "DEIDARA", label: "Deidara", icon: "assets/icons/symbol-daniel.png" },
+  { id: "TOBI", label: "Tobi", icon: "assets/icons/symbol-woosik.png" },
+  { id: "ZETSU", label: "Zetsu", icon: "assets/icons/symbol-fahad.png" }
 ]);
+
+export const REEL_SYMBOLS = Object.freeze(SYMBOL_CATALOG.map((symbol) => symbol.id));
+
+export const SYMBOL_META = Object.freeze(
+  SYMBOL_CATALOG.reduce((acc, symbol) => {
+    acc[symbol.id] = symbol;
+    return acc;
+  }, {})
+);
 
 const REEL_CONFIGS = Object.freeze([
   { symbols: REEL_SYMBOLS, weights: [24, 23, 18, 12, 10, 8, 5] },
@@ -24,10 +31,10 @@ function pickWeightedSymbol(symbols, weights, randomFn) {
   const total = weights.reduce((sum, value) => sum + value, 0);
   let cursor = randomFn() * total;
 
-  for (let i = 0; i < symbols.length; i += 1) {
-    cursor -= weights[i];
+  for (let index = 0; index < symbols.length; index += 1) {
+    cursor -= weights[index];
     if (cursor <= 0) {
-      return symbols[i];
+      return symbols[index];
     }
   }
 
@@ -41,7 +48,7 @@ export function generateSpinResult(randomFn = Math.random) {
 }
 
 export function isNearMiss(symbols) {
-  const highExcitement = new Set(["GPU", "CACHE", "MODEL"]);
+  const highExcitement = new Set(["PAIN", "ITACHI", "KONAN"]);
   const counts = new Map();
 
   symbols.forEach((symbol) => {

@@ -3,183 +3,365 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Prompt Palace Slots</title>
+    <title>Akatsuki Slot Machine</title>
     <meta
       name="description"
-      content="A polished 3-reel AI satire slot machine with clear controls, accessibility mode, and session safeguards."
+      content="An Akatsuki-themed 3-reel slot machine with clear session controls, accessibility options, and guardrail settings."
     />
     <link rel="stylesheet" href="styles/main.css" />
   </head>
   <body>
-    <header class="app-header">
-      <div>
-        <p class="eyebrow">Trusted Arcade Lab</p>
-        <h1>Prompt Palace Slots</h1>
+    <section
+      id="introScreen"
+      class="screen intro-screen is-active"
+      aria-labelledby="introHeading"
+    >
+      <button
+        id="introInfoBtn"
+        class="button button-quiet intro-info-btn"
+        type="button"
+      >
+        Info
+      </button>
+      <div class="entry-card">
+        <p class="eyebrow">Akatsuki Gaming Archive</p>
+        <h1 id="introHeading">Akatsuki Slots</h1>
         <p class="subtitle">
-          Spin prompts into payouts. Track every token with transparent
-          session stats.
+          Enter the storm. Spin for power, track your session, and keep your
+          limits in control.
         </p>
+        <div class="entry-actions">
+          <button
+            id="playBtn"
+            class="button button-primary entry-play-btn"
+            type="button"
+          >
+            Play
+          </button>
+        </div>
+        <div class="entry-audio">
+          <label class="toggle-row" for="entrySoundToggle">
+            <span>Sound Enabled</span>
+            <input type="checkbox" id="entrySoundToggle" />
+          </label>
+          <label for="entryVolumeRange">Music / SFX Volume</label>
+          <input
+            id="entryVolumeRange"
+            type="range"
+            min="0"
+            max="100"
+            value="60"
+          />
+        </div>
       </div>
-      <div class="header-chip" id="statusChip">Ready to spin</div>
-    </header>
+    </section>
 
-    <main class="layout">
-      <section class="machine card" id="machineRoot" aria-label="Slot machine">
-        <div class="machine-top">
-          <div>
-            <p class="label">Balance</p>
-            <p class="value" id="balanceValue">0</p>
-          </div>
-          <div>
-            <p class="label">Current Bet</p>
-            <p class="value" id="betValue">0</p>
-          </div>
-        </div>
-
-        <div class="reel-window" aria-live="polite" aria-label="Reels">
-          <div class="reel" id="reel0">
-            <span class="reel-icon">🪙</span>
-            <span class="reel-label">Token</span>
-          </div>
-          <div class="reel" id="reel1">
-            <span class="reel-icon">🪙</span>
-            <span class="reel-label">Token</span>
-          </div>
-          <div class="reel" id="reel2">
-            <span class="reel-icon">🪙</span>
-            <span class="reel-label">Token</span>
-          </div>
-        </div>
-
-        <div class="controls" aria-label="Spin controls">
-          <button id="decreaseBetBtn" class="button button-secondary">
-            Bet -
+    <section
+      id="ageGateScreen"
+      class="screen age-gate-screen"
+      aria-labelledby="ageGateHeading"
+    >
+      <div class="entry-card age-card">
+        <p class="eyebrow">Compliance Checkpoint</p>
+        <h2 id="ageGateHeading">Age Verification</h2>
+        <p class="subtitle">
+          You must be at least 21 years old to enter this experience.
+        </p>
+        <form id="ageGateForm" class="age-form" novalidate>
+          <label for="dobInput">Date of Birth (MM/DD/YYYY)</label>
+          <input
+            id="dobInput"
+            name="dobInput"
+            type="text"
+            inputmode="numeric"
+            autocomplete="bday"
+            placeholder="MM/DD/YYYY"
+            maxlength="10"
+            required
+          />
+          <button id="verifyAgeBtn" class="button button-primary" type="submit">
+            Verify & Enter
           </button>
-          <button id="increaseBetBtn" class="button button-secondary">
-            Bet +
-          </button>
-          <button id="spinBtn" class="button button-primary">Spin</button>
-        </div>
+        </form>
+        <p id="ageGateMessage" class="age-message" aria-live="polite"></p>
+      </div>
+    </section>
 
-        <section class="feedback">
-          <p id="outcomeText" class="outcome" aria-live="polite">
-            Set your bet and spin.
+    <section
+      id="gameplayScreen"
+      class="screen gameplay-screen"
+      aria-label="Slot machine gameplay"
+    >
+      <header class="app-header">
+        <div class="title-block">
+          <img
+            class="title-banner"
+            src="assets/images/akatsuki-banner.jpeg"
+            alt="Akatsuki Slots"
+          />
+          <p class="quote">
+            “Feel pain, accept pain and know pain, for those who doesn't know
+            pain shall never understand true peace!”
           </p>
-          <p id="responsibleText" class="responsible" aria-live="polite"></p>
-        </section>
-      </section>
-
-      <aside class="panel-stack">
-        <section class="card">
-          <h2>Paytable</h2>
-          <p class="muted">Match 3 for full payouts. Any pair returns 90% of your bet.</p>
-          <div class="paytable-wrap">
-            <table class="paytable" id="paytableBody">
-              <caption class="sr-only">Slot paytable</caption>
-              <thead>
-                <tr>
-                  <th scope="col">Symbol</th>
-                  <th scope="col">3 of a Kind</th>
-                </tr>
-              </thead>
-              <tbody></tbody>
-            </table>
-          </div>
-          <p class="rtp" id="rtpText"></p>
-        </section>
-
-        <section class="card">
-          <h2>Session Summary</h2>
-          <div class="summary-grid">
-            <div>
-              <p class="label">Total Spend</p>
-              <p class="summary-value" id="spendValue">0</p>
-            </div>
-            <div>
-              <p class="label">Total Won</p>
-              <p class="summary-value" id="wonValue">0</p>
-            </div>
-            <div>
-              <p class="label">Net Result</p>
-              <p class="summary-value" id="netValue">0</p>
-            </div>
-            <div>
-              <p class="label">Win Rate</p>
-              <p class="summary-value" id="winRateValue">0%</p>
-            </div>
-          </div>
-        </section>
-
-        <section class="card">
-          <h2>Play Settings</h2>
-          <div class="settings">
-            <label class="toggle-row">
-              <span>High Contrast + Large Print</span>
-              <input type="checkbox" id="contrastToggle" />
-            </label>
-            <label class="toggle-row">
-              <span>Reduced Motion</span>
-              <input type="checkbox" id="motionToggle" />
-            </label>
-            <label class="toggle-row">
-              <span>Sound Enabled</span>
-              <input type="checkbox" id="soundToggle" />
-            </label>
-            <label for="volumeRange">Sound Volume</label>
-            <input id="volumeRange" type="range" min="0" max="100" value="60" />
-          </div>
-        </section>
-
-        <section class="card">
-          <h2>Budget Guardrail</h2>
-          <div class="guardrail">
-            <label class="toggle-row">
-              <span>Pause at loss limit</span>
-              <input type="checkbox" id="lossLimitToggle" />
-            </label>
-            <label for="lossLimitInput">Max loss this session</label>
-            <div class="inline-controls">
-              <input
-                id="lossLimitInput"
-                type="number"
-                min="50"
-                step="10"
-                value="300"
-              />
-              <button id="applyLossLimitBtn" class="button button-secondary">
-                Apply
-              </button>
-            </div>
-            <p class="muted">
-              If your net result reaches this loss, spinning pauses until you
-              reset your session.
-            </p>
-          </div>
-        </section>
-
-        <section class="card">
-          <h2>Replay Rewards</h2>
-          <div class="rewards">
-            <p id="dailyRewardText">Daily reward status</p>
-            <button id="claimDailyBtn" class="button button-secondary">
-              Claim Daily Reward
-            </button>
-            <p id="loyaltyText">Loyalty level 1</p>
-            <div class="progress">
-              <div id="loyaltyProgress" class="progress-fill"></div>
-            </div>
-          </div>
-        </section>
-
-        <section class="card">
-          <h2>Session Actions</h2>
-          <p class="muted">Session saves automatically to your browser.</p>
-          <button id="resetSessionBtn" class="button button-quiet">
-            Reset Session
+        </div>
+        <div class="header-controls">
+          <button id="mainMenuBtn" class="button button-quiet" type="button">
+            Main Menu
           </button>
+          <button id="headerInfoBtn" class="button button-quiet" type="button">
+            Rules
+          </button>
+          <div class="header-chip" id="statusChip">Ready to spin</div>
+        </div>
+      </header>
+
+      <main class="layout">
+        <section class="machine card" id="machineRoot" aria-label="Slot machine">
+          <div class="machine-top">
+            <div>
+              <p class="label">Balance</p>
+              <p class="value" id="balanceValue">0</p>
+            </div>
+            <div>
+              <p class="label">Current Bet</p>
+              <p class="value" id="betValue">0</p>
+            </div>
+          </div>
+
+          <div class="reel-window" aria-live="polite" aria-label="Reels">
+            <div class="reel" id="reel0">
+              <span class="reel-icon"></span>
+              <span class="reel-label">Symbol</span>
+            </div>
+            <div class="reel" id="reel1">
+              <span class="reel-icon"></span>
+              <span class="reel-label">Symbol</span>
+            </div>
+            <div class="reel" id="reel2">
+              <span class="reel-icon"></span>
+              <span class="reel-label">Symbol</span>
+            </div>
+          </div>
+
+          <div class="controls" aria-label="Spin controls">
+            <button
+              id="decreaseBetBtn"
+              class="button button-secondary"
+              type="button"
+            >
+              Bet -
+            </button>
+            <button
+              id="increaseBetBtn"
+              class="button button-secondary"
+              type="button"
+            >
+              Bet +
+            </button>
+            <button
+              id="leverBtn"
+              class="lever-btn"
+              type="button"
+              aria-label="Pull lever to spin"
+            >
+              <span class="lever-stick"></span>
+              <span class="lever-ball"></span>
+            </button>
+            <button id="spinBtn" class="button button-primary" type="button">
+              Spin
+            </button>
+          </div>
+
+          <section class="feedback">
+            <p id="outcomeText" class="outcome" aria-live="polite">
+              Set your bet and spin.
+            </p>
+            <p id="responsibleText" class="responsible" aria-live="polite"></p>
+          </section>
+
+          <div id="majorWinOverlay" class="major-win-overlay" aria-hidden="true">
+            <div class="major-win-inner">
+              <p id="majorWinTitle" class="major-win-title">AKATSUKI VICTORY</p>
+              <p id="majorWinText" class="major-win-text">Big payout claimed.</p>
+            </div>
+          </div>
         </section>
-      </aside>
-    </main>
+
+        <aside class="panel-stack">
+          <section class="card">
+            <h2>Paytable</h2>
+            <p class="muted">
+              Match 3 for full payout multipliers. Any pair returns 90% of your
+              current bet.
+            </p>
+            <div class="paytable-wrap">
+              <table class="paytable" id="paytableBody">
+                <caption class="sr-only">Slot paytable</caption>
+                <thead>
+                  <tr>
+                    <th scope="col">Symbol</th>
+                    <th scope="col">3 of a Kind</th>
+                  </tr>
+                </thead>
+                <tbody></tbody>
+              </table>
+            </div>
+            <p class="rtp" id="rtpText"></p>
+          </section>
+
+          <section class="card">
+            <h2>Session Summary</h2>
+            <div class="summary-grid">
+              <div>
+                <p class="label">Total Spend</p>
+                <p class="summary-value" id="spendValue">0</p>
+              </div>
+              <div>
+                <p class="label">Total Won</p>
+                <p class="summary-value" id="wonValue">0</p>
+              </div>
+              <div>
+                <p class="label">Net Result</p>
+                <p class="summary-value" id="netValue">0</p>
+              </div>
+              <div>
+                <p class="label">Win Rate</p>
+                <p class="summary-value" id="winRateValue">0%</p>
+              </div>
+            </div>
+          </section>
+
+          <section class="card">
+            <h2>Play Settings</h2>
+            <div class="settings">
+              <label class="toggle-row">
+                <span>High Contrast + Large Print</span>
+                <input type="checkbox" id="contrastToggle" />
+              </label>
+              <label class="toggle-row">
+                <span>Reduced Motion</span>
+                <input type="checkbox" id="motionToggle" />
+              </label>
+              <label class="toggle-row">
+                <span>Visual Effects</span>
+                <input type="checkbox" id="vfxToggle" />
+              </label>
+              <label class="toggle-row">
+                <span>Sound Enabled</span>
+                <input type="checkbox" id="soundToggle" />
+              </label>
+              <label for="volumeRange">Music / SFX Volume</label>
+              <input id="volumeRange" type="range" min="0" max="100" value="60" />
+            </div>
+          </section>
+
+          <section class="card">
+            <h2>Budget Guardrail</h2>
+            <div class="guardrail">
+              <label class="toggle-row">
+                <span>Pause at loss limit</span>
+                <input type="checkbox" id="lossLimitToggle" />
+              </label>
+              <label for="lossLimitInput">Max loss this session</label>
+              <div class="inline-controls">
+                <input
+                  id="lossLimitInput"
+                  type="number"
+                  min="50"
+                  step="10"
+                  value="300"
+                />
+                <button
+                  id="applyLossLimitBtn"
+                  class="button button-secondary"
+                  type="button"
+                >
+                  Apply
+                </button>
+              </div>
+              <p class="muted">
+                If your net result reaches this loss, spinning pauses until you
+                reset your session.
+              </p>
+            </div>
+          </section>
+
+          <section class="card">
+            <h2>Replay Rewards</h2>
+            <div class="rewards">
+              <p id="dailyRewardText">Daily reward status</p>
+              <button
+                id="claimDailyBtn"
+                class="button button-secondary"
+                type="button"
+              >
+                Claim Daily Reward
+              </button>
+              <p id="loyaltyText">Loyalty level 1</p>
+              <div class="progress">
+                <div id="loyaltyProgress" class="progress-fill"></div>
+              </div>
+            </div>
+          </section>
+
+          <section class="card">
+            <h2>Session Actions</h2>
+            <p class="muted">Session saves automatically to your browser.</p>
+            <button id="resetSessionBtn" class="button button-quiet" type="button">
+              Reset Session
+            </button>
+          </section>
+        </aside>
+      </main>
+    </section>
+
+    <div
+      id="infoModal"
+      class="info-modal"
+      aria-hidden="true"
+      role="dialog"
+      aria-modal="true"
+    >
+      <div class="info-backdrop" id="infoBackdrop"></div>
+      <section class="info-panel">
+        <div class="info-header">
+          <h2>Payouts & Rules</h2>
+          <button id="closeInfoBtn" class="button button-quiet" type="button">
+            Close
+          </button>
+        </div>
+        <p class="muted">
+          Three-of-a-kind pays full multiplier. Any pair returns 90% of your
+          bet. Betting is customizable with a hard cap of 100 credits.
+        </p>
+        <div class="paytable-wrap">
+          <table class="paytable" id="infoPaytableBody">
+            <caption class="sr-only">Akatsuki paytable reference</caption>
+            <thead>
+              <tr>
+                <th scope="col">Symbol</th>
+                <th scope="col">3 of a Kind</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+        <ul class="rules-list">
+          <li>You must pass age verification (21+) to enter gameplay.</li>
+          <li>
+            Loss limit pauses spins once your configured threshold is reached.
+          </li>
+          <li>
+            Daily rewards and loyalty progression are saved in your browser
+            session.
+          </li>
+          <li>
+            Use settings for contrast, reduced motion, sound, and volume
+            controls.
+          </li>
+        </ul>
+      </section>
+    </div>
 
     <script src="scripts/payouts.js"></script>
     <script src="scripts/reels.js"></script>

@@ -131,23 +131,37 @@ export function createGameController({ ui, audio, storage, accessibility }) {
     setBanner("Running inference...", "info");
     render();
 
-    const symbols = await spinReels({
-      reducedMotion: state.settings.reducedMotion,
-      onReelStart(reelIndex) {
-        ui.setReelSpinning(reelIndex, true);
-        audio.playSpinTick();
-      },
-      onReelUpdate(reelIndex, symbolId, isFinal) {
-        const symbol = symbolMap.get(symbolId);
-        if (!symbol) {
-          return;
-        }
-        ui.updateReel(reelIndex, symbol, isFinal);
-        if (isFinal) {
-          audio.playReelStop(reelIndex);
-        }
-      },
-    });
+    audio.playSpinStart();
+
+    let symbols;
+    try {
+      symbols = await spinReels({
+        reducedMotion: state.settings.reducedMotion,
+        onReelStart(reelIndex) {
+          ui.setReelSpinning(reelIndex, true);
+          audio.playSpinTick();
+        },
+        onReelUpdate(reelIndex, symbolId, isFinal) {
+          const symbol = symbolMap.get(symbolId);
+          if (!symbol) {
+            return;
+          }
+          ui.updateReel(reelIndex, symbol, isFinal);
+          if (isFinal) {
+            audio.playReelStop(reelIndex);
+          }
+        },
+      });
+    } finally {
+      audio.stopSpinLoop();
+    }
+
+    if (!symbols) {
+      state.isSpinning = false;
+      setBanner("Spin interrupted. Please try again.", "warn");
+      saveAndRender();
+      return;
+    }
 
     state.reels = symbols;
 
@@ -157,6 +171,12 @@ export function createGameController({ ui, audio, storage, accessibility }) {
       state.session.won += result.payout;
       state.session.wins += 1;
       audio.playWin(result.multiplier);
+      ui.playWinFeedback({
+        major: result.lineType === "jackpot",
+        payout: result.payout,
+        multiplier: result.multiplier,
+        reducedMotion: state.settings.reducedMotion,
+      });
     } else {
       audio.playLoss();
     }

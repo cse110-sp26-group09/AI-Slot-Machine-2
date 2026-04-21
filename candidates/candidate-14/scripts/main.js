@@ -39,7 +39,8 @@ const dom = {
   ageGateForm: document.getElementById("age-gate-form"),
   ageDobInput: document.getElementById("age-dob"),
   ageFeedback: document.getElementById("age-gate-feedback"),
-  ageBackButton: document.getElementById("age-back-button")
+  ageBackButton: document.getElementById("age-back-button"),
+  homeNavButton: document.getElementById("home-nav-button")
 };
 
 function showScreen(screenName) {
@@ -173,6 +174,13 @@ dom.infoModal.addEventListener("click", (event) => {
 dom.ageBackButton.addEventListener("click", () => {
   showScreen("entry");
 });
+
+if (dom.homeNavButton) {
+  dom.homeNavButton.addEventListener("click", () => {
+    ui.hideMajorWinOverlay();
+    showScreen("entry");
+  });
+}
 
 dom.ageGateForm.addEventListener("submit", (event) => {
   event.preventDefault();
