@@ -8,8 +8,8 @@ const SYMBOL_CATALOG = Object.freeze([
   { id: "KONAN", label: "KONAN", icon: "assets/icons/symbol-alexis.png" },
   { id: "KISAME", label: "KISAME", icon: "assets/icons/symbol-jason.png" },
   { id: "DEIDARA", label: "DEIDARA", icon: "assets/icons/symbol-daniel.png" },
-  { id: "TOBI", label: "TOBI", icon: "assets/icons/symbol-woosik.png" },
-  { id: "ZETSU", label: "ZETSU", icon: "assets/icons/symbol-fahad.png" }
+  { id: "ZETSU", label: "ZETSU", icon: "assets/icons/symbol-woosik.png" },
+  { id: "TOBI", label: "TOBI", icon: "assets/icons/symbol-aditya.png" }
 ]);
 
 export const REEL_SYMBOLS = Object.freeze(SYMBOL_CATALOG.map((symbol) => symbol.id));
