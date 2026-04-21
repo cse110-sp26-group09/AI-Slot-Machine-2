@@ -429,3 +429,192 @@ Notes: Expected to produce the most well-rounded version by combining accessibil
 Result:
 
 ___
+
+Refinement prompt for candidates 13 - 16
+Theme Akatsuki
+
+```
+You are refining an existing shortlisted Prompt 4 slot machine candidate inside a student software engineering repository.
+
+This is a refinement pass, not a rebuild.
+
+Your job is to preserve all existing working logic, assignment-aligned features, and maintainable code structure, while integrating the provided Akatsuki theme assets and improving the product experience so the app feels more immersive, realistic, cohesive, and polished.
+
+CRITICAL PRESERVATION RULES
+- Do not rebuild from scratch.
+- Do not remove or regress working assignment-relevant features.
+- Do not break existing slot logic, session logic, persistence, accessibility, transparency, loyalty/progress, settings, or guardrail features if they already work.
+- Do not change the tech stack.
+- Do not replace provided assets with invented placeholders unless absolutely necessary.
+- Do not sacrifice maintainability or readability for flashy effects.
+- Do not clutter the slot machine screen or let supporting HUD elements interfere with the reels/lever area.
+- Keep the existing customizable betting system, but preserve the maximum bet limit of 100.
+
+TECH CONSTRAINTS
+- Vanilla HTML, CSS, JavaScript, and browser APIs only
+- No frameworks
+- No TypeScript
+- No backend
+- No unnecessary dependencies
+
+PRIMARY GOAL
+Transform this candidate into a cohesive Akatsuki-themed slot machine experience while preserving its strongest existing implementation quality and assignment compliance.
+
+EXPERIENCE HIERARCHY
+The app should be structured as a clear 3-layer product experience:
+
+1. ENTRY FLOW
+- A dedicated intro/loading screen using the provided loading background
+- A prominent Play button
+- A visible but secondary Info button in the top-right or similarly unobtrusive location
+- The Info button should open a clean modal/panel showing the payout summary and game rules for the theme
+- Background music should begin here and continue across the experience, with clear on/off and volume controls
+- After Play, the user should go through an age gate before entering gameplay
+
+2. AGE GATE
+- Require age verification before entering the game
+- Use MM/DD/YYYY format
+- The user must be 21+
+- Maximum valid birth date should be 04/22/2005
+- If the user is under 21, deny entry clearly and professionally
+- This should feel like a themed but readable compliance gate, not a joke or throwaway screen
+
+3. CORE GAMEPLAY
+- Enter a separate gameplay screen with a different background from the loading screen
+- Use the provided banner image as the title banner near the top
+- Place one Akatsuki quote below the banner
+- Keep the slot machine as the focal point of the page
+- Preserve the 3x1 slot format
+- Use the provided circular face icons as reel symbols
+- If feasible without breaking the candidate, use a lever-style spin interaction instead of or in addition to the spin button
+- Show real spin animation and themed audio feedback
+- Use stronger but controlled win feedback
+- For normal wins, show satisfying sound and polished animation
+- For major wins, trigger a clearly elevated reward sequence with a prominent winner banner or overlay, the provided win sound, and cool themed celebratory animations/effects that make the moment feel rare, exciting, and visually distinct from a normal win
+- Big-win feedback should feel dramatic and rewarding, but should not break the UI, obscure core state permanently, or overwhelm readability
+- Maintain a clear, polished, product-like feel
+
+AKATSUKI ASSET INTEGRATION
+Use the provided assets intentionally and consistently:
+
+Images
+- `assets/images/akatsuki-loading-bg.jpg` → intro/loading screen background
+- `assets/images/akatsuki-gameplay-bg.jpg` → main gameplay screen background
+- `assets/images/akatsuki-banner.jpg` → title banner
+- `assets/images/akatsuki-slot-bg.jpg` → slot machine / reel area background
+- `assets/images/akatsuki-pattern-bg.jpg` → texture/pattern for panels, modals, overlays, settings, or supporting UI surfaces
+
+Audio
+- `assets/audio/akatsuki-bgm.mp3` → background music
+- `assets/audio/akatsuki-welcome.mp3` → welcome/entry sound after passing age gate
+- `assets/audio/akatsuki-spin.mp3` → spin / lever interaction sound
+- `assets/audio/akatsuki-win.mp3` → win sound
+
+Icons
+- Use the provided circular face icons from `assets/icons/` as the reel symbols
+
+QUOTE
+Use one quote only. Prefer:
+“Feel pain, accept pain and know pain, for those who doesn't know pain shall never understand true peace!”
+
+UI HIERARCHY AND LAYOUT RULES
+The slot machine must remain the main focal point.
+Balance, current bet, and session net must remain visible, but they should be placed in a clean supporting HUD/panel that does not visually interfere with the slot machine UI.
+
+Preserve or improve these features if already present and working:
+- balance display
+- current bet display
+- session net / session summary
+- payout summary / rules
+- loyalty progress
+- customizable loss limit
+- settings / guardrails
+- sound on/off
+- volume control
+- restart session
+- paytable clarity
+- persistence if already implemented
+- accessibility or high-contrast mode if already implemented
+
+Do not overload the main gameplay surface with extra informational clutter like house edge or excessive statistics if they are not necessary there. Important information should either live in clean supporting panels or modals.
+
+BETTING AND GAMEPLAY RULES
+- Preserve existing slot logic if working
+- Preserve current payout and session systems if working
+- Keep customizable betting
+- Keep maximum bet at 100
+- Do not introduce unlimited betting
+- Do not break balance logic, session summary logic, or loss-limit logic
+
+VISUAL AND SOUND DESIGN DIRECTION
+The Akatsuki theme should feel:
+- dark
+- dramatic
+- high-contrast
+- immersive
+- polished
+- cohesive
+
+But the interface must still remain readable and usable.
+
+Use:
+- black / near-black foundations
+- crimson red accents
+- restrained glow/highlight effects
+- clear panel contrast
+- consistent spacing and hierarchy
+
+Avoid:
+- excessive red glow everywhere
+- unreadable text over detailed imagery
+- chaotic overlays
+- effects that distract from gameplay state
+
+Sound should feel intentional:
+- music supports atmosphere
+- spin sound reinforces interaction
+- welcome sound marks transition into the game
+- win sound and win animation reinforce reward
+- major wins should have a noticeably bigger audiovisual payoff than normal wins
+- losses should not be over-celebrated or confused with wins
+
+SOFTWARE ENGINEERING REQUIREMENTS
+Preserve or improve code quality:
+- meaningful names
+- small focused functions
+- modular structure
+- minimal duplication
+- separation of concerns across UI, game logic, payouts, audio, storage, accessibility, and screen flow
+- readable, maintainable code
+- comments and JSDoc where helpful
+- lint-friendly structure
+- easy to test later
+
+If the current candidate already has a good structure, refine within it rather than restructuring aggressively.
+
+REFINEMENT STRATEGY
+Approach this as a conservative enhancement pass:
+1. identify what already works and preserve it
+2. layer in the Akatsuki theme assets
+3. implement the screen-flow hierarchy cleanly
+4. improve visual hierarchy and immersion
+5. strengthen feedback and realism without destabilizing the candidate
+
+OUTPUT EXPECTATIONS
+- Work with the existing candidate, not against it
+- Produce a complete refined version, not pseudo-code
+- Keep the app runnable
+- Make reasonable implementation choices if something is ambiguous
+- Prioritize cohesion, preservation, realism, and polish over feature sprawl
+
+Before making major changes, briefly summarize:
+1. what you are preserving
+2. what you are enhancing
+3. how you will integrate the Akatsuki assets without breaking the current candidate
+
+```
+Notes: Adds theme and more functionality
+
+Result: 
+
+___
