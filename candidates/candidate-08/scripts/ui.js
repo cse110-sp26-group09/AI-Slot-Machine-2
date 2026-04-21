@@ -1,5 +1,5 @@
 /**
- * @typedef {{ id: string, label: string, icon: string, weight: number }} SymbolDef
+ * @typedef {{ id: string, label: string, icon: string, imagePath: string, weight: number }} SymbolDef
  */
 
 /**
@@ -12,15 +12,19 @@ function formatCredits(value) {
 }
 
 /**
- * @param {SymbolDef} symbol
- * @returns {string}
- */
-function symbolText(symbol) {
-  return `${symbol.icon} ${symbol.label}`;
-}
-
-/**
  * @returns {{
+ * entryScreen: HTMLElement,
+ * ageGateScreen: HTMLElement,
+ * gameScreen: HTMLElement,
+ * entryPlayBtn: HTMLButtonElement,
+ * entryInfoBtn: HTMLButtonElement,
+ * gameplayInfoBtn: HTMLButtonElement,
+ * infoModal: HTMLElement,
+ * closeInfoBtn: HTMLButtonElement,
+ * ageGateForm: HTMLFormElement,
+ * birthdateInput: HTMLInputElement,
+ * ageGateMessage: HTMLElement,
+ * ageBackBtn: HTMLButtonElement,
  * balanceValue: HTMLElement,
  * betValue: HTMLElement,
  * lastDeltaValue: HTMLElement,
@@ -29,6 +33,7 @@ function symbolText(symbol) {
  * netResultValue: HTMLElement,
  * spinsValue: HTMLElement,
  * spinBtn: HTMLButtonElement,
+ * leverBtn: HTMLButtonElement,
  * betDownBtn: HTMLButtonElement,
  * betUpBtn: HTMLButtonElement,
  * betInput: HTMLInputElement,
@@ -40,6 +45,7 @@ function symbolText(symbol) {
  * responsibleMessage: HTMLElement,
  * resetSessionBtn: HTMLButtonElement,
  * paytableBody: HTMLElement,
+ * modalPaytableBody: HTMLElement,
  * rtpValue: HTMLElement,
  * rngValue: HTMLElement,
  * fairnessNote: HTMLElement,
@@ -51,11 +57,28 @@ function symbolText(symbol) {
  * reduceMotionToggle: HTMLInputElement,
  * soundToggle: HTMLInputElement,
  * volumeInput: HTMLInputElement,
- * reels: HTMLElement[]
+ * entrySoundToggle: HTMLInputElement,
+ * entryVolumeInput: HTMLInputElement,
+ * reelsWrap: HTMLElement,
+ * reels: HTMLElement[],
+ * bigWinOverlay: HTMLElement,
+ * bigWinText: HTMLElement
  * }}
  */
 function getElements() {
   return {
+    entryScreen: document.getElementById("entryScreen"),
+    ageGateScreen: document.getElementById("ageGateScreen"),
+    gameScreen: document.getElementById("gameScreen"),
+    entryPlayBtn: document.getElementById("entryPlayBtn"),
+    entryInfoBtn: document.getElementById("entryInfoBtn"),
+    gameplayInfoBtn: document.getElementById("gameplayInfoBtn"),
+    infoModal: document.getElementById("infoModal"),
+    closeInfoBtn: document.getElementById("closeInfoBtn"),
+    ageGateForm: document.getElementById("ageGateForm"),
+    birthdateInput: document.getElementById("birthdateInput"),
+    ageGateMessage: document.getElementById("ageGateMessage"),
+    ageBackBtn: document.getElementById("ageBackBtn"),
     balanceValue: document.getElementById("balanceValue"),
     betValue: document.getElementById("betValue"),
     lastDeltaValue: document.getElementById("lastDeltaValue"),
@@ -64,6 +87,7 @@ function getElements() {
     netResultValue: document.getElementById("netResultValue"),
     spinsValue: document.getElementById("spinsValue"),
     spinBtn: document.getElementById("spinBtn"),
+    leverBtn: document.getElementById("leverBtn"),
     betDownBtn: document.getElementById("betDownBtn"),
     betUpBtn: document.getElementById("betUpBtn"),
     betInput: document.getElementById("betInput"),
@@ -75,6 +99,7 @@ function getElements() {
     responsibleMessage: document.getElementById("responsibleMessage"),
     resetSessionBtn: document.getElementById("resetSessionBtn"),
     paytableBody: document.querySelector("#paytable tbody"),
+    modalPaytableBody: document.querySelector("#modalPaytable tbody"),
     rtpValue: document.getElementById("rtpValue"),
     rngValue: document.getElementById("rngValue"),
     fairnessNote: document.getElementById("fairnessNote"),
@@ -86,12 +111,73 @@ function getElements() {
     reduceMotionToggle: document.getElementById("reduceMotionToggle"),
     soundToggle: document.getElementById("soundToggle"),
     volumeInput: document.getElementById("volumeInput"),
+    entrySoundToggle: document.getElementById("entrySoundToggle"),
+    entryVolumeInput: document.getElementById("entryVolumeInput"),
+    reelsWrap: document.getElementById("reelsWrap"),
     reels: [
       document.getElementById("reel0"),
       document.getElementById("reel1"),
       document.getElementById("reel2")
-    ]
+    ],
+    bigWinOverlay: document.getElementById("bigWinOverlay"),
+    bigWinText: document.getElementById("bigWinText")
   };
+}
+
+/**
+ * @param {HTMLElement} reelElement
+ * @param {SymbolDef} symbol
+ */
+function renderSymbol(reelElement, symbol) {
+  reelElement.innerHTML = "";
+
+  const image = document.createElement("img");
+  image.className = "reel-symbol-image";
+  image.src = symbol.imagePath;
+  image.alt = symbol.label;
+  image.loading = "lazy";
+
+  const label = document.createElement("span");
+  label.className = "reel-symbol-label";
+  label.textContent = `${symbol.icon} ${symbol.label}`;
+
+  reelElement.append(image, label);
+}
+
+/**
+ * @param {ReturnType<typeof getElements>} el
+ * @param {"entry" | "ageGate" | "game"} screen
+ */
+function setScreen(el, screen) {
+  const mapping = {
+    entry: el.entryScreen,
+    ageGate: el.ageGateScreen,
+    game: el.gameScreen
+  };
+
+  Object.values(mapping).forEach((node) => {
+    const isActive = node === mapping[screen];
+    node.classList.toggle("screen-active", isActive);
+    node.setAttribute("aria-hidden", String(!isActive));
+  });
+
+  document.body.dataset.screen = screen;
+}
+
+/**
+ * @param {ReturnType<typeof getElements>} el
+ */
+function openInfoModal(el) {
+  el.infoModal.classList.add("open");
+  el.infoModal.setAttribute("aria-hidden", "false");
+}
+
+/**
+ * @param {ReturnType<typeof getElements>} el
+ */
+function closeInfoModal(el) {
+  el.infoModal.classList.remove("open");
+  el.infoModal.setAttribute("aria-hidden", "true");
 }
 
 /**
@@ -119,6 +205,7 @@ function renderState(el, state, lastDelta) {
 
   el.betInput.value = String(state.bet);
   el.spinBtn.disabled = state.isPaused;
+  el.leverBtn.disabled = state.isPaused;
 
   if (state.isPaused) {
     el.limitStatus.textContent = state.pauseReason;
@@ -127,14 +214,24 @@ function renderState(el, state, lastDelta) {
 
 /**
  * @param {ReturnType<typeof getElements>} el
- * @param {{ outcomeText: string, outcomeClass: "win" | "neutral" | "loss", responsiblePrompt: string }} outcome
+ * @param {{ outcomeText: string, outcomeClass: "win" | "neutral" | "loss", responsiblePrompt: string, isMajorWin?: boolean }} outcome
  */
 function renderOutcome(el, outcome) {
   el.outcomeMessage.textContent = outcome.outcomeText;
-  el.outcomeMessage.classList.remove("win", "neutral", "loss");
+  el.outcomeMessage.classList.remove("win", "neutral", "loss", "big-win");
   el.outcomeMessage.classList.add(outcome.outcomeClass);
-
+  if (outcome.isMajorWin) {
+    el.outcomeMessage.classList.add("big-win");
+  }
   el.responsibleMessage.textContent = outcome.responsiblePrompt || "";
+
+  el.reelsWrap.classList.remove("result-win", "result-loss");
+  void el.reelsWrap.offsetWidth;
+  if (outcome.outcomeClass === "win") {
+    el.reelsWrap.classList.add("result-win");
+  } else if (outcome.outcomeClass === "loss") {
+    el.reelsWrap.classList.add("result-loss");
+  }
 }
 
 /**
@@ -142,16 +239,21 @@ function renderOutcome(el, outcome) {
  * @param {{ pattern: string, payout: string }[]} rows
  */
 function renderPaytable(el, rows) {
-  el.paytableBody.innerHTML = "";
-  rows.forEach((row) => {
-    const tr = document.createElement("tr");
-    const tdPattern = document.createElement("td");
-    const tdPayout = document.createElement("td");
-    tdPattern.textContent = row.pattern;
-    tdPayout.textContent = row.payout;
-    tr.append(tdPattern, tdPayout);
-    el.paytableBody.appendChild(tr);
-  });
+  const renderRows = (tbody) => {
+    tbody.innerHTML = "";
+    rows.forEach((row) => {
+      const tr = document.createElement("tr");
+      const tdPattern = document.createElement("td");
+      const tdPayout = document.createElement("td");
+      tdPattern.textContent = row.pattern;
+      tdPayout.textContent = row.payout;
+      tr.append(tdPattern, tdPayout);
+      tbody.appendChild(tr);
+    });
+  };
+
+  renderRows(el.paytableBody);
+  renderRows(el.modalPaytableBody);
 }
 
 /**
@@ -170,8 +272,31 @@ function renderFairness(el, fairness) {
  */
 function renderReelsImmediately(el, symbols) {
   symbols.forEach((symbol, index) => {
-    el.reels[index].textContent = symbolText(symbol);
+    renderSymbol(el.reels[index], symbol);
     el.reels[index].classList.remove("spinning");
+  });
+}
+
+/**
+ * @param {ReturnType<typeof getElements>} el
+ * @param {{ reduceMotion: boolean }} settings
+ * @returns {Promise<void>}
+ */
+function animateLever(el, settings) {
+  if (settings.reduceMotion) {
+    return Promise.resolve();
+  }
+
+  el.leverBtn.classList.add("pull-down");
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      el.leverBtn.classList.remove("pull-down");
+      el.leverBtn.classList.add("return-up");
+      setTimeout(() => {
+        el.leverBtn.classList.remove("return-up");
+        resolve();
+      }, 220);
+    }, 220);
   });
 }
 
@@ -190,23 +315,22 @@ async function animateSpin(el, randomSpinFn, finalSymbols, settings, onReelStop)
     return;
   }
 
+  el.reelsWrap.classList.add("spin-active");
   el.reels.forEach((reel) => reel.classList.add("spinning"));
 
   const interval = setInterval(() => {
     const temporary = randomSpinFn();
-    temporary.forEach((symbol, index) => {
-      el.reels[index].textContent = symbolText(symbol);
-    });
-  }, 90);
+    temporary.forEach((symbol, index) => renderSymbol(el.reels[index], symbol));
+  }, 95);
 
-  const stopDelays = [420, 700, 980];
+  const stopDelays = [500, 790, 1080];
 
   await Promise.all(
     finalSymbols.map(
       (symbol, index) =>
         new Promise((resolve) => {
           setTimeout(() => {
-            el.reels[index].textContent = symbolText(symbol);
+            renderSymbol(el.reels[index], symbol);
             el.reels[index].classList.remove("spinning");
             onReelStop(index);
             resolve();
@@ -216,6 +340,48 @@ async function animateSpin(el, randomSpinFn, finalSymbols, settings, onReelStop)
   );
 
   clearInterval(interval);
+  el.reelsWrap.classList.remove("spin-active");
+}
+
+/**
+ * @param {ReturnType<typeof getElements>} el
+ * @param {string} message
+ * @param {"error" | "success" | "neutral"} tone
+ */
+function setAgeFeedback(el, message, tone = "neutral") {
+  el.ageGateMessage.textContent = message;
+  el.ageGateMessage.classList.remove("age-error", "age-success", "age-neutral");
+  el.ageGateMessage.classList.add(`age-${tone}`);
+}
+
+/**
+ * @param {ReturnType<typeof getElements>} el
+ * @param {boolean} enabled
+ * @param {number} volume
+ */
+function setSoundState(el, enabled, volume) {
+  el.soundToggle.checked = enabled;
+  el.entrySoundToggle.checked = enabled;
+  el.volumeInput.value = String(volume);
+  el.entryVolumeInput.value = String(volume);
+}
+
+/**
+ * @param {ReturnType<typeof getElements>} el
+ * @param {string} message
+ * @returns {Promise<void>}
+ */
+function showBigWinOverlay(el, message) {
+  el.bigWinText.textContent = message;
+  el.bigWinOverlay.setAttribute("aria-hidden", "false");
+  el.bigWinOverlay.classList.add("active");
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      el.bigWinOverlay.classList.remove("active");
+      el.bigWinOverlay.setAttribute("aria-hidden", "true");
+      resolve();
+    }, 2400);
+  });
 }
 
 /**
@@ -228,15 +394,26 @@ async function animateSpin(el, randomSpinFn, finalSymbols, settings, onReelStop)
  * onApplyLimit: (value: number) => void,
  * onResetSession: () => void,
  * onSoundToggle: (enabled: boolean) => void,
- * onVolumeChange: (value: number) => void
+ * onVolumeChange: (value: number) => void,
+ * onPlay: () => void,
+ * onInfoOpen: () => void,
+ * onInfoClose: () => void,
+ * onAgeBack: () => void,
+ * onVerifyAge: (birthDate: string) => void
  * }} handlers
  */
 function bindHandlers(el, handlers) {
   el.betDownBtn.addEventListener("click", handlers.onBetDown);
   el.betUpBtn.addEventListener("click", handlers.onBetUp);
   el.spinBtn.addEventListener("click", handlers.onSpin);
+  el.leverBtn.addEventListener("click", handlers.onSpin);
   el.addCreditsBtn.addEventListener("click", handlers.onAddCredits);
   el.resetSessionBtn.addEventListener("click", handlers.onResetSession);
+  el.entryPlayBtn.addEventListener("click", handlers.onPlay);
+  el.entryInfoBtn.addEventListener("click", handlers.onInfoOpen);
+  el.gameplayInfoBtn.addEventListener("click", handlers.onInfoOpen);
+  el.closeInfoBtn.addEventListener("click", handlers.onInfoClose);
+  el.ageBackBtn.addEventListener("click", handlers.onAgeBack);
 
   el.betInput.addEventListener("change", () => {
     handlers.onBetInput(Number(el.betInput.value));
@@ -249,9 +426,32 @@ function bindHandlers(el, handlers) {
   el.soundToggle.addEventListener("change", () => {
     handlers.onSoundToggle(el.soundToggle.checked);
   });
+  el.entrySoundToggle.addEventListener("change", () => {
+    handlers.onSoundToggle(el.entrySoundToggle.checked);
+  });
 
   el.volumeInput.addEventListener("input", () => {
     handlers.onVolumeChange(Number(el.volumeInput.value));
+  });
+  el.entryVolumeInput.addEventListener("input", () => {
+    handlers.onVolumeChange(Number(el.entryVolumeInput.value));
+  });
+
+  el.ageGateForm.addEventListener("submit", (event) => {
+    event.preventDefault();
+    handlers.onVerifyAge(el.birthdateInput.value.trim());
+  });
+
+  el.infoModal.addEventListener("click", (event) => {
+    if (event.target === el.infoModal) {
+      handlers.onInfoClose();
+    }
+  });
+
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape" && el.infoModal.classList.contains("open")) {
+      handlers.onInfoClose();
+    }
   });
 }
 
@@ -268,6 +468,18 @@ export function createUiController() {
     renderReelsImmediately: (symbols) => renderReelsImmediately(el, symbols),
     animateSpin: (randomSpinFn, finalSymbols, settings, onReelStop) =>
       animateSpin(el, randomSpinFn, finalSymbols, settings, onReelStop),
+    animateLever: (settings) => animateLever(el, settings),
+    setScreen: (screen) => setScreen(el, screen),
+    openInfoModal: () => openInfoModal(el),
+    closeInfoModal: () => closeInfoModal(el),
+    setAgeFeedback: (message, tone) => setAgeFeedback(el, message, tone),
+    clearAgeFeedback: () => setAgeFeedback(el, "", "neutral"),
+    setSoundState: (enabled, volume) => setSoundState(el, enabled, volume),
+    setBetBounds: (minBet, maxBet) => {
+      el.betInput.min = String(minBet);
+      el.betInput.max = String(maxBet);
+    },
+    showBigWinOverlay: (message) => showBigWinOverlay(el, message),
     setLimitStatus: (message) => {
       el.limitStatus.textContent = message;
     }

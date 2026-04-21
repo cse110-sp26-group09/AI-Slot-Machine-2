@@ -1,15 +1,72 @@
 /**
- * @typedef {{ id: string, label: string, icon: string, weight: number }} SymbolDef
+ * @typedef {{ id: string, label: string, icon: string, imagePath: string, weight: number }} SymbolDef
  */
 
 /** @type {SymbolDef[]} */
 export const SYMBOLS = [
-  { id: "prompt", label: "PROMPT", icon: "P", weight: 6 },
-  { id: "token", label: "TOKEN", icon: "T", weight: 5 },
-  { id: "model", label: "MODEL", icon: "M", weight: 4 },
-  { id: "cache", label: "CACHE", icon: "C", weight: 7 },
-  { id: "bug", label: "BUG", icon: "B", weight: 8 },
-  { id: "credit", label: "CREDIT", icon: "R", weight: 6 }
+  {
+    id: "spongebob",
+    label: "Spongebob",
+    icon: "SP",
+    imagePath: "assets/icons/Spongebob.png",
+    weight: 3
+  },
+  {
+    id: "patrick",
+    label: "Patrick",
+    icon: "PA",
+    imagePath: "assets/icons/Patrick.png",
+    weight: 4
+  },
+  {
+    id: "squidward",
+    label: "Squidward",
+    icon: "SQ",
+    imagePath: "assets/icons/Squidward_Tentacles.png",
+    weight: 5
+  },
+  {
+    id: "sandy",
+    label: "Sandy",
+    icon: "SA",
+    imagePath: "assets/icons/Sandy.png",
+    weight: 4
+  },
+  {
+    id: "mr-krabs",
+    label: "Mr. Krabs",
+    icon: "MK",
+    imagePath: "assets/icons/Mr.Crabs.png",
+    weight: 4
+  },
+  {
+    id: "plankton",
+    label: "Plankton",
+    icon: "PL",
+    imagePath: "assets/icons/Plankton.png",
+    weight: 6
+  },
+  {
+    id: "gary",
+    label: "Gary",
+    icon: "GA",
+    imagePath: "assets/icons/Gary.png",
+    weight: 6
+  },
+  {
+    id: "mrs-puff",
+    label: "Mrs. Puff",
+    icon: "MP",
+    imagePath: "assets/icons/Mrs.Puff.png",
+    weight: 5
+  },
+  {
+    id: "pearl",
+    label: "Pearl",
+    icon: "PE",
+    imagePath: "assets/icons/Pearl.png",
+    weight: 5
+  }
 ];
 
 /**
