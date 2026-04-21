@@ -1,11 +1,11 @@
 const THREE_MATCH_PAYOUTS = Object.freeze({
-  GPU: 25,
-  CACHE: 20,
-  MODEL: 15,
-  CREDIT: 10,
-  TOKEN: 8,
-  PROMPT: 5,
-  "404": 1
+  PAIN: 25,
+  ITACHI: 20,
+  KONAN: 15,
+  KISAME: 10,
+  DEIDARA: 8,
+  TOBI: 5,
+  ZETSU: 1
 });
 
 export const THEORETICAL_RTP = 95.2;
@@ -46,13 +46,13 @@ export function evaluatePayout(symbols, bet) {
 
 export function getPaytableRows() {
   return [
-    { match: "GPU GPU GPU", payout: "25x", notes: "Jackpot cluster" },
-    { match: "CACHE CACHE CACHE", payout: "20x", notes: "Compute cache blast" },
-    { match: "MODEL MODEL MODEL", payout: "15x", notes: "Model sync" },
-    { match: "CREDIT CREDIT CREDIT", payout: "10x", notes: "Credit flood" },
-    { match: "TOKEN TOKEN TOKEN", payout: "8x", notes: "Token run" },
-    { match: "PROMPT PROMPT PROMPT", payout: "5x", notes: "Prompt chain" },
-    { match: "404 404 404", payout: "1x", notes: "Break-even meme line" },
+    { match: "PAIN PAIN PAIN", payout: "25x", notes: "Legendary jackpot symbol" },
+    { match: "ITACHI ITACHI ITACHI", payout: "20x", notes: "High-tier assault" },
+    { match: "KONAN KONAN KONAN", payout: "15x", notes: "Major win tier" },
+    { match: "KISAME KISAME KISAME", payout: "10x", notes: "Strong payout" },
+    { match: "DEIDARA DEIDARA DEIDARA", payout: "8x", notes: "Explosive boost" },
+    { match: "TOBI TOBI TOBI", payout: "5x", notes: "Mid-tier return" },
+    { match: "ZETSU ZETSU ZETSU", payout: "1x", notes: "Break-even line" },
     { match: "Any 2 matching symbols", payout: "0.5x", notes: "Partial rebate" },
     { match: "No match", payout: "0x", notes: "No payout" }
   ];
