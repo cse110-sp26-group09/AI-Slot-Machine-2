@@ -5,33 +5,53 @@
 import { getReelDistributions } from "./reels.js";
 
 const THREE_OF_A_KIND_MULTIPLIERS = Object.freeze({
-  gpt: 18,
-  token: 12,
-  prompt: 10,
-  vector: 8,
-  credit: 6,
-  cache: 5,
-  bug: 9
+  spongebob: 20,
+  patrick: 14,
+  sandy: 12,
+  squidward: 10,
+  mrkrabs: 11,
+  mrspuff: 8,
+  gary: 7,
+  pearl: 9,
+  plankton: 13
 });
 
 const TWO_OF_A_KIND_MULTIPLIERS = Object.freeze({
-  gpt: 3,
-  token: 2,
-  prompt: 2,
-  vector: 2,
-  credit: 1,
-  cache: 1,
-  bug: 2
+  spongebob: 3,
+  patrick: 2,
+  sandy: 2,
+  squidward: 2,
+  mrkrabs: 2,
+  mrspuff: 1,
+  gary: 1,
+  pearl: 1,
+  plankton: 2
 });
 
 const SPECIAL_COMBOS = Object.freeze([
   {
-    id: "full-stack",
-    pattern: ["gpt", "token", "prompt"],
-    label: "Full Stack Inference",
-    multiplier: 25
+    id: "besties-line",
+    pattern: ["spongebob", "patrick", "sandy"],
+    label: "Besties Adventure",
+    multiplier: 24
   }
 ]);
+
+const SYMBOL_LABELS = Object.freeze({
+  spongebob: "Spongebob",
+  patrick: "Patrick",
+  sandy: "Sandy",
+  squidward: "Squidward",
+  mrkrabs: "Mr. Krabs",
+  mrspuff: "Mrs. Puff",
+  gary: "Gary",
+  pearl: "Pearl",
+  plankton: "Plankton"
+});
+
+function toSymbolLabel(symbolId) {
+  return SYMBOL_LABELS[symbolId] ?? symbolId;
+}
 
 /**
  * @param {string[]} symbols
@@ -58,7 +78,7 @@ export function evaluateSpinPayout(symbols, betAmount) {
     return {
       payout: betAmount * multiplier,
       multiplier,
-      line: `Triple ${symbolId.toUpperCase()}`
+      line: `Triple ${toSymbolLabel(symbolId)}`
     };
   }
 
@@ -77,7 +97,7 @@ export function evaluateSpinPayout(symbols, betAmount) {
     return {
       payout: betAmount * multiplier,
       multiplier,
-      line: `Pair ${symbolId.toUpperCase()}`
+      line: `Pair ${toSymbolLabel(symbolId)}`
     };
   }
 
@@ -93,17 +113,23 @@ export function evaluateSpinPayout(symbols, betAmount) {
  */
 export function getPaytableRows() {
   return [
-    { combo: "GPT TOKEN PROMPT", payout: "25x", note: "Special sequence" },
-    { combo: "Any triple GPT", payout: "18x", note: "Top classic hit" },
-    { combo: "Any triple TOKEN", payout: "12x", note: "High-value line" },
-    { combo: "Any triple PROMPT", payout: "10x", note: "Strong line" },
-    { combo: "Any triple VECTOR", payout: "8x", note: "Good line" },
-    { combo: "Any triple BUG", payout: "9x", note: "Satire bonus" },
-    { combo: "Any triple CREDIT", payout: "6x", note: "Stable return" },
-    { combo: "Any triple CACHE", payout: "5x", note: "Small hit" },
-    { combo: "Any pair GPT", payout: "3x", note: "Solid pair" },
-    { combo: "Any pair TOKEN/PROMPT/VECTOR/BUG", payout: "2x", note: "Medium pair" },
-    { combo: "Any pair CREDIT/CACHE", payout: "1x", note: "Break-even pair" }
+    {
+      combo: "Spongebob - Patrick - Sandy",
+      payout: "24x",
+      note: "Special Besties line"
+    },
+    { combo: "Any triple Spongebob", payout: "20x", note: "Top hit" },
+    { combo: "Any triple Patrick", payout: "14x", note: "Big hit" },
+    { combo: "Any triple Plankton", payout: "13x", note: "Sneaky high line" },
+    { combo: "Any triple Sandy", payout: "12x", note: "Strong line" },
+    { combo: "Any triple Mr. Krabs", payout: "11x", note: "Cash-heavy line" },
+    { combo: "Any triple Squidward", payout: "10x", note: "Solid line" },
+    { combo: "Any triple Pearl", payout: "9x", note: "Good line" },
+    { combo: "Any triple Mrs. Puff", payout: "8x", note: "Steady line" },
+    { combo: "Any triple Gary", payout: "7x", note: "Small triple" },
+    { combo: "Any pair Spongebob", payout: "3x", note: "Best pair" },
+    { combo: "Any pair Patrick/Sandy/Squidward/Mr. Krabs/Plankton", payout: "2x", note: "Medium pair" },
+    { combo: "Any pair Gary/Pearl/Mrs. Puff", payout: "1x", note: "Break-even pair" }
   ];
 }
 
@@ -148,6 +174,6 @@ export function getFairnessReport() {
   return {
     rtpPercent: expectedReturn * 100,
     hitRatePercent: hitRate * 100,
-    note: "Outcomes are sampled with browser crypto randomness when available."
+    note: "Outcomes use browser crypto randomness when available, with weighted reel stops."
   };
 }

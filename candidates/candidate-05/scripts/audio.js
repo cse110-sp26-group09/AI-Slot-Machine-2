@@ -1,11 +1,12 @@
 /**
- * Lightweight Web Audio controller with gentle tones for spin outcomes.
- * @typedef {{frequency: number, durationMs: number, type?: OscillatorType, offsetMs?: number, gain?: number}} ToneOptions
+ * Asset-backed audio controller for themed music and spin feedback.
  * @returns {{
  *   prime: () => void,
+ *   startBackgroundMusic: () => void,
+ *   playWelcome: () => void,
  *   playSpin: () => void,
- *   playWin: (roundNet: number) => void,
- *   playBreakEven: () => void,
+ *   playMinorWin: () => void,
+ *   playBigWin: () => void,
  *   playLoss: () => void,
  *   playLimitReached: () => void,
  *   setEnabled: (nextEnabled: boolean) => void,
@@ -16,100 +17,93 @@
 export function createAudioController() {
   let enabled = true;
   let volume = 0.4;
-  let context;
-  let masterGain;
 
-  function ensureContext() {
-    if (!context) {
-      const AudioContextCtor = window.AudioContext || window.webkitAudioContext;
-      if (!AudioContextCtor) {
-        return null;
-      }
+  const tracks = {
+    bgm: new Audio("assets/audio/spongebob-bgm.mp3"),
+    welcome: new Audio("assets/audio/spongebob-welcome.mp3"),
+    spin: new Audio("assets/audio/spongebob-spin.mp3"),
+    bigWin: new Audio("assets/audio/spongebob-bigwin.mp3"),
+    win: new Audio("assets/audio/spongebob-win.mp3"),
+    loss: new Audio("assets/audio/spongebob-loss.mp3")
+  };
 
-      context = new AudioContextCtor();
-      masterGain = context.createGain();
-      masterGain.gain.value = volume;
-      masterGain.connect(context.destination);
-    }
+  tracks.bgm.loop = true;
 
-    if (context.state === "suspended") {
-      context.resume();
-    }
-
-    return context;
+  function applyVolume() {
+    const bgmLevel = Math.max(0, Math.min(1, volume));
+    tracks.bgm.volume = bgmLevel * 0.65;
+    tracks.welcome.volume = bgmLevel;
+    tracks.spin.volume = bgmLevel;
+    tracks.bigWin.volume = bgmLevel;
+    tracks.win.volume = bgmLevel;
+    tracks.loss.volume = bgmLevel;
   }
 
-  /**
-   * @param {ToneOptions} options
-   * @returns {void}
-   */
-  function playTone({ frequency, durationMs, type = "sine", offsetMs = 0, gain = 1 }) {
+  function safePlay(track) {
     if (!enabled) {
       return;
     }
 
-    const audioContext = ensureContext();
-    if (!audioContext || !masterGain) {
+    const nextTrack = track;
+    nextTrack.currentTime = 0;
+    nextTrack.play().catch(() => {
+      // Ignore autoplay and decode failures to keep gameplay responsive.
+    });
+  }
+
+  function prime() {
+    applyVolume();
+  }
+
+  function startBackgroundMusic() {
+    applyVolume();
+    if (!enabled) {
       return;
     }
 
-    const oscillator = audioContext.createOscillator();
-    const gainNode = audioContext.createGain();
+    tracks.bgm.play().catch(() => {
+      // First interaction may still be required by the browser.
+    });
+  }
 
-    const startTime = audioContext.currentTime + offsetMs / 1000;
-    const stopTime = startTime + durationMs / 1000;
-
-    oscillator.type = type;
-    oscillator.frequency.setValueAtTime(frequency, startTime);
-
-    gainNode.gain.setValueAtTime(0.0001, startTime);
-    gainNode.gain.exponentialRampToValueAtTime(0.14 * gain, startTime + 0.02);
-    gainNode.gain.exponentialRampToValueAtTime(0.0001, stopTime);
-
-    oscillator.connect(gainNode);
-    gainNode.connect(masterGain);
-
-    oscillator.start(startTime);
-    oscillator.stop(stopTime);
+  function playWelcome() {
+    safePlay(tracks.welcome);
   }
 
   function playSpin() {
-    playTone({ frequency: 220, durationMs: 120, type: "triangle" });
-    playTone({ frequency: 260, durationMs: 120, type: "triangle", offsetMs: 90 });
-    playTone({ frequency: 300, durationMs: 120, type: "triangle", offsetMs: 180 });
+    safePlay(tracks.spin);
   }
 
-  function playWin(roundNet) {
-    const energy = Math.min(1.5, Math.max(1, roundNet / 20));
-
-    playTone({ frequency: 480, durationMs: 110, type: "sine", gain: energy });
-    playTone({ frequency: 620, durationMs: 140, type: "sine", offsetMs: 95, gain: energy });
-    playTone({ frequency: 760, durationMs: 180, type: "sine", offsetMs: 190, gain: energy });
+  function playMinorWin() {
+    safePlay(tracks.win);
   }
 
-  function playBreakEven() {
-    playTone({ frequency: 420, durationMs: 100, type: "square", gain: 0.8 });
-    playTone({ frequency: 420, durationMs: 100, type: "square", offsetMs: 120, gain: 0.8 });
+  function playBigWin() {
+    safePlay(tracks.bigWin);
   }
 
   function playLoss() {
-    playTone({ frequency: 250, durationMs: 200, type: "sawtooth", gain: 0.8 });
+    safePlay(tracks.loss);
   }
 
   function playLimitReached() {
-    playTone({ frequency: 320, durationMs: 180, type: "square", gain: 0.9 });
-    playTone({ frequency: 210, durationMs: 240, type: "square", offsetMs: 150, gain: 1 });
+    safePlay(tracks.loss);
   }
 
   function setEnabled(nextEnabled) {
     enabled = Boolean(nextEnabled);
+
+    if (!enabled) {
+      tracks.bgm.pause();
+      return;
+    }
+
+    startBackgroundMusic();
   }
 
   function setVolume(nextVolume) {
     volume = Math.min(1, Math.max(0, Number(nextVolume)));
-    if (masterGain) {
-      masterGain.gain.value = volume;
-    }
+    applyVolume();
   }
 
   function getSettings() {
@@ -119,15 +113,15 @@ export function createAudioController() {
     };
   }
 
-  function prime() {
-    ensureContext();
-  }
+  applyVolume();
 
   return {
     prime,
+    startBackgroundMusic,
+    playWelcome,
     playSpin,
-    playWin,
-    playBreakEven,
+    playMinorWin,
+    playBigWin,
     playLoss,
     playLimitReached,
     setEnabled,

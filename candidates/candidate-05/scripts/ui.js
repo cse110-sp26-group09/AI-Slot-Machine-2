@@ -77,18 +77,21 @@ function clearToneClasses(element) {
 /**
  * UI controller: only DOM reads/writes and user event wiring.
  * @param {{
- *   getSymbolById: (symbolId: string) => {label: string, title: string},
+ *   getSymbolById: (symbolId: string) => {label: string, title: string, icon: string},
  *   getRandomSymbolId: () => string,
  *   onSpin: () => Promise<any> | any,
  *   onBetChange: (bet: number) => void,
- *   onLimitsChange: (limits: {budget: number, lossLimit: number}) => void,
+ *   onLimitsChange: (limits: {sessionBudget: number, lossLimit: number}) => void,
  *   onResume: () => void,
  *   onReset: () => void,
- *   onToggleAccessibility: (settings: {highContrast: boolean, largePrint: boolean, reducedMotion: boolean}) => void,
+ *   onToggleAccessibility: (key: string, enabled: boolean) => void,
  *   onToggleSound: (enabled: boolean) => void,
- *   onVolumeChange: (volume: number) => void
+ *   onVolumeChange: (volume: number) => void,
+ *   onPlayRequest: () => void,
+ *   onSubmitAge: (birthDate: string) => void,
+ *   onBackFromAge: () => void,
+ *   onBackToHome: () => void
  * }} options
- * @returns {{init: (args: any) => void, renderState: (state: any) => void, renderAdvisory: (message: string) => void, setMessage: (text: string, tone?: string) => void}}
  */
 export function createUI({
   getSymbolById,
@@ -100,7 +103,11 @@ export function createUI({
   onReset,
   onToggleAccessibility,
   onToggleSound,
-  onVolumeChange
+  onVolumeChange,
+  onPlayRequest,
+  onSubmitAge,
+  onBackFromAge,
+  onBackToHome
 }) {
   const reels = [
     document.getElementById("reel-1"),
@@ -109,7 +116,20 @@ export function createUI({
   ];
 
   const elements = {
+    entryScreen: document.getElementById("entry-screen"),
+    ageScreen: document.getElementById("age-screen"),
+    gameScreen: document.getElementById("game-screen"),
+    playButton: document.getElementById("entry-play-button"),
+    ageInput: document.getElementById("age-input"),
+    ageSubmitButton: document.getElementById("age-submit-button"),
+    ageBackButton: document.getElementById("age-back-button"),
+    ageFeedback: document.getElementById("age-feedback"),
+    infoModal: document.getElementById("info-modal"),
+    infoButtons: [document.getElementById("entry-info-button"), document.getElementById("gameplay-info-button")],
+    homeButton: document.getElementById("gameplay-home-button"),
+    infoCloseButton: document.getElementById("info-close-button"),
     spinButton: document.getElementById("spin-button"),
+    leverButton: document.getElementById("lever-button"),
     minusBetButton: document.getElementById("bet-minus"),
     plusBetButton: document.getElementById("bet-plus"),
     betInput: document.getElementById("bet-input"),
@@ -133,27 +153,57 @@ export function createUI({
     tierProgressFill: document.getElementById("tier-progress-fill"),
     soundToggle: document.getElementById("sound-toggle"),
     volumeInput: document.getElementById("volume-input"),
+    entrySoundToggle: document.getElementById("entry-sound-toggle"),
+    entryVolumeInput: document.getElementById("entry-volume-input"),
     highContrastToggle: document.getElementById("high-contrast-toggle"),
     largePrintToggle: document.getElementById("large-print-toggle"),
     reducedMotionToggle: document.getElementById("reduced-motion-toggle"),
     paytableBody: document.getElementById("paytable-body"),
+    infoPaytableBody: document.getElementById("info-paytable-body"),
     rtpValue: document.getElementById("rtp-value"),
-    hitRateValue: document.getElementById("hit-rate-value")
+    hitRateValue: document.getElementById("hit-rate-value"),
+    outcomeArea: document.querySelector(".outcome-area"),
+    bigWinOverlay: document.getElementById("big-win-overlay"),
+    bigWinLine: document.getElementById("big-win-line")
   };
 
   let spinInProgress = false;
+  let lastFocusedElement = null;
+
+  function renderSymbol(reelElement, symbolId) {
+    const symbol = getSymbolById(symbolId);
+
+    reelElement.textContent = "";
+
+    const wrapper = document.createElement("div");
+    wrapper.className = "reel-symbol";
+
+    const image = document.createElement("img");
+    image.className = "reel-symbol-image";
+    image.src = symbol.icon;
+    image.alt = `${symbol.label} symbol`;
+
+    const label = document.createElement("span");
+    label.className = "reel-symbol-label";
+    label.textContent = symbol.label;
+
+    wrapper.appendChild(image);
+    wrapper.appendChild(label);
+
+    reelElement.appendChild(wrapper);
+    reelElement.setAttribute("aria-label", `${symbol.title} symbol`);
+    reelElement.title = symbol.title;
+  }
 
   function renderSymbols(symbolIds) {
     reels.forEach((reelElement, index) => {
-      const symbol = getSymbolById(symbolIds[index]);
-      reelElement.textContent = symbol.label;
-      reelElement.setAttribute("aria-label", symbol.title);
-      reelElement.title = symbol.title;
+      renderSymbol(reelElement, symbolIds[index]);
     });
   }
 
   function setSpinEnabled(enabled) {
     elements.spinButton.disabled = !enabled;
+    elements.leverButton.disabled = !enabled;
   }
 
   function updatePauseBanner(state) {
@@ -166,6 +216,27 @@ export function createUI({
 
     elements.pauseBanner.hidden = true;
     elements.pauseReason.textContent = "";
+  }
+
+  function setActiveScreen(activeScreen) {
+    [elements.entryScreen, elements.ageScreen, elements.gameScreen].forEach((screen) => {
+      const isActive = screen === activeScreen;
+      screen.hidden = !isActive;
+      screen.classList.toggle("is-active", isActive);
+    });
+  }
+
+  function showEntryScreen() {
+    setActiveScreen(elements.entryScreen);
+  }
+
+  function showAgeScreen() {
+    setActiveScreen(elements.ageScreen);
+    elements.ageInput.focus();
+  }
+
+  function showGameScreen() {
+    setActiveScreen(elements.gameScreen);
   }
 
   function renderState(state) {
@@ -250,36 +321,59 @@ export function createUI({
     }
   }
 
+  function setAgeFeedback(text, tone = "neutral") {
+    elements.ageFeedback.textContent = text;
+    clearToneClasses(elements.ageFeedback);
+
+    if (tone === "warning") {
+      elements.ageFeedback.classList.add("tone-loss");
+      return;
+    }
+
+    if (tone === "win") {
+      elements.ageFeedback.classList.add("tone-win");
+      return;
+    }
+
+    elements.ageFeedback.classList.add("tone-neutral");
+  }
+
   function animateSingleReel(reelElement, finalSymbolId, durationMs) {
     return new Promise((resolve) => {
       reelElement.classList.add("spinning");
-      const start = Date.now();
+      reelElement.classList.remove("spin-settle");
+      const start = window.performance.now();
+      let timer = 0;
 
-      const timer = window.setInterval(() => {
-        const rollingSymbol = getSymbolById(getRandomSymbolId());
-        reelElement.textContent = rollingSymbol.label;
-      }, 70);
+      const tick = () => {
+        const elapsed = window.performance.now() - start;
+        const progress = Math.min(elapsed / durationMs, 1);
 
-      const stopSpin = () => {
-        window.clearInterval(timer);
-        const finalSymbol = getSymbolById(finalSymbolId);
-        reelElement.textContent = finalSymbol.label;
-        reelElement.title = finalSymbol.title;
-        reelElement.setAttribute("aria-label", finalSymbol.title);
-        reelElement.classList.remove("spinning");
-        resolve();
-      };
+        renderSymbol(reelElement, getRandomSymbolId());
+        reelElement.style.setProperty("--spin-progress", `${progress}`);
 
-      const frameTick = () => {
-        if (Date.now() - start >= durationMs) {
+        if (progress >= 1) {
           stopSpin();
           return;
         }
 
-        window.requestAnimationFrame(frameTick);
+        const cadenceMs = progress < 0.55 ? 48 : progress < 0.84 ? 72 : 108;
+        timer = window.setTimeout(tick, cadenceMs);
       };
 
-      window.requestAnimationFrame(frameTick);
+      const stopSpin = () => {
+        window.clearTimeout(timer);
+        renderSymbol(reelElement, finalSymbolId);
+        reelElement.classList.remove("spinning");
+        reelElement.classList.add("spin-settle");
+        reelElement.style.removeProperty("--spin-progress");
+        window.setTimeout(() => {
+          reelElement.classList.remove("spin-settle");
+        }, 260);
+        resolve();
+      };
+
+      tick();
     });
   }
 
@@ -289,36 +383,84 @@ export function createUI({
       return;
     }
 
-    await animateSingleReel(reels[0], finalSymbols[0], 500);
-    await animateSingleReel(reels[1], finalSymbols[1], 800);
-    await animateSingleReel(reels[2], finalSymbols[2], 1100);
+    await animateSingleReel(reels[0], finalSymbols[0], 550);
+    await animateSingleReel(reels[1], finalSymbols[1], 880);
+    await animateSingleReel(reels[2], finalSymbols[2], 1220);
+  }
+
+  function pulseOutcomeArea(className) {
+    elements.outcomeArea.classList.remove("minor-win-pulse");
+    if (className === "minor-win-pulse") {
+      elements.outcomeArea.classList.add(className);
+      window.setTimeout(() => {
+        elements.outcomeArea.classList.remove(className);
+      }, 900);
+    }
+  }
+
+  function celebrateMinorWin() {
+    pulseOutcomeArea("minor-win-pulse");
+  }
+
+  function celebrateMajorWin(spinResult, reducedMotion) {
+    elements.bigWinLine.textContent = `${spinResult.payoutInfo.line} paid ${formatCredits(spinResult.payoutInfo.payout)}!`;
+    elements.bigWinOverlay.hidden = false;
+    elements.bigWinOverlay.classList.add("show");
+
+    if (!reducedMotion) {
+      for (let index = 0; index < 16; index += 1) {
+        const burst = document.createElement("span");
+        burst.className = "bubble-burst";
+        burst.style.left = `${5 + Math.random() * 90}%`;
+        burst.style.animationDelay = `${Math.random() * 240}ms`;
+        elements.bigWinOverlay.appendChild(burst);
+      }
+    }
+
+    window.setTimeout(() => {
+      elements.bigWinOverlay.classList.remove("show");
+      elements.bigWinOverlay.hidden = true;
+      elements.bigWinOverlay.querySelectorAll(".bubble-burst").forEach((node) => node.remove());
+    }, reducedMotion ? 1200 : 2500);
   }
 
   function setBusy(isBusy) {
     spinInProgress = isBusy;
-    elements.spinButton.disabled = isBusy;
+    setSpinEnabled(!isBusy);
+
     elements.spinButton.setAttribute("aria-busy", String(isBusy));
+    elements.leverButton.classList.toggle("lever-active", isBusy);
+    elements.betInput.disabled = isBusy;
+    elements.minusBetButton.disabled = isBusy;
+    elements.plusBetButton.disabled = isBusy;
+    elements.homeButton.disabled = isBusy;
   }
 
   function renderPaytable(rows) {
     elements.paytableBody.innerHTML = "";
+    elements.infoPaytableBody.innerHTML = "";
 
     rows.forEach((row) => {
-      const tableRow = document.createElement("tr");
+      const createRow = () => {
+        const tableRow = document.createElement("tr");
 
-      const comboCell = document.createElement("td");
-      comboCell.textContent = row.combo;
-      tableRow.appendChild(comboCell);
+        const comboCell = document.createElement("td");
+        comboCell.textContent = row.combo;
+        tableRow.appendChild(comboCell);
 
-      const payoutCell = document.createElement("td");
-      payoutCell.textContent = row.payout;
-      tableRow.appendChild(payoutCell);
+        const payoutCell = document.createElement("td");
+        payoutCell.textContent = row.payout;
+        tableRow.appendChild(payoutCell);
 
-      const noteCell = document.createElement("td");
-      noteCell.textContent = row.note;
-      tableRow.appendChild(noteCell);
+        const noteCell = document.createElement("td");
+        noteCell.textContent = row.note;
+        tableRow.appendChild(noteCell);
 
-      elements.paytableBody.appendChild(tableRow);
+        return tableRow;
+      };
+
+      elements.paytableBody.appendChild(createRow());
+      elements.infoPaytableBody.appendChild(createRow());
     });
   }
 
@@ -336,11 +478,74 @@ export function createUI({
   function renderSoundSettings(settings) {
     elements.soundToggle.checked = settings.enabled;
     elements.volumeInput.value = `${settings.volume}`;
+
+    elements.entrySoundToggle.checked = settings.enabled;
+    elements.entryVolumeInput.value = `${settings.volume}`;
+  }
+
+  function openInfoModal() {
+    lastFocusedElement = document.activeElement;
+    elements.infoModal.hidden = false;
+    elements.infoModal.classList.add("show");
+    elements.infoCloseButton.focus();
+  }
+
+  function closeInfoModal() {
+    elements.infoModal.classList.remove("show");
+    elements.infoModal.hidden = true;
+
+    if (lastFocusedElement && typeof lastFocusedElement.focus === "function") {
+      lastFocusedElement.focus();
+    }
   }
 
   function bindEvents() {
+    elements.playButton.addEventListener("click", () => {
+      onPlayRequest();
+    });
+
+    elements.ageSubmitButton.addEventListener("click", () => {
+      onSubmitAge(elements.ageInput.value.trim());
+    });
+
+    elements.ageInput.addEventListener("keydown", (event) => {
+      if (event.key === "Enter") {
+        onSubmitAge(elements.ageInput.value.trim());
+      }
+    });
+
+    elements.ageBackButton.addEventListener("click", () => {
+      onBackFromAge();
+    });
+
+    elements.infoButtons.forEach((button) => {
+      button.addEventListener("click", openInfoModal);
+    });
+
+    elements.infoCloseButton.addEventListener("click", closeInfoModal);
+
+    elements.infoModal.addEventListener("click", (event) => {
+      if (event.target === elements.infoModal) {
+        closeInfoModal();
+      }
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape" && !elements.infoModal.hidden) {
+        closeInfoModal();
+      }
+    });
+
     elements.spinButton.addEventListener("click", () => {
       onSpin();
+    });
+
+    elements.leverButton.addEventListener("click", () => {
+      onSpin();
+    });
+
+    elements.homeButton.addEventListener("click", () => {
+      onBackToHome();
     });
 
     elements.minusBetButton.addEventListener("click", () => {
@@ -383,8 +588,16 @@ export function createUI({
       onToggleSound(elements.soundToggle.checked);
     });
 
+    elements.entrySoundToggle.addEventListener("change", () => {
+      onToggleSound(elements.entrySoundToggle.checked);
+    });
+
     elements.volumeInput.addEventListener("input", () => {
       onVolumeChange(toNumber(elements.volumeInput.value, 0.4));
+    });
+
+    elements.entryVolumeInput.addEventListener("input", () => {
+      onVolumeChange(toNumber(elements.entryVolumeInput.value, 0.4));
     });
 
     elements.highContrastToggle.addEventListener("change", () => {
@@ -403,12 +616,18 @@ export function createUI({
   bindEvents();
 
   return {
+    showEntryScreen,
+    showAgeScreen,
+    showGameScreen,
     renderState,
     renderSpinResult,
     renderAdvisory,
     setMessage,
+    setAgeFeedback,
     setBusy,
     animateReels,
+    celebrateMinorWin,
+    celebrateMajorWin,
     renderPaytable,
     renderFairness,
     renderAccessibilitySettings,

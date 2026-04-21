@@ -1,26 +1,103 @@
 /**
  * Reel model and randomness utilities.
  * Uses weighted symbol stops and crypto-grade random selection when available.
- * @typedef {{id: string, label: string, title: string}} ReelSymbol
+ * @typedef {{id: string, label: string, title: string, icon: string}} ReelSymbol
  * @typedef {Record<string, number>} ReelWeights
  */
 
 /** @type {ReadonlyArray<ReelSymbol>} */
 export const SYMBOLS = Object.freeze([
-  { id: "gpt", label: "GPT", title: "Flagship Model" },
-  { id: "token", label: "TOKEN", title: "Token Cache" },
-  { id: "prompt", label: "PROMPT", title: "Prompt Craft" },
-  { id: "vector", label: "VECTOR", title: "Vector Store" },
-  { id: "credit", label: "CREDIT", title: "Credit Bundle" },
-  { id: "cache", label: "CACHE", title: "Cache Hit" },
-  { id: "bug", label: "BUG", title: "Inference Glitch" }
+  {
+    id: "spongebob",
+    label: "Spongebob",
+    title: "Spongebob Squarepants",
+    icon: "assets/icons/Spongebob.png"
+  },
+  {
+    id: "patrick",
+    label: "Patrick",
+    title: "Patrick Star",
+    icon: "assets/icons/Patrick.png"
+  },
+  {
+    id: "sandy",
+    label: "Sandy",
+    title: "Sandy Cheeks",
+    icon: "assets/icons/Sandy.png"
+  },
+  {
+    id: "squidward",
+    label: "Squidward",
+    title: "Squidward Tentacles",
+    icon: "assets/icons/Squidward_Tentacles.png"
+  },
+  {
+    id: "mrkrabs",
+    label: "Mr. Krabs",
+    title: "Mr. Krabs",
+    icon: "assets/icons/Mr.Crabs.png"
+  },
+  {
+    id: "mrspuff",
+    label: "Mrs. Puff",
+    title: "Mrs. Puff",
+    icon: "assets/icons/Mrs.Puff.png"
+  },
+  {
+    id: "gary",
+    label: "Gary",
+    title: "Gary the Snail",
+    icon: "assets/icons/Gary.png"
+  },
+  {
+    id: "pearl",
+    label: "Pearl",
+    title: "Pearl Krabs",
+    icon: "assets/icons/Pearl.png"
+  },
+  {
+    id: "plankton",
+    label: "Plankton",
+    title: "Plankton",
+    icon: "assets/icons/Plankton.png"
+  }
 ]);
 
 /** @type {ReadonlyArray<ReelWeights>} */
 const REEL_WEIGHT_SETS = Object.freeze([
-  { gpt: 4, token: 6, prompt: 8, vector: 9, credit: 10, cache: 11, bug: 6 },
-  { gpt: 5, token: 7, prompt: 8, vector: 8, credit: 10, cache: 10, bug: 7 },
-  { gpt: 4, token: 8, prompt: 7, vector: 9, credit: 10, cache: 10, bug: 7 }
+  {
+    spongebob: 6,
+    patrick: 7,
+    sandy: 7,
+    squidward: 8,
+    mrkrabs: 6,
+    mrspuff: 9,
+    gary: 9,
+    pearl: 8,
+    plankton: 6
+  },
+  {
+    spongebob: 6,
+    patrick: 8,
+    sandy: 7,
+    squidward: 8,
+    mrkrabs: 7,
+    mrspuff: 8,
+    gary: 9,
+    pearl: 7,
+    plankton: 6
+  },
+  {
+    spongebob: 6,
+    patrick: 7,
+    sandy: 8,
+    squidward: 7,
+    mrkrabs: 7,
+    mrspuff: 8,
+    gary: 9,
+    pearl: 8,
+    plankton: 6
+  }
 ]);
 
 /**

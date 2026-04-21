@@ -11,7 +11,7 @@ const DEFAULT_CONFIG = Object.freeze({
   startingBalance: 200,
   defaultBet: 5,
   minBet: 1,
-  maxBet: 25,
+  maxBet: 100,
   defaultSessionBudget: 150,
   defaultLossLimit: 60
 });
@@ -103,7 +103,7 @@ function createInitialState(config) {
     pauseReason: "",
     sessionBudget: config.defaultSessionBudget,
     lossLimit: config.defaultLossLimit,
-    lastSymbols: ["gpt", "token", "prompt"],
+    lastSymbols: ["spongebob", "patrick", "sandy"],
     lastLine: "Ready",
     lossStreak: 0
   };
