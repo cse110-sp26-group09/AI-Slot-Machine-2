@@ -1,0 +1,707 @@
+:root {
+  --bg-dark: #060607;
+  --bg-mid: #131116;
+  --panel: rgba(12, 9, 11, 0.88);
+  --panel-soft: rgba(23, 16, 20, 0.9);
+  --text: #f7f4f3;
+  --muted: #d5c9c8;
+  --accent: #ce1f2c;
+  --accent-soft: #8f141d;
+  --accent-light: #f15a67;
+  --good: #85d7a3;
+  --danger: #ff7d7d;
+  --neutral: #f2d7af;
+  --outline: rgba(255, 255, 255, 0.18);
+  --font-main: "Segoe UI", "Trebuchet MS", sans-serif;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+html,
+body {
+  margin: 0;
+  min-height: 100%;
+}
+
+body {
+  color: var(--text);
+  font-family: var(--font-main);
+  line-height: 1.4;
+  background: #030304;
+}
+
+.screen {
+  min-height: 100vh;
+  width: 100%;
+}
+
+.entry-screen,
+.age-screen {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+}
+
+.entry-screen {
+  position: relative;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.58), rgba(0, 0, 0, 0.8)),
+    url("../assets/images/akatsuki-loading-bg.jpg") center / cover no-repeat;
+}
+
+.entry-topbar {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+}
+
+.entry-content {
+  width: min(560px, 94%);
+  text-align: center;
+  background: linear-gradient(155deg, rgba(8, 5, 7, 0.88), rgba(23, 13, 17, 0.92)),
+    url("../assets/images/akatsuki-pattern-bg.jpeg") center / cover;
+}
+
+.kicker {
+  letter-spacing: 0.18em;
+  font-size: 0.74rem;
+  color: var(--accent-light);
+  margin: 0 0 0.35rem;
+}
+
+h1,
+h2 {
+  margin: 0;
+}
+
+.subtitle {
+  margin: 0.6rem auto 1.15rem;
+  color: var(--muted);
+  max-width: 42ch;
+}
+
+.play-button {
+  border: 1px solid #ff818f;
+  background: linear-gradient(180deg, #ec3041 0%, #9d131f 100%);
+  color: #fff;
+  border-radius: 0.66rem;
+  padding: 0.6rem 1rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.ghost-button {
+  border: 1px solid rgba(255, 255, 255, 0.45);
+  background: rgba(6, 6, 7, 0.78);
+  color: #fff;
+  border-radius: 0.52rem;
+  padding: 0.45rem 0.75rem;
+  cursor: pointer;
+  font-weight: 700;
+}
+
+.age-screen {
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.65), rgba(0, 0, 0, 0.8)),
+    url("../assets/images/akatsuki-pattern-bg.jpeg") center / cover;
+}
+
+.age-gate {
+  width: min(460px, 94%);
+}
+
+.age-gate form {
+  display: grid;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.age-feedback {
+  margin: 0.6rem 0 0;
+  min-height: 1.4rem;
+  color: var(--muted);
+}
+
+.gameplay-screen {
+  background: linear-gradient(180deg, rgba(4, 4, 5, 0.92), rgba(6, 5, 7, 0.94)),
+    url("../assets/images/akatsuki-gameplay-bg.jpg") center / cover fixed;
+  padding-bottom: 1rem;
+}
+
+.app-shell {
+  width: min(1160px, 96%);
+  margin: 0 auto;
+  padding: 0.8rem 0 1.5rem;
+}
+
+.game-header {
+  text-align: center;
+  margin-bottom: 0.7rem;
+}
+
+.game-header-actions {
+  display: flex;
+  justify-content: flex-start;
+  margin-bottom: 0.55rem;
+}
+
+.home-nav-button {
+  border: 1px solid rgba(255, 210, 164, 0.92);
+  background: linear-gradient(135deg, #ffe8b8 0%, #f5b763 45%, #a84f12 100%);
+  color: #2b0f05;
+  border-radius: 999px;
+  padding: 0.46rem 1rem;
+  letter-spacing: 0.02em;
+  box-shadow: 0 8px 20px rgba(244, 145, 48, 0.26), 0 0 0 1px rgba(255, 243, 213, 0.4) inset;
+}
+
+.home-nav-button::before {
+  content: "\2190";
+  margin-right: 0.42rem;
+}
+
+.banner-image {
+  width: min(740px, 100%);
+  border-radius: 0.78rem;
+  border: 1px solid rgba(255, 255, 255, 0.36);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.42);
+}
+
+.quote {
+  margin: 0.6rem auto 0;
+  max-width: 64ch;
+  font-size: 0.95rem;
+  color: var(--muted);
+}
+
+.card {
+  background: linear-gradient(160deg, var(--panel), var(--panel-soft)),
+    url("../assets/images/akatsuki-pattern-bg.jpeg") center / cover;
+  border: 1px solid var(--outline);
+  border-radius: 0.9rem;
+  padding: 0.8rem;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.45);
+}
+
+.summary-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0.74rem;
+}
+
+.card h2 {
+  margin: 0 0 0.35rem;
+  font-size: 1rem;
+}
+
+.value {
+  font-size: clamp(1.14rem, 2.2vw, 1.5rem);
+  margin: 0;
+  font-weight: 700;
+}
+
+.value.positive {
+  color: var(--good);
+}
+
+.value.negative {
+  color: var(--danger);
+}
+
+.value.neutral {
+  color: var(--neutral);
+}
+
+.machine-layout {
+  margin-top: 0.85rem;
+  display: grid;
+  grid-template-columns: 1.6fr 1fr;
+  gap: 0.85rem;
+  align-items: start;
+}
+
+.machine {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  border-color: rgba(255, 74, 88, 0.36);
+}
+
+.status-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.5rem;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.status-pill {
+  margin: 0;
+  padding: 0.25rem 0.55rem;
+  border-radius: 999px;
+  font-weight: 700;
+  background: rgba(27, 70, 51, 0.72);
+  border: 1px solid #5aa680;
+}
+
+.status-pill.paused {
+  background: rgba(100, 34, 34, 0.75);
+  border-color: #db7777;
+}
+
+.status-note {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.92rem;
+}
+
+.reel-frame {
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 0.8rem;
+  padding: 0.7rem;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.58), rgba(0, 0, 0, 0.66)),
+    url("../assets/images/akatsuki-slot-bg.jpg") center / cover;
+}
+
+.reel-row {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.68rem;
+}
+
+.reel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 145px;
+  border-radius: 0.72rem;
+  background: radial-gradient(circle at top, rgba(42, 26, 34, 0.95), rgba(13, 8, 11, 0.96));
+  color: #f8f2f4;
+  border: 2px solid rgba(255, 136, 150, 0.4);
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
+  overflow: hidden;
+}
+
+.reel.spinning {
+  transform: translateY(-1px);
+  box-shadow: 0 0 0 2px rgba(255, 111, 123, 0.45) inset, 0 0 18px rgba(237, 42, 58, 0.4);
+}
+
+.reel.stopped {
+  animation: settle-flash 240ms ease-out;
+}
+
+@keyframes settle-flash {
+  from {
+    box-shadow: 0 0 0 2px rgba(255, 153, 164, 0.45) inset, 0 0 18px rgba(243, 72, 88, 0.48);
+  }
+  to {
+    box-shadow: none;
+  }
+}
+
+.reel-icon {
+  width: 68px;
+  height: 68px;
+  border-radius: 0.55rem;
+  object-fit: contain;
+  border: 1px solid rgba(255, 185, 196, 0.5);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.25);
+  background: transparent;
+  mix-blend-mode: normal;
+}
+
+.reel-label {
+  margin-top: 0.36rem;
+  font-weight: 700;
+}
+
+.controls {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 0.8rem;
+  align-items: end;
+}
+
+.spin-controls {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  min-width: 116px;
+  padding: 0.5rem 0.56rem;
+  border-radius: 0.72rem;
+  border: 1px solid rgba(255, 177, 187, 0.36);
+  background: linear-gradient(180deg, rgba(24, 15, 20, 0.95), rgba(12, 8, 10, 0.96));
+}
+
+.spin-controls::after {
+  content: "Pull Lever";
+  font-size: 0.76rem;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: rgba(255, 213, 218, 0.95);
+}
+
+.bet-control h2 {
+  margin-bottom: 0.2rem;
+}
+
+.bet-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.bet-value {
+  min-width: 70px;
+  text-align: center;
+  font-weight: 700;
+  font-size: 1.2rem;
+  margin: 0;
+}
+
+.inline-label {
+  display: block;
+  margin-top: 0.2rem;
+  margin-bottom: 0.2rem;
+  font-size: 0.9rem;
+}
+
+button,
+input[type="number"],
+input[type="range"],
+input[type="text"] {
+  font: inherit;
+}
+
+button {
+  border: 1px solid rgba(255, 180, 186, 0.8);
+  background: linear-gradient(180deg, #ed4a59 0%, #9e1d29 100%);
+  color: #fff;
+  border-radius: 0.6rem;
+  padding: 0.45rem 0.8rem;
+  cursor: pointer;
+  font-weight: 700;
+}
+
+button:hover:not(:disabled) {
+  filter: brightness(1.07);
+}
+
+button:disabled {
+  cursor: not-allowed;
+  opacity: 0.56;
+}
+
+.secondary-button {
+  background: linear-gradient(180deg, #f6f0f0 0%, #cdc0c0 100%);
+  border-color: rgba(73, 50, 50, 0.6);
+  color: #260f14;
+}
+
+.lever-button {
+  width: 66px;
+  min-height: 100px;
+  position: relative;
+  border-radius: 0.7rem;
+  background: linear-gradient(180deg, #3a3338 0%, #1a1518 100%);
+  border: 1px solid rgba(255, 255, 255, 0.36);
+}
+
+.lever-button::before {
+  content: "";
+  position: absolute;
+  bottom: 18px;
+  left: 50%;
+  width: 7px;
+  height: 46px;
+  background: linear-gradient(180deg, #d9d9d9, #8d8d8d);
+  transform: translateX(-50%);
+  border-radius: 6px;
+}
+
+.lever-knob {
+  position: absolute;
+  top: 8px;
+  left: 50%;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  transform: translateX(-50%);
+  background: radial-gradient(circle at 35% 30%, #ff9ca6 0%, #d0182c 40%, #7d0f19 100%);
+  box-shadow: 0 0 10px rgba(247, 61, 78, 0.5);
+}
+
+.lever-button.pulling::before {
+  transform: translateX(-50%) rotate(15deg);
+  transform-origin: bottom center;
+}
+
+.lever-button.pulling .lever-knob {
+  transform: translateX(-50%) translateY(12px);
+}
+
+.machine.win-feedback {
+  box-shadow: 0 0 0 2px rgba(255, 116, 128, 0.5), 0 0 24px rgba(239, 52, 68, 0.35);
+}
+
+.machine.jackpot-feedback {
+  animation: jackpot-pulse 0.85s ease-in-out 3;
+}
+
+@keyframes jackpot-pulse {
+  0%,
+  100% {
+    box-shadow: 0 0 0 1px rgba(255, 111, 123, 0.42), 0 0 18px rgba(226, 44, 60, 0.26);
+  }
+  50% {
+    box-shadow: 0 0 0 2px rgba(255, 177, 187, 0.64), 0 0 28px rgba(255, 65, 82, 0.42);
+  }
+}
+
+.feedback {
+  border: 1px solid rgba(255, 255, 255, 0.21);
+  border-radius: 0.65rem;
+  padding: 0.5rem;
+  background: rgba(7, 6, 8, 0.45);
+}
+
+.outcome-message {
+  margin: 0;
+  font-weight: 700;
+}
+
+.outcome-detail {
+  margin: 0.28rem 0 0;
+  color: var(--muted);
+}
+
+.responsible-prompt {
+  margin: 0;
+  font-size: 0.95rem;
+  color: var(--muted);
+}
+
+.side-stack {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.small-note {
+  margin: 0.25rem 0;
+  color: var(--muted);
+  font-size: 0.92rem;
+}
+
+.toggle {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  margin-bottom: 0.35rem;
+}
+
+.full-width {
+  width: 100%;
+  margin-top: 0.35rem;
+}
+
+.progress {
+  width: 100%;
+  height: 10px;
+  border-radius: 999px;
+  overflow: hidden;
+  background: rgba(0, 0, 0, 0.45);
+  border: 1px solid rgba(255, 255, 255, 0.28);
+}
+
+.progress-fill {
+  width: 8%;
+  height: 100%;
+  background: linear-gradient(90deg, #f6707a, #ffb2b9);
+  transition: width 220ms ease;
+}
+
+.paytable-card {
+  margin-top: 0.85rem;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th,
+td {
+  padding: 0.45rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  text-align: left;
+}
+
+th {
+  color: #ffd0d4;
+}
+
+tbody tr:last-child td {
+  border-bottom: none;
+}
+
+input[type="number"],
+input[type="text"] {
+  width: 100%;
+  background: #f5edf0;
+  border: 1px solid rgba(96, 66, 74, 0.8);
+  border-radius: 0.4rem;
+  color: #1f1318;
+  padding: 0.35rem 0.42rem;
+}
+
+input[type="range"] {
+  width: 100%;
+  accent-color: #e63d4c;
+}
+
+.audio-dock {
+  position: fixed;
+  top: 0.85rem;
+  left: 0.85rem;
+  width: 190px;
+  z-index: 40;
+  padding: 0.6rem;
+}
+
+.modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.74);
+  display: grid;
+  place-items: center;
+  z-index: 80;
+  padding: 1rem;
+}
+
+.modal-panel {
+  width: min(780px, 100%);
+  max-height: 88vh;
+  overflow: auto;
+}
+
+.modal-close {
+  float: right;
+  margin-bottom: 0.55rem;
+}
+
+.major-win-overlay {
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(circle at center, rgba(144, 15, 27, 0.33), rgba(0, 0, 0, 0.78));
+  display: grid;
+  place-items: center;
+  z-index: 90;
+  animation: overlay-fade 220ms ease-out;
+}
+
+.major-win-card {
+  width: min(500px, 90%);
+  text-align: center;
+  border: 1px solid rgba(255, 153, 164, 0.8);
+  box-shadow: 0 0 24px rgba(248, 69, 86, 0.38);
+}
+
+@keyframes overlay-fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+body.high-contrast {
+  --bg-dark: #000;
+  --bg-mid: #090909;
+  --panel: rgba(3, 3, 3, 0.94);
+  --panel-soft: rgba(16, 16, 16, 0.94);
+  --text: #fff;
+  --muted: #fafafa;
+  --accent: #ff2236;
+  --accent-soft: #a5101e;
+  --accent-light: #ff5d6d;
+  --danger: #ff8f8f;
+  --good: #8dffaf;
+  --neutral: #ffe59e;
+  --outline: #f8f8f8;
+}
+
+body.high-contrast .reel {
+  background: #060606;
+  color: #fff;
+  border-color: #fff;
+}
+
+body.high-contrast .reel-icon {
+  mix-blend-mode: normal;
+  border-color: #fff;
+}
+
+body.high-contrast .home-nav-button {
+  border-color: #fff;
+  background: #ffe08f;
+  color: #000;
+}
+
+body.large-text {
+  font-size: 118%;
+}
+
+body.large-text .spin-controls::after {
+  font-size: 0.88rem;
+}
+
+@media (max-width: 980px) {
+  .summary-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .machine-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .audio-dock {
+    width: 178px;
+  }
+}
+
+@media (max-width: 680px) {
+  .game-header-actions {
+    justify-content: center;
+  }
+
+  .controls {
+    grid-template-columns: 1fr;
+  }
+
+  .spin-controls {
+    width: 100%;
+  }
+
+  .reel {
+    min-height: 120px;
+  }
+
+  .audio-dock {
+    left: 0.45rem;
+    top: 0.45rem;
+    width: 170px;
+  }
+}
