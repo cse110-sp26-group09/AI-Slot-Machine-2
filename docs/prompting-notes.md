@@ -434,7 +434,7 @@ Refinement prompt for candidates 13 - 16
 Theme Akatsuki
 
 ```
-You are refining an existing shortlisted Prompt 4 slot machine candidate inside a student software engineering repository.
+You are refining an existing slot machine candidate inside a student software engineering repository.
 
 This is a refinement pass, not a rebuild.
 
