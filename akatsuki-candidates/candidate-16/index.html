@@ -1,0 +1,271 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Akatsuki Slots</title>
+    <meta
+      name="description"
+      content="An Akatsuki-themed slot machine with accessibility, transparency, and session controls."
+    />
+    <link rel="stylesheet" href="styles/main.css" />
+  </head>
+  <body>
+    <section class="screen screen-entry is-active" id="entryScreen" aria-label="Entry screen">
+      <button id="infoButton" class="btn btn-subtle info-button" type="button">Info</button>
+      <div class="entry-card">
+        <h1>Akatsuki Slots</h1>
+        <p class="subtitle">High-risk reels, clear odds, and strict session controls.</p>
+        <div class="entry-actions">
+          <button id="playButton" class="btn btn-primary entry-play" type="button">Play</button>
+        </div>
+        <div class="entry-audio" aria-label="Sound controls">
+          <div class="setting-row">
+            <label for="entrySoundToggle">Music</label>
+            <input id="entrySoundToggle" type="checkbox" checked />
+          </div>
+          <div class="setting-row">
+            <label for="entryVolumeSlider">Volume</label>
+            <input id="entryVolumeSlider" type="range" min="0" max="100" value="60" />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="screen screen-age" id="ageGateScreen" aria-label="Age verification" aria-hidden="true">
+      <div class="age-card">
+        <h2>Age Verification</h2>
+        <p class="panel-note">Access is restricted to users age 21 or older.</p>
+        <p class="panel-note">Enter your date of birth in MM/DD/YYYY format.</p>
+        <p class="panel-note">Maximum valid birth date: 04/22/2005.</p>
+
+        <form id="ageGateForm" novalidate>
+          <label for="birthDateInput">Date of Birth</label>
+          <input id="birthDateInput" type="text" inputmode="numeric" placeholder="MM/DD/YYYY" maxlength="10" />
+          <div class="age-actions">
+            <button class="btn btn-primary" type="submit">Enter Game</button>
+            <button id="backToEntryButton" class="btn btn-subtle" type="button">Back</button>
+          </div>
+        </form>
+
+        <p class="age-message tone-info" id="ageGateMessage" role="status" aria-live="polite">
+          Verification required before entering gameplay.
+        </p>
+      </div>
+    </section>
+
+    <section class="screen screen-gameplay" id="gameplayScreen" aria-label="Gameplay" aria-hidden="true">
+      <div class="app-shell">
+        <header class="top-bar">
+          <div class="title-wrap">
+            <img class="title-banner" src="assets/images/akatsuki-banner.jpeg" alt="Akatsuki title banner" />
+            <p class="quote-line">
+              "Feel pain, accept pain and know pain, for those who doesn't know pain shall never understand true
+              peace!"
+            </p>
+          </div>
+          <p class="restore-note" id="restoreNote" aria-live="polite"></p>
+        </header>
+
+        <main class="layout">
+          <section class="machine-panel" aria-label="Slot machine">
+            <div class="metrics-row">
+              <article class="metric-card">
+                <span>Balance</span>
+                <strong id="balanceValue">0</strong>
+              </article>
+              <article class="metric-card">
+                <span>Current Bet</span>
+                <strong id="betValue">0</strong>
+              </article>
+              <article class="metric-card">
+                <span>Session Loss</span>
+                <strong id="sessionLossValue">0</strong>
+              </article>
+              <article class="metric-card">
+                <span>Loss Limit</span>
+                <strong id="lossLimitValue">0</strong>
+              </article>
+            </div>
+
+            <section class="slot-cabinet" id="slotCabinet">
+              <div class="reel-stage">
+                <div class="reel-row" role="img" aria-label="Three slot reels">
+                  <div class="reel" id="reel-0">
+                    <img class="reel-icon" src="assets/icons/symbol-hieu.png" alt="Reel symbol" />
+                    <span class="reel-label">Pain</span>
+                  </div>
+                  <div class="reel" id="reel-1">
+                    <img class="reel-icon" src="assets/icons/symbol-jason.png" alt="Reel symbol" />
+                    <span class="reel-label">Itachi</span>
+                  </div>
+                  <div class="reel" id="reel-2">
+                    <img class="reel-icon" src="assets/icons/symbol-woosik.png" alt="Reel symbol" />
+                    <span class="reel-label">Konan</span>
+                  </div>
+                </div>
+
+                <button id="spinLever" class="lever-button" type="button" aria-label="Pull lever to spin">
+                  <span class="lever-shaft"></span>
+                  <span class="lever-knob"></span>
+                </button>
+              </div>
+
+              <p class="outcome-banner tone-info" id="outcomeBanner" role="status" aria-live="polite">Ready to spin.</p>
+
+              <div class="controls-grid">
+                <div class="control-block">
+                  <h2>Bet Controls</h2>
+                  <p>Adjust your wager in fixed steps and keep it within your session plan.</p>
+                  <div class="bet-inputs">
+                    <button id="betDown" class="btn btn-subtle" type="button" aria-label="Decrease bet">-5</button>
+                    <input
+                      id="betSlider"
+                      type="range"
+                      min="5"
+                      max="100"
+                      step="5"
+                      value="20"
+                      aria-label="Bet amount slider"
+                    />
+                    <button id="betUp" class="btn btn-subtle" type="button" aria-label="Increase bet">+5</button>
+                  </div>
+                  <label for="betInput">Exact Bet</label>
+                  <input id="betInput" type="number" min="5" max="100" step="5" value="20" />
+                </div>
+
+                <div class="control-block">
+                  <h2>Spin</h2>
+                  <p>Single payline with weighted reels and clear payout feedback.</p>
+                  <button id="spinButton" class="btn btn-primary" type="button">Spin Reels</button>
+                  <button id="newSessionButton" class="btn btn-subtle" type="button">Start Fresh Session</button>
+                </div>
+
+                <div class="control-block">
+                  <h2>Session Limit</h2>
+                  <p>Gameplay pauses automatically when your configured loss limit is reached.</p>
+                  <label for="lossLimitInput">Loss Limit (0 to disable)</label>
+                  <div class="limit-row">
+                    <input id="lossLimitInput" type="number" min="0" step="10" value="150" />
+                    <button id="setLossLimitButton" class="btn btn-subtle" type="button">Apply</button>
+                  </div>
+                  <p class="limit-status" id="limitStatus">Limit active.</p>
+                </div>
+              </div>
+            </section>
+          </section>
+
+          <aside class="side-panel">
+            <section class="panel">
+              <h2>Session Summary</h2>
+              <dl class="summary-grid">
+                <dt>Spent</dt>
+                <dd id="spentValue">0</dd>
+                <dt>Payouts</dt>
+                <dd id="wonValue">0</dd>
+                <dt>Bonus</dt>
+                <dd id="bonusValue">0</dd>
+                <dt>Net Result</dt>
+                <dd id="netValue" class="net-neutral">0</dd>
+                <dt>Spins</dt>
+                <dd id="spinsValue">0</dd>
+                <dt>Win Rate</dt>
+                <dd id="winRateValue">0%</dd>
+              </dl>
+            </section>
+
+            <section class="panel">
+              <h2>Paytable</h2>
+              <p class="panel-note">Payout multiplier is applied to your current bet.</p>
+              <table>
+                <thead>
+                  <tr>
+                    <th>Pattern</th>
+                    <th>Payout</th>
+                  </tr>
+                </thead>
+                <tbody id="paytableBody"></tbody>
+              </table>
+              <p class="panel-note" id="rtpValue"></p>
+            </section>
+
+            <section class="panel">
+              <h2>Replay Hooks</h2>
+              <p id="dailyStatus">Daily reward unavailable.</p>
+              <button id="dailyRewardButton" class="btn btn-primary" type="button">Claim Daily Reward</button>
+              <div class="loyalty-wrap">
+                <p><strong id="loyaltyTier">Bronze</strong> tier</p>
+                <p id="loyaltyPoints">0 points</p>
+                <progress id="loyaltyProgress" value="0" max="100"></progress>
+                <p class="panel-note" id="loyaltyNext">Next tier in 0 points.</p>
+              </div>
+            </section>
+
+            <section class="panel">
+              <h2>Settings</h2>
+              <div class="setting-row">
+                <label for="soundToggle">Sound</label>
+                <input id="soundToggle" type="checkbox" checked />
+              </div>
+              <div class="setting-row">
+                <label for="volumeSlider">Volume</label>
+                <input id="volumeSlider" type="range" min="0" max="100" value="60" />
+              </div>
+              <div class="setting-row">
+                <label for="contrastToggle">High Contrast</label>
+                <input id="contrastToggle" type="checkbox" />
+              </div>
+              <div class="setting-row">
+                <label for="largeTextToggle">Large Print</label>
+                <input id="largeTextToggle" type="checkbox" />
+              </div>
+              <div class="setting-row">
+                <label for="motionToggle">Reduce Motion</label>
+                <input id="motionToggle" type="checkbox" />
+              </div>
+            </section>
+          </aside>
+        </main>
+
+        <footer class="footnote">
+          <p>
+            Transparency note: RTP is theoretical long-run math, not a short-session guarantee. Play for fun and take
+            breaks.
+          </p>
+        </footer>
+      </div>
+
+      <div class="winner-overlay" id="winnerOverlay" hidden aria-live="assertive">
+        <div class="winner-card" id="winnerCard">
+          <h2 id="winnerTitle">Winner</h2>
+          <p id="winnerDetail">Great spin.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="modal" id="infoModal" hidden aria-modal="true" role="dialog" aria-label="Game information">
+      <div class="modal-panel">
+        <h2>Payouts and Rules</h2>
+        <p class="panel-note">Single payline, 3 reels, weighted symbols, and session controls are always active.</p>
+        <table>
+          <thead>
+            <tr>
+              <th>Pattern</th>
+              <th>Payout</th>
+            </tr>
+          </thead>
+          <tbody id="infoPaytableBody"></tbody>
+        </table>
+        <ul class="rules-list">
+          <li>Set your bet from 5 to 100 tokens.</li>
+          <li>Loss limit pauses spins once reached unless you adjust it.</li>
+          <li>Daily reward and loyalty bonuses can extend your session.</li>
+          <li>Major wins trigger a stronger celebration sequence.</li>
+        </ul>
+        <button id="closeInfoButton" class="btn btn-primary" type="button">Close</button>
+      </div>
+    </section>
+
+    <script type="module" src="scripts/main.js"></script>
+  </body>
+</html>
