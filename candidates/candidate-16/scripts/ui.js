@@ -6,6 +6,7 @@ export function createUI() {
   const elements = getElements();
   let paytableInitialized = false;
   let overlayTimeoutId = null;
+  let winEffectTimeoutId = null;
 
   /**
    * @param {{
@@ -214,10 +215,12 @@ export function createUI() {
    */
   function setReelSpinning(reelIndex, spinning) {
     const reel = elements.reels[reelIndex];
+    reel.style.setProperty("--reel-index", String(reelIndex));
     reel.classList.toggle("spinning", spinning);
     if (spinning) {
       reel.classList.remove("settled");
     }
+    syncReelRowAnimationState();
   }
 
   /**
@@ -244,7 +247,13 @@ export function createUI() {
     if (isFinal) {
       reel.classList.remove("spinning");
       reel.classList.add("settled");
+      syncReelRowAnimationState();
     }
+  }
+
+  function syncReelRowAnimationState() {
+    const anySpinning = elements.reels.some((reel) => reel.classList.contains("spinning"));
+    elements.reelRow.classList.toggle("is-spinning", anySpinning);
   }
 
   /**
@@ -281,18 +290,39 @@ export function createUI() {
    * @param {{major: boolean, payout: number, multiplier: number, reducedMotion: boolean}} details
    */
   function playWinFeedback(details) {
-    elements.slotCabinet.classList.remove("win-flash", "major-flash");
+    if (winEffectTimeoutId) {
+      window.clearTimeout(winEffectTimeoutId);
+      winEffectTimeoutId = null;
+    }
+
+    elements.slotCabinet.classList.remove("win-flash", "major-flash", "win-shake");
     void elements.slotCabinet.offsetWidth;
     elements.slotCabinet.classList.add(details.major ? "major-flash" : "win-flash");
+    elements.slotCabinet.classList.add("win-shake");
 
-    if (details.major) {
-      showWinnerOverlay({
-        title: "Major Win",
-        detail: `Payout ${formatTokens(details.payout)} at ${details.multiplier.toFixed(1)}x.`,
-        major: true,
-        reducedMotion: details.reducedMotion,
-      });
-    }
+    elements.outcomeBanner.classList.remove("win-pop");
+    void elements.outcomeBanner.offsetWidth;
+    elements.outcomeBanner.classList.add("win-pop");
+
+    const winTargets = getWinHighlightTargets();
+    winTargets.forEach((node) => {
+      node.classList.remove("win-highlight");
+      void node.offsetWidth;
+      node.classList.add("win-highlight");
+    });
+
+    winEffectTimeoutId = window.setTimeout(() => {
+      elements.slotCabinet.classList.remove("win-shake");
+      elements.outcomeBanner.classList.remove("win-pop");
+      winTargets.forEach((node) => node.classList.remove("win-highlight"));
+    }, details.reducedMotion ? 240 : 760);
+
+    showWinnerOverlay({
+      title: details.major ? "Major Win" : "Win",
+      detail: `Payout ${formatTokens(details.payout)} at ${details.multiplier.toFixed(1)}x.`,
+      major: details.major,
+      reducedMotion: details.reducedMotion,
+    });
   }
 
   function closeInfoModal() {
@@ -322,6 +352,15 @@ export function createUI() {
     overlayTimeoutId = window.setTimeout(() => {
       elements.winnerOverlay.hidden = true;
     }, duration);
+  }
+
+  /**
+   * @returns {HTMLElement[]}
+   */
+  function getWinHighlightTargets() {
+    const balanceCard = elements.balanceValue.closest(".metric-card");
+    const targets = [balanceCard, elements.wonValue, elements.netValue];
+    return targets.filter((node) => node instanceof HTMLElement);
   }
 
   return {
@@ -407,8 +446,21 @@ function getElements() {
     winnerCard: query("winnerCard"),
     winnerTitle: query("winnerTitle"),
     winnerDetail: query("winnerDetail"),
+    reelRow: queryClass(".reel-row"),
     reels: [query("reel-0"), query("reel-1"), query("reel-2")],
   };
+}
+
+/**
+ * @param {string} selector
+ * @returns {HTMLElement}
+ */
+function queryClass(selector) {
+  const element = document.querySelector(selector);
+  if (!(element instanceof HTMLElement)) {
+    throw new Error(`Missing required element: ${selector}`);
+  }
+  return element;
 }
 
 /**
