@@ -5,7 +5,6 @@
  */
 
 import {
-  BET_STEP,
   DEFAULT_BET,
   MAX_BET,
   MIN_BET,
@@ -18,7 +17,7 @@ import {
 const symbolMap = new Map(SYMBOLS.map((symbol) => [symbol.id, symbol]));
 
 function getSymbolIcon(symbolId) {
-  return symbolMap.get(symbolId)?.icon || "?";
+  return symbolMap.get(symbolId)?.icon || "";
 }
 
 function getSymbolLabel(symbolId) {
@@ -28,9 +27,9 @@ function getSymbolLabel(symbolId) {
 function patternToReadable(pattern) {
   const [first, second, third] = pattern;
   if (third === "any") {
-    return `${getSymbolIcon(first)} ${getSymbolIcon(second)} + any`;
+    return `${getSymbolLabel(first)} ${getSymbolLabel(second)} + any`;
   }
-  return `${getSymbolIcon(first)} ${getSymbolIcon(second)} ${getSymbolIcon(third)}`;
+  return `${getSymbolLabel(first)} ${getSymbolLabel(second)} ${getSymbolLabel(third)}`;
 }
 
 function setNetClass(element, netValue) {
@@ -50,6 +49,7 @@ export function createUI(callbacks) {
   const reelElements = [0, 1, 2].map((index) => document.getElementById(`reel-${index}`));
 
   const elements = {
+    machine: document.querySelector(".machine"),
     balanceValue: document.getElementById("balance-value"),
     spentValue: document.getElementById("spent-value"),
     wonValue: document.getElementById("won-value"),
@@ -61,6 +61,7 @@ export function createUI(callbacks) {
     betDownButton: document.getElementById("bet-down-button"),
     betUpButton: document.getElementById("bet-up-button"),
     spinButton: document.getElementById("spin-button"),
+    leverButton: document.getElementById("lever-button"),
     outcomeMessage: document.getElementById("outcome-message"),
     outcomeDetail: document.getElementById("outcome-detail"),
     responsiblePrompt: document.getElementById("responsible-prompt"),
@@ -75,8 +76,12 @@ export function createUI(callbacks) {
     soundToggle: document.getElementById("sound-toggle"),
     soundVolume: document.getElementById("sound-volume"),
     paytableBody: document.getElementById("paytable-body"),
+    infoPaytableBody: document.getElementById("info-paytable-body"),
     rtpValue: document.getElementById("rtp-value"),
-    newSessionButton: document.getElementById("new-session-button")
+    newSessionButton: document.getElementById("new-session-button"),
+    majorWinOverlay: document.getElementById("major-win-overlay"),
+    majorWinClose: document.getElementById("major-win-close"),
+    majorWinMessage: document.getElementById("major-win-message")
   };
 
   let spinInProgress = false;
@@ -89,7 +94,8 @@ export function createUI(callbacks) {
     const icon = reel.querySelector(".reel-icon");
     const label = reel.querySelector(".reel-label");
     if (icon) {
-      icon.textContent = getSymbolIcon(symbolId);
+      icon.src = getSymbolIcon(symbolId);
+      icon.alt = `${getSymbolLabel(symbolId)} symbol`;
     }
     if (label) {
       label.textContent = getSymbolLabel(symbolId);
@@ -107,8 +113,12 @@ export function createUI(callbacks) {
     window.setTimeout(() => reel.classList.remove("stopped"), 260);
   }
 
-  function renderPaytable() {
-    elements.paytableBody.innerHTML = "";
+  function appendPaytableRows(tableBody) {
+    if (!tableBody) {
+      return;
+    }
+
+    tableBody.innerHTML = "";
     for (const rule of PAYTABLE_RULES) {
       const row = document.createElement("tr");
       const comboCell = document.createElement("td");
@@ -122,11 +132,18 @@ export function createUI(callbacks) {
       row.appendChild(comboCell);
       row.appendChild(multiplierCell);
       row.appendChild(notesCell);
-      elements.paytableBody.appendChild(row);
+      tableBody.appendChild(row);
     }
+  }
+
+  function renderPaytable() {
+    appendPaytableRows(elements.paytableBody);
+    appendPaytableRows(elements.infoPaytableBody);
 
     const rtp = getRtpEstimate();
-    elements.rtpValue.textContent = `Estimated RTP: ${rtp.rtpPercent}% (house edge ${rtp.houseEdgePercent}%). RTP reflects long-run averages, not short sessions.`;
+    if (elements.rtpValue) {
+      elements.rtpValue.textContent = `Estimated RTP: ${rtp.rtpPercent}% (house edge ${rtp.houseEdgePercent}%). RTP reflects long-run averages, not short sessions.`;
+    }
   }
 
   function renderOutcome(viewModel) {
@@ -154,6 +171,7 @@ export function createUI(callbacks) {
     const spinDisabled = controlsDisabled || !viewModel.canSpin;
 
     elements.spinButton.disabled = spinDisabled;
+    elements.leverButton.disabled = spinDisabled;
     elements.spinButton.textContent = spinInProgress ? "Spinning..." : "Spin";
     elements.betDownButton.disabled = controlsDisabled || viewModel.currentBet <= MIN_BET;
     elements.betUpButton.disabled = controlsDisabled || viewModel.currentBet >= MAX_BET;
@@ -162,8 +180,7 @@ export function createUI(callbacks) {
     elements.newSessionButton.disabled = controlsDisabled;
 
     elements.status.textContent = viewModel.canSpin ? "Ready" : "Paused";
-    elements.status.style.background = viewModel.canSpin ? "#204f3d" : "#73311f";
-    elements.status.style.borderColor = viewModel.canSpin ? "#3f8668" : "#b66145";
+    elements.status.classList.toggle("paused", !viewModel.canSpin);
     elements.lossProgress.textContent = `Loss limit progress: ${Math.round(viewModel.lossProgress * 100)}% (${formatTokens(
       viewModel.lossAmount
     )}/${formatTokens(viewModel.lossLimit)})`;
@@ -197,9 +214,48 @@ export function createUI(callbacks) {
 
   function setSpinInProgress(value) {
     spinInProgress = Boolean(value);
+    elements.leverButton.classList.toggle("pulling", spinInProgress);
+  }
+
+  function hideMajorWinOverlay() {
+    if (!elements.majorWinOverlay) {
+      return;
+    }
+    elements.majorWinOverlay.hidden = true;
+  }
+
+  function playOutcomeEffects(outcome) {
+    if (!outcome || !elements.machine) {
+      return;
+    }
+
+    const isMajorWin = Boolean(outcome.isJackpot || outcome.multiplier >= 45);
+
+    if (outcome.isWin) {
+      elements.machine.classList.add("win-feedback");
+      window.setTimeout(() => {
+        elements.machine.classList.remove("win-feedback");
+      }, 520);
+    }
+
+    if (isMajorWin) {
+      elements.machine.classList.add("jackpot-feedback");
+      window.setTimeout(() => {
+        elements.machine.classList.remove("jackpot-feedback");
+      }, 2700);
+
+      if (elements.majorWinOverlay && elements.majorWinMessage) {
+        elements.majorWinMessage.textContent = `${outcome.resultMessage} +${formatTokens(outcome.payout)} payout.`;
+        elements.majorWinOverlay.hidden = false;
+      }
+    }
   }
 
   elements.spinButton.addEventListener("click", () => {
+    callbacks.onSpin();
+  });
+
+  elements.leverButton.addEventListener("click", () => {
     callbacks.onSpin();
   });
 
@@ -243,13 +299,25 @@ export function createUI(callbacks) {
     callbacks.onSettingChange("soundVolume", Number(event.target.value) / 100);
   });
 
+  if (elements.majorWinClose) {
+    elements.majorWinClose.addEventListener("click", hideMajorWinOverlay);
+  }
+  if (elements.majorWinOverlay) {
+    elements.majorWinOverlay.addEventListener("click", (event) => {
+      if (event.target === elements.majorWinOverlay) {
+        hideMajorWinOverlay();
+      }
+    });
+  }
+
   renderPaytable();
 
   return {
     render,
     setSpinInProgress,
     updateReel,
-    markReelStopped
+    markReelStopped,
+    playOutcomeEffects,
+    hideMajorWinOverlay
   };
 }
-

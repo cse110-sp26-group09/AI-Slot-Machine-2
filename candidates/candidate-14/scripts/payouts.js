@@ -6,13 +6,13 @@ export const DEFAULT_BET = 10;
 export const DEFAULT_LOSS_LIMIT = 200;
 
 export const SYMBOLS = [
-  { id: "model", label: "Model", icon: "🤖", weight: 6 },
-  { id: "prompt", label: "Prompt", icon: "🧩", weight: 8 },
-  { id: "token", label: "Token", icon: "🪙", weight: 12 },
-  { id: "credit", label: "Credit", icon: "💳", weight: 12 },
-  { id: "compute", label: "Compute", icon: "⚙️", weight: 14 },
-  { id: "cache", label: "Cache", icon: "🗂️", weight: 16 },
-  { id: "glitch", label: "Glitch", icon: "🐛", weight: 10 }
+  { id: "model", label: "Pain", icon: "assets/icons/symbol-james.png", weight: 6 },
+  { id: "prompt", label: "Itachi", icon: "assets/icons/symbol-jason.png", weight: 8 },
+  { id: "token", label: "Konan", icon: "assets/icons/symbol-hieu.png", weight: 12 },
+  { id: "credit", label: "Obito", icon: "assets/icons/symbol-hemendra.png", weight: 12 },
+  { id: "compute", label: "Kisame", icon: "assets/icons/symbol-fahad.png", weight: 14 },
+  { id: "cache", label: "Deidara", icon: "assets/icons/symbol-aditya.png", weight: 16 },
+  { id: "glitch", label: "Sasori", icon: "assets/icons/symbol-daniel.png", weight: 10 }
 ];
 
 const symbolById = new Map(SYMBOLS.map((symbol) => [symbol.id, symbol]));
@@ -21,63 +21,63 @@ export const PAYTABLE_RULES = [
   {
     id: "triple-model",
     pattern: ["model", "model", "model"],
-    label: "Three Models",
+    label: "Three Pain",
     multiplier: 80,
-    notes: "Jackpot"
+    notes: "Legendary jackpot"
   },
   {
     id: "triple-prompt",
     pattern: ["prompt", "prompt", "prompt"],
-    label: "Three Prompts",
+    label: "Three Itachi",
     multiplier: 45,
     notes: "Major win"
   },
   {
     id: "triple-token",
     pattern: ["token", "token", "token"],
-    label: "Three Tokens",
+    label: "Three Konan",
     multiplier: 25,
     notes: "Strong win"
   },
   {
     id: "triple-credit",
     pattern: ["credit", "credit", "credit"],
-    label: "Three Credits",
+    label: "Three Obito",
     multiplier: 18,
     notes: "Strong win"
   },
   {
     id: "triple-compute",
     pattern: ["compute", "compute", "compute"],
-    label: "Three Computes",
+    label: "Three Kisame",
     multiplier: 14,
     notes: "Solid win"
   },
   {
     id: "triple-cache",
     pattern: ["cache", "cache", "cache"],
-    label: "Three Caches",
+    label: "Three Deidara",
     multiplier: 10,
     notes: "Solid win"
   },
   {
     id: "pair-token",
     pattern: ["token", "token", "any"],
-    label: "Exactly Two Tokens",
+    label: "Exactly Two Konan",
     multiplier: 4,
     notes: "Frequent mid-tier hit"
   },
   {
     id: "pair-credit",
     pattern: ["credit", "credit", "any"],
-    label: "Exactly Two Credits",
+    label: "Exactly Two Obito",
     multiplier: 1.5,
     notes: "Small return"
   },
   {
     id: "pair-cache",
     pattern: ["cache", "cache", "any"],
-    label: "Exactly Two Caches",
+    label: "Exactly Two Deidara",
     multiplier: 2,
     notes: "Break-even or better"
   }
@@ -107,9 +107,9 @@ function getCombinationText(reelIds) {
   return reelIds
     .map((id) => {
       const symbol = symbolById.get(id);
-      return symbol ? symbol.icon : "?";
+      return symbol ? symbol.label : "?";
     })
-    .join(" ");
+    .join(" • ");
 }
 
 /**
@@ -189,4 +189,3 @@ export function getRtpEstimate() {
 export function formatTokens(value) {
   return Number(value).toLocaleString("en-US");
 }
-

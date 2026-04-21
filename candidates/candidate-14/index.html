@@ -3,145 +3,193 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Inference Royale Slots</title>
+    <title>Akatsuki Slots</title>
     <link rel="stylesheet" href="styles/main.css" />
   </head>
   <body>
-    <div class="app-shell">
-      <header class="app-header">
-        <p class="kicker">AI SATIRE ARCADE</p>
-        <h1>Inference Royale Slots</h1>
-        <p class="subtitle">
-          Spin prompts into payouts. Clear rules, readable controls, and no hidden math.
-        </p>
+    <section id="entry-screen" class="screen entry-screen active" aria-label="Entry screen">
+      <header class="entry-topbar">
+        <button id="entry-info-button" type="button" class="ghost-button">Info</button>
       </header>
+      <div class="entry-content card">
+        <p class="kicker">AKATSUKI CASINO</p>
+        <h1>Akatsuki Slots</h1>
+        <p class="subtitle">A disciplined 3-reel game with clear odds, strong guardrails, and high-contrast presentation.</p>
+        <button id="entry-play-button" type="button" class="play-button">Play</button>
+      </div>
+    </section>
 
-      <section class="summary-grid" aria-label="Session summary">
-        <article class="card">
-          <h2>Balance</h2>
-          <p id="balance-value" class="value">0</p>
-        </article>
-        <article class="card">
-          <h2>Spend</h2>
-          <p id="spent-value" class="value">0</p>
-        </article>
-        <article class="card">
-          <h2>Total Won</h2>
-          <p id="won-value" class="value">0</p>
-        </article>
-        <article class="card">
-          <h2>Net</h2>
-          <p id="net-value" class="value neutral">0</p>
-        </article>
-      </section>
+    <section id="age-gate-screen" class="screen age-screen" aria-label="Age verification" hidden>
+      <div class="age-gate card">
+        <h2>Age Verification</h2>
+        <p class="small-note">You must be 21+ to continue. Enter your date of birth as MM/DD/YYYY.</p>
+        <form id="age-gate-form" novalidate>
+          <label for="age-dob">Date of birth</label>
+          <input id="age-dob" type="text" inputmode="numeric" maxlength="10" placeholder="MM/DD/YYYY" required />
+          <button id="age-verify-button" type="submit" class="play-button full-width">Verify and Enter</button>
+        </form>
+        <button id="age-back-button" type="button" class="secondary-button full-width">Back</button>
+        <p id="age-gate-feedback" class="age-feedback" aria-live="polite">
+          Compliance check required before gameplay access.
+        </p>
+      </div>
+    </section>
 
-      <section class="machine-layout">
-        <article class="machine card" aria-label="Slot machine">
-          <div class="status-row">
-            <p id="session-status" class="status-pill">Ready</p>
-            <p id="loss-progress" class="status-note">Loss limit progress: 0%</p>
-          </div>
-
-          <div class="reel-row" aria-live="polite" aria-label="Reels">
-            <div id="reel-0" class="reel">
-              <span class="reel-icon">🤖</span>
-              <span class="reel-label">Model</span>
-            </div>
-            <div id="reel-1" class="reel">
-              <span class="reel-icon">🧩</span>
-              <span class="reel-label">Prompt</span>
-            </div>
-            <div id="reel-2" class="reel">
-              <span class="reel-icon">🪙</span>
-              <span class="reel-label">Token</span>
-            </div>
-          </div>
-
-          <div class="controls">
-            <div class="bet-control">
-              <h2>Bet</h2>
-              <div class="bet-actions">
-                <button id="bet-down-button" type="button" class="secondary-button" aria-label="Lower bet">
-                  -
-                </button>
-                <p id="bet-value" class="bet-value">10</p>
-                <button id="bet-up-button" type="button" class="secondary-button" aria-label="Raise bet">
-                  +
-                </button>
-              </div>
-              <label for="bet-range" class="inline-label">Adjust bet</label>
-              <input id="bet-range" type="range" min="5" max="100" step="5" value="10" />
-            </div>
-
-            <button id="spin-button" type="button" class="spin-button">
-              Spin
-            </button>
-          </div>
-
-          <div class="feedback" aria-live="polite">
-            <p id="outcome-message" class="outcome-message">Choose a bet and spin.</p>
-            <p id="outcome-detail" class="outcome-detail">Payout details appear here.</p>
-          </div>
-          <p id="responsible-prompt" class="responsible-prompt">
-            Tip: Set a loss limit before long sessions so decisions stay easy.
+    <section id="game-screen" class="screen gameplay-screen" aria-label="Slot gameplay" hidden>
+      <div class="app-shell">
+        <header class="game-header">
+          <img class="banner-image" src="assets/images/akatsuki-banner.jpeg" alt="Akatsuki Slots banner" />
+          <p class="quote">
+            "Feel pain, accept pain and know pain, for those who doesn't know pain shall never understand true peace!"
           </p>
-        </article>
+        </header>
 
-        <aside class="side-stack">
+        <section class="summary-grid" aria-label="Session summary">
           <article class="card">
-            <h2>Session Guardrails</h2>
-            <label for="loss-limit-input">Loss limit</label>
-            <input id="loss-limit-input" type="number" min="20" max="5000" step="10" value="200" />
-            <p class="small-note">Play pauses automatically when session losses reach this amount.</p>
-            <button id="new-session-button" type="button" class="secondary-button full-width">
-              New Session (Reset to 500)
-            </button>
+            <h2>Balance</h2>
+            <p id="balance-value" class="value">0</p>
           </article>
-
           <article class="card">
-            <h2>Daily Reward</h2>
-            <p id="daily-status" class="small-note">Daily stipend status unavailable.</p>
-            <button id="daily-claim-button" type="button" class="secondary-button full-width">
-              Claim Daily Compute Stipend
-            </button>
+            <h2>Spend</h2>
+            <p id="spent-value" class="value">0</p>
           </article>
-
           <article class="card">
-            <h2>Loyalty Track</h2>
-            <p id="loyalty-tier" class="small-note">Tier: Bronze</p>
-            <p id="loyalty-points" class="small-note">Points: 0</p>
-            <div class="progress" aria-hidden="true">
-              <div id="loyalty-progress-fill" class="progress-fill"></div>
+            <h2>Total Won</h2>
+            <p id="won-value" class="value">0</p>
+          </article>
+          <article class="card">
+            <h2>Session Net</h2>
+            <p id="net-value" class="value neutral">0</p>
+          </article>
+        </section>
+
+        <section class="machine-layout">
+          <article class="machine card" aria-label="Slot machine">
+            <div class="status-row">
+              <p id="session-status" class="status-pill">Ready</p>
+              <p id="loss-progress" class="status-note">Loss limit progress: 0%</p>
             </div>
+
+            <div class="reel-frame">
+              <div class="reel-row" aria-live="polite" aria-label="Reels">
+                <div id="reel-0" class="reel">
+                  <img class="reel-icon" src="assets/icons/symbol-james.png" alt="Pain symbol" />
+                  <span class="reel-label">Pain</span>
+                </div>
+                <div id="reel-1" class="reel">
+                  <img class="reel-icon" src="assets/icons/symbol-jason.png" alt="Itachi symbol" />
+                  <span class="reel-label">Itachi</span>
+                </div>
+                <div id="reel-2" class="reel">
+                  <img class="reel-icon" src="assets/icons/symbol-hieu.png" alt="Konan symbol" />
+                  <span class="reel-label">Konan</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="controls">
+              <div class="bet-control">
+                <h2>Bet</h2>
+                <div class="bet-actions">
+                  <button id="bet-down-button" type="button" class="secondary-button" aria-label="Lower bet">-</button>
+                  <p id="bet-value" class="bet-value">10</p>
+                  <button id="bet-up-button" type="button" class="secondary-button" aria-label="Raise bet">+</button>
+                </div>
+                <label for="bet-range" class="inline-label">Adjust bet</label>
+                <input id="bet-range" type="range" min="5" max="100" step="5" value="10" />
+              </div>
+
+              <div class="spin-controls">
+                <button id="lever-button" type="button" class="lever-button" aria-label="Pull lever">
+                  <span class="lever-knob" aria-hidden="true"></span>
+                </button>
+                <button id="spin-button" type="button" class="spin-button">Spin</button>
+              </div>
+            </div>
+
+            <div class="feedback" aria-live="polite">
+              <p id="outcome-message" class="outcome-message">Choose a bet and spin.</p>
+              <p id="outcome-detail" class="outcome-detail">Payout details appear here.</p>
+            </div>
+
+            <p id="responsible-prompt" class="responsible-prompt">
+              Tip: Set a loss limit before long sessions so decisions stay easy.
+            </p>
           </article>
 
-          <article class="card">
-            <h2>Accessibility</h2>
-            <label class="toggle">
-              <input id="high-contrast-toggle" type="checkbox" />
-              <span>High contrast mode</span>
-            </label>
-            <label class="toggle">
-              <input id="large-text-toggle" type="checkbox" />
-              <span>Large print mode</span>
-            </label>
-          </article>
+          <aside class="side-stack">
+            <article class="card">
+              <h2>Session Guardrails</h2>
+              <label for="loss-limit-input">Loss limit</label>
+              <input id="loss-limit-input" type="number" min="20" max="5000" step="10" value="200" />
+              <p class="small-note">Play pauses automatically when session losses reach this amount.</p>
+              <button id="new-session-button" type="button" class="secondary-button full-width">New Session (Reset to 500)</button>
+            </article>
 
-          <article class="card">
-            <h2>Sound</h2>
-            <label class="toggle">
-              <input id="sound-toggle" type="checkbox" checked />
-              <span>Enable sound</span>
-            </label>
-            <label for="sound-volume">Volume</label>
-            <input id="sound-volume" type="range" min="0" max="100" step="1" value="45" />
-          </article>
-        </aside>
-      </section>
+            <article class="card">
+              <h2>Daily Reward</h2>
+              <p id="daily-status" class="small-note">Daily stipend status unavailable.</p>
+              <button id="daily-claim-button" type="button" class="secondary-button full-width">
+                Claim Daily Compute Stipend
+              </button>
+            </article>
 
-      <section class="card paytable-card" aria-label="Paytable">
-        <h2>Paytable</h2>
-        <p class="small-note">Payout = bet x multiplier. Pair payouts need exactly two matching symbols.</p>
+            <article class="card">
+              <h2>Loyalty Track</h2>
+              <p id="loyalty-tier" class="small-note">Tier: Bronze</p>
+              <p id="loyalty-points" class="small-note">Points: 0</p>
+              <div class="progress" aria-hidden="true">
+                <div id="loyalty-progress-fill" class="progress-fill"></div>
+              </div>
+            </article>
+
+            <article class="card">
+              <h2>Accessibility</h2>
+              <label class="toggle">
+                <input id="high-contrast-toggle" type="checkbox" />
+                <span>High contrast mode</span>
+              </label>
+              <label class="toggle">
+                <input id="large-text-toggle" type="checkbox" />
+                <span>Large print mode</span>
+              </label>
+            </article>
+          </aside>
+        </section>
+
+        <section class="card paytable-card" aria-label="Paytable">
+          <h2>Paytable</h2>
+          <p class="small-note">Payout = bet x multiplier. Pair payouts need exactly two matching symbols.</p>
+          <table>
+            <thead>
+              <tr>
+                <th scope="col">Combination</th>
+                <th scope="col">Multiplier</th>
+                <th scope="col">Notes</th>
+              </tr>
+            </thead>
+            <tbody id="paytable-body"></tbody>
+          </table>
+          <p id="rtp-value" class="small-note">RTP estimate loading...</p>
+        </section>
+      </div>
+    </section>
+
+    <aside class="audio-dock card" aria-label="Sound controls">
+      <h2>Sound</h2>
+      <label class="toggle">
+        <input id="sound-toggle" type="checkbox" checked />
+        <span>Enable sound</span>
+      </label>
+      <label for="sound-volume">Volume</label>
+      <input id="sound-volume" type="range" min="0" max="100" step="1" value="45" />
+    </aside>
+
+    <div id="info-modal" class="modal" role="dialog" aria-modal="true" aria-labelledby="info-title" hidden>
+      <div class="modal-panel card">
+        <button id="info-close-button" type="button" class="ghost-button modal-close">Close</button>
+        <h2 id="info-title">Rules and Payouts</h2>
+        <p class="small-note">3 reels. Match symbols for payouts. Keep bets within budget and respect your loss limit.</p>
         <table>
           <thead>
             <tr>
@@ -150,10 +198,17 @@
               <th scope="col">Notes</th>
             </tr>
           </thead>
-          <tbody id="paytable-body"></tbody>
+          <tbody id="info-paytable-body"></tbody>
         </table>
-        <p id="rtp-value" class="small-note">RTP estimate loading...</p>
-      </section>
+      </div>
+    </div>
+
+    <div id="major-win-overlay" class="major-win-overlay" aria-live="assertive" hidden>
+      <div class="major-win-card card">
+        <h2>Legendary Win</h2>
+        <p id="major-win-message">The Akatsuki alignment is complete.</p>
+        <button id="major-win-close" type="button" class="play-button">Claim Glory</button>
+      </div>
     </div>
 
     <script type="module" src="scripts/main.js"></script>
