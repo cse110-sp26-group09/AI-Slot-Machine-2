@@ -89,7 +89,7 @@ export class SlotGame {
       totalSpent: 0,
       totalWon: 0,
       spinCount: 0,
-      reels: ['prompt', 'token', 'model'],
+      reels: ['spongebob', 'patrick', 'squidward'],
       lastOutcome: null,
       paused: false,
       pauseReason: '',
@@ -232,7 +232,7 @@ export class SlotGame {
     this.state.totalSpent = 0;
     this.state.totalWon = 0;
     this.state.spinCount = 0;
-    this.state.reels = ['prompt', 'token', 'model'];
+    this.state.reels = ['spongebob', 'patrick', 'squidward'];
     this.state.lastOutcome = null;
     this.state.paused = false;
     this.state.pauseReason = '';

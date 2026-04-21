@@ -8,7 +8,7 @@ const TIER_STEPS = [
 ];
 
 /**
- * @typedef {{ id: string, label: string, icon: string, weight: number }} SymbolDef
+ * @typedef {{ id: string, label: string, icon: string, imagePath: string, weight: number }} SymbolDef
  */
 
 /**
@@ -187,6 +187,20 @@ export class SlotGame {
   }
 
   /**
+   * @param {{ matchType: "triple" | "pair" | "none", payout: number }} payoutResult
+   * @returns {"major" | "minor" | "none"}
+   */
+  getWinTier(payoutResult) {
+    if (payoutResult.matchType === "triple") {
+      return "major";
+    }
+    if (payoutResult.payout > 0) {
+      return "minor";
+    }
+    return "none";
+  }
+
+  /**
    * @param {{ netChange: number }} outcome
    * @returns {string}
    */
@@ -234,7 +248,7 @@ export class SlotGame {
 
   /**
    * @param {() => SymbolDef[]} spinFn
-   * @returns {{ ok: boolean, reason?: string, symbols?: SymbolDef[], payout?: number, netChange?: number, outcomeClass?: "win" | "neutral" | "loss", outcomeText?: string, responsiblePrompt?: string, limitReached?: boolean }}
+   * @returns {{ ok: boolean, reason?: string, symbols?: SymbolDef[], payout?: number, netChange?: number, outcomeClass?: "win" | "neutral" | "loss", outcomeText?: string, responsiblePrompt?: string, limitReached?: boolean, winTier?: "major" | "minor" | "none" }}
    */
   spin(spinFn) {
     const permission = this.canSpin();
@@ -274,7 +288,8 @@ export class SlotGame {
       outcomeClass: this.classifyOutcome(netChange),
       outcomeText,
       responsiblePrompt,
-      limitReached
+      limitReached,
+      winTier: this.getWinTier(payoutResult)
     };
   }
 }

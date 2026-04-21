@@ -5,11 +5,13 @@ import { initAccessibility } from "./accessibility.js";
 import { PAYTABLE_ROWS, calculateTheoreticalRtp } from "./payouts.js";
 import { REEL_STRIPS, getRngDescription, spinReels } from "./reels.js";
 
+const LEGAL_BIRTHDATE_CUTOFF = new Date(2005, 3, 22, 23, 59, 59, 999);
+
 const game = new SlotGame({
   initialBalance: 300,
   initialBet: 5,
   minBet: 1,
-  maxBet: 20,
+  maxBet: 100,
   lossLimit: 100
 });
 
@@ -36,14 +38,24 @@ ui.renderReelsImmediately(initialSymbols);
 ui.renderState(game.getState(), lastDelta);
 ui.setLimitStatus("Set a loss limit before starting. Reaching it pauses spins.");
 ui.renderOutcome({
-  outcomeText: "Ready to spin. Each spin is independent and random.",
+  outcomeText: "Press Play to enter Bikini Bottom Slots.",
   outcomeClass: "neutral",
   responsiblePrompt: ""
 });
 
 ui.elements.lossLimitInput.value = String(game.getState().lossLimit);
-audio.setEnabled(ui.elements.soundToggle.checked);
-audio.setVolume(Number(ui.elements.volumeInput.value));
+ui.setBetBounds(game.minBet, game.maxBet);
+
+const initialSoundEnabled = ui.elements.soundToggle.checked;
+const initialVolume = Number(ui.elements.volumeInput.value);
+audio.setEnabled(initialSoundEnabled);
+audio.setVolume(initialVolume);
+ui.setSoundState(initialSoundEnabled, initialVolume);
+audio.startBackgroundMusic();
+
+ui.setScreen("entry");
+ui.clearAgeFeedback();
+ui.closeInfoModal();
 
 initAccessibility(
   {
@@ -63,6 +75,7 @@ function refreshState() {
   const state = game.getState();
   ui.renderState(state, lastDelta);
   ui.elements.spinBtn.disabled = isSpinning || state.isPaused;
+  ui.elements.leverBtn.disabled = isSpinning || state.isPaused;
 }
 
 /**
@@ -74,6 +87,61 @@ function showBlockedSpin(reason) {
     outcomeClass: "loss",
     responsiblePrompt: ""
   });
+}
+
+/**
+ * @param {string} value
+ * @returns {Date | null}
+ */
+function parseBirthDate(value) {
+  const match = /^(\d{2})\/(\d{2})\/(\d{4})$/.exec(value);
+  if (!match) {
+    return null;
+  }
+
+  const month = Number(match[1]);
+  const day = Number(match[2]);
+  const year = Number(match[3]);
+
+  const parsed = new Date(year, month - 1, day);
+  const isCalendarValid =
+    parsed.getFullYear() === year && parsed.getMonth() === month - 1 && parsed.getDate() === day;
+
+  if (!isCalendarValid) {
+    return null;
+  }
+
+  return parsed;
+}
+
+/**
+ * @param {string} birthDateInput
+ * @returns {{ ok: boolean, message: string, tone: "error" | "success" | "neutral" }}
+ */
+function validateAgeGate(birthDateInput) {
+  const parsed = parseBirthDate(birthDateInput);
+  if (!parsed) {
+    return {
+      ok: false,
+      tone: "error",
+      message: "Enter your birth date in MM/DD/YYYY format."
+    };
+  }
+
+  if (parsed > LEGAL_BIRTHDATE_CUTOFF) {
+    return {
+      ok: false,
+      tone: "error",
+      message:
+        "Access denied. You must be 21 or older to play. Eligible birth dates are on or before 04/22/2005."
+    };
+  }
+
+  return {
+    ok: true,
+    tone: "success",
+    message: "Age verification complete. Welcome to Bikini Bottom Slots."
+  };
 }
 
 async function handleSpin() {
@@ -94,19 +162,28 @@ async function handleSpin() {
 
   audio.playSpinStart();
 
-  await ui.animateSpin(spinReels, outcome.symbols || [], accessibilitySettings, (index) => {
-    audio.playReelStop(index);
-  });
+  await Promise.all([
+    ui.animateLever(accessibilitySettings),
+    ui.animateSpin(spinReels, outcome.symbols || [], accessibilitySettings, (index) => {
+      audio.playReelStop(index);
+    })
+  ]);
 
   lastDelta = outcome.netChange || 0;
+  const isMajorWin = outcome.winTier === "major";
 
   ui.renderOutcome({
     outcomeText: outcome.outcomeText || "",
     outcomeClass: outcome.outcomeClass || "neutral",
-    responsiblePrompt: outcome.responsiblePrompt || ""
+    responsiblePrompt: outcome.responsiblePrompt || "",
+    isMajorWin
   });
 
-  audio.playOutcome(lastDelta);
+  audio.playOutcome({ winTier: outcome.winTier || "none" });
+
+  if (isMajorWin) {
+    await ui.showBigWinOverlay("Major Win! Triple symbol match!");
+  }
 
   if (outcome.limitReached) {
     audio.playLimitReached();
@@ -165,9 +242,44 @@ ui.bind({
   },
   onSoundToggle: (enabled) => {
     audio.setEnabled(enabled);
+    ui.setSoundState(enabled, Number(ui.elements.volumeInput.value));
   },
   onVolumeChange: (value) => {
     audio.setVolume(value);
+    ui.setSoundState(ui.elements.soundToggle.checked, value);
+  },
+  onPlay: () => {
+    audio.startBackgroundMusic();
+    ui.setScreen("ageGate");
+    ui.clearAgeFeedback();
+    ui.elements.birthdateInput.focus();
+  },
+  onInfoOpen: () => {
+    audio.startBackgroundMusic();
+    ui.openInfoModal();
+  },
+  onInfoClose: () => {
+    ui.closeInfoModal();
+  },
+  onAgeBack: () => {
+    ui.setScreen("entry");
+    ui.clearAgeFeedback();
+  },
+  onVerifyAge: (birthDate) => {
+    const verification = validateAgeGate(birthDate);
+    ui.setAgeFeedback(verification.message, verification.tone);
+    if (!verification.ok) {
+      return;
+    }
+
+    ui.setScreen("game");
+    ui.closeInfoModal();
+    audio.playWelcome();
+    ui.renderOutcome({
+      outcomeText: "Welcome aboard. Pull the lever or press Spin to start.",
+      outcomeClass: "neutral",
+      responsiblePrompt: ""
+    });
   }
 });
 

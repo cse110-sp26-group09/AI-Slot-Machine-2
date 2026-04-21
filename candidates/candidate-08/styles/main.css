@@ -1,23 +1,22 @@
 :root {
-  --bg: #f4f0e6;
-  --panel: #fff9ec;
-  --text: #1f1a14;
-  --muted: #5a4f42;
-  --line: #c6b89c;
-  --accent: #0f5b8d;
-  --accent-strong: #083a5a;
-  --danger: #8f2222;
-  --success: #1e6a37;
-  --warning: #7c5200;
-  --shadow: 0 0.6rem 1.4rem rgb(38 29 18 / 14%);
-  --focus: #000;
+  --bg-blue: #64b9ff;
+  --bg-blue-deep: #1d67b3;
+  --panel: #fffef2;
+  --panel-soft: #fdf6dc;
+  --panel-outline: #0a4c8b;
+  --text: #11243a;
+  --text-muted: #264b6e;
+  --yellow: #ffd54a;
+  --yellow-strong: #f7be1f;
+  --accent: #1b79cf;
+  --accent-strong: #0b4f8a;
+  --danger: #c43636;
+  --success: #128351;
+  --warning: #8b6008;
+  --shadow: 0 0.9rem 1.8rem rgb(3 31 61 / 24%);
+  --radius: 0.9rem;
   --font-main: "Trebuchet MS", Verdana, "Segoe UI", sans-serif;
-  --font-display: "Georgia", "Times New Roman", serif;
-  --radius: 0.7rem;
-  --space-1: 0.5rem;
-  --space-2: 0.8rem;
-  --space-3: 1.1rem;
-  --space-4: 1.5rem;
+  --font-display: "Gill Sans MT", "Century Gothic", sans-serif;
 }
 
 * {
@@ -28,195 +27,305 @@ body {
   margin: 0;
   font-family: var(--font-main);
   color: var(--text);
-  background:
-    radial-gradient(circle at 15% 20%, #fff7dc 0%, transparent 36%),
-    radial-gradient(circle at 90% 10%, #e5f5ff 0%, transparent 28%),
-    linear-gradient(180deg, #ece4d4 0%, #e9ddcb 100%);
   min-height: 100vh;
-}
-
-.app-header {
-  padding: 1.2rem var(--space-4);
-  background: linear-gradient(90deg, #25180f, #452f1d);
-  color: #fff4db;
-  border-bottom: 0.2rem solid #caa25e;
+  background: linear-gradient(180deg, #6fc3ff 0%, #4da5ec 100%);
 }
 
 h1,
 h2,
 h3 {
-  margin: 0 0 var(--space-2);
+  margin: 0 0 0.7rem;
   font-family: var(--font-display);
-  letter-spacing: 0.01em;
+  letter-spacing: 0.02em;
 }
 
 h1 {
-  font-size: clamp(1.7rem, 2.6vw, 2.4rem);
+  font-size: clamp(2.2rem, 5vw, 3.3rem);
 }
 
 h2 {
-  font-size: clamp(1.2rem, 2.1vw, 1.6rem);
+  font-size: clamp(1.2rem, 2vw, 1.6rem);
 }
 
 h3 {
   font-size: 1.05rem;
 }
 
-.tagline {
-  margin: 0;
-  color: #f5d9a5;
-  font-size: 1rem;
+.screen {
+  min-height: 100vh;
+  display: none;
+  position: relative;
 }
 
-.app-shell {
-  display: grid;
-  grid-template-columns: repeat(12, minmax(0, 1fr));
-  gap: var(--space-3);
-  padding: var(--space-4);
-  max-width: 1100px;
-  margin: 0 auto;
-}
-
-.panel {
-  background: var(--panel);
-  border: 0.12rem solid var(--line);
-  border-radius: var(--radius);
-  padding: var(--space-3);
-  box-shadow: var(--shadow);
-}
-
-.controls-panel {
-  grid-column: span 6;
-}
-
-.reels-panel {
-  grid-column: span 6;
-}
-
-.session-panel,
-.info-panel,
-.settings-panel {
-  grid-column: span 4;
-}
-
-.stat-grid {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: var(--space-2);
-  margin-bottom: var(--space-3);
-}
-
-.stat-card {
-  padding: var(--space-2);
-  border: 0.1rem solid var(--line);
-  border-radius: 0.55rem;
-  background: #fffcf3;
-}
-
-.stat-card .label {
+.screen-active {
   display: block;
-  font-size: 0.9rem;
-  color: var(--muted);
 }
 
-.stat-card strong {
-  font-size: 1.2rem;
+.entry-screen {
+  background:
+    linear-gradient(135deg, rgb(6 57 110 / 55%), rgb(11 84 153 / 45%)),
+    url("../assets/images/spongebob-loading-bg.jpg") center / cover no-repeat;
+  padding: 1.5rem;
 }
 
-.control-row {
-  display: flex;
-  align-items: center;
-  gap: var(--space-2);
-  margin-bottom: var(--space-2);
-  flex-wrap: wrap;
+.entry-shell {
+  max-width: 46rem;
+  margin: 9vh auto 0;
+  padding: 2rem;
+  border-radius: 1.2rem;
+  border: 0.14rem solid rgb(255 247 182 / 90%);
+  background:
+    linear-gradient(180deg, rgb(255 255 255 / 88%), rgb(250 247 228 / 88%)),
+    url("../assets/images/spongebob-pattern-bg.jpg") center / cover no-repeat;
+  box-shadow: var(--shadow);
+  text-align: center;
 }
 
-.control-row input[type="number"] {
-  width: 6.5rem;
+.entry-tagline {
+  margin: 0.5rem auto 1.4rem;
+  max-width: 36ch;
+  color: var(--text-muted);
+  font-size: 1.08rem;
+}
+
+.entry-play-btn {
+  margin-bottom: 1.4rem;
+  min-width: 13rem;
+}
+
+.entry-audio {
+  margin: 0 auto;
+  max-width: 23rem;
+  text-align: left;
+  padding: 1rem;
+  border-radius: 0.8rem;
+  border: 0.1rem solid #8ca7be;
+  background: rgb(255 255 255 / 80%);
 }
 
 .btn {
   border: 0.12rem solid transparent;
-  border-radius: 0.55rem;
-  padding: 0.68rem 1rem;
-  font-weight: 700;
-  cursor: pointer;
+  border-radius: 0.65rem;
+  padding: 0.7rem 1rem;
   min-height: 2.7rem;
+  font-weight: 700;
+  font-family: inherit;
+  cursor: pointer;
+  transition: transform 120ms ease, background-color 120ms ease, border-color 120ms ease;
 }
 
 .btn:disabled {
-  opacity: 0.48;
+  opacity: 0.45;
   cursor: not-allowed;
 }
 
+.btn:active:not(:disabled) {
+  transform: translateY(1px);
+}
+
 .btn-primary {
-  background: var(--accent);
-  color: #fff;
+  background: linear-gradient(180deg, #ffe47a, var(--yellow));
+  border-color: #b88509;
+  color: #402900;
 }
 
 .btn-primary:hover:not(:disabled),
 .btn-primary:focus-visible {
-  background: var(--accent-strong);
+  background: linear-gradient(180deg, #ffeaa0, var(--yellow-strong));
 }
 
 .btn-secondary {
-  background: #efe3ca;
-  border-color: #a78f67;
-  color: #2f2416;
+  background: #e2f3ff;
+  border-color: #5b9bd2;
+  color: #0f3860;
 }
 
 .btn-secondary:hover:not(:disabled),
 .btn-secondary:focus-visible {
-  background: #e0d0af;
+  background: #d0e9fb;
 }
 
 .btn-ghost {
-  background: transparent;
-  border-color: var(--line);
-  color: var(--text);
+  background: rgb(255 255 255 / 65%);
+  border-color: #7a9cbb;
+  color: #173a5a;
 }
 
 .btn-ghost:hover,
 .btn-ghost:focus-visible {
-  background: #ece2ce;
+  background: #ebf6ff;
+}
+
+.btn-info {
+  position: absolute;
+  right: 1.2rem;
+  top: 1.2rem;
+  background: rgb(255 255 255 / 75%);
+  border-color: #95b4ce;
+  color: #123b63;
+}
+
+.age-screen {
+  padding: 1.5rem;
+  background:
+    linear-gradient(160deg, rgb(4 49 98 / 65%), rgb(10 82 142 / 60%)),
+    url("../assets/images/spongebob-loading-bg.jpg") center / cover no-repeat;
+}
+
+.age-shell {
+  max-width: 35rem;
+  margin: 12vh auto 0;
+  background:
+    linear-gradient(180deg, rgb(254 253 245 / 94%), rgb(246 250 255 / 94%)),
+    url("../assets/images/spongebob-pattern-bg.jpg") center / cover no-repeat;
+  border: 0.14rem solid #9fb8d2;
+  border-radius: 1rem;
+  box-shadow: var(--shadow);
+  padding: 1.8rem;
+}
+
+.age-eligible-note {
+  margin: 0.3rem 0 1rem;
+  color: #1a446d;
+}
+
+.age-form label {
+  display: block;
+  font-weight: 700;
+  margin-bottom: 0.4rem;
 }
 
 input[type="number"],
+input[type="text"],
 input[type="range"] {
+  width: 100%;
   font: inherit;
-  padding: 0.4rem 0.5rem;
-  border: 0.1rem solid #907d5e;
-  border-radius: 0.45rem;
+  color: inherit;
+  border: 0.1rem solid #7e9bb7;
+  border-radius: 0.55rem;
+  padding: 0.55rem 0.6rem;
   background: #fff;
-  color: var(--text);
+}
+
+.age-buttons {
+  margin-top: 1rem;
+  display: flex;
+  gap: 0.65rem;
+}
+
+.age-message {
+  min-height: 1.4rem;
+  margin: 0.9rem 0 0;
+  font-weight: 700;
+}
+
+.age-error {
+  color: var(--danger);
+}
+
+.age-success {
+  color: var(--success);
+}
+
+.age-neutral {
+  color: var(--warning);
+}
+
+.game-screen {
+  padding: 1rem 1rem 1.8rem;
+  background:
+    linear-gradient(180deg, rgb(7 57 111 / 38%), rgb(7 56 110 / 58%)),
+    url("../assets/images/spongebob-gameplay-bg.jpg") center / cover no-repeat fixed;
+}
+
+.game-header {
+  max-width: 1180px;
+  margin: 0 auto 0.8rem;
+  position: relative;
+  text-align: center;
+}
+
+.game-banner {
+  width: min(100%, 44rem);
+  height: auto;
+  filter: drop-shadow(0 0.4rem 0.7rem rgb(0 0 0 / 35%));
+}
+
+.game-layout {
+  max-width: 1180px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(18rem, 1fr);
+  gap: 1rem;
+}
+
+.panel {
+  border: 0.14rem solid var(--panel-outline);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  background:
+    linear-gradient(180deg, rgb(255 255 255 / 95%), rgb(253 247 230 / 94%)),
+    url("../assets/images/spongebob-pattern-bg.jpg") center / cover no-repeat;
+}
+
+.slot-panel {
+  padding: 1rem;
+  background:
+    linear-gradient(180deg, rgb(255 250 214 / 90%), rgb(247 242 208 / 90%)),
+    url("../assets/images/spongebob-slot-bg.jpg") center / cover no-repeat;
+}
+
+.machine-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 4.5rem;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.9rem;
+}
+
+.reels-wrap {
+  padding: 0.8rem;
+  border-radius: 0.9rem;
+  border: 0.12rem solid #184d80;
+  background: rgb(7 34 60 / 74%);
 }
 
 .reels {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: var(--space-2);
-  margin: var(--space-3) 0;
+  gap: 0.55rem;
 }
 
 .reel {
-  border: 0.18rem solid #786446;
-  border-radius: 0.65rem;
-  background: linear-gradient(180deg, #fff8e7, #f3e7cd);
-  text-align: center;
-  padding: 1.6rem 0.5rem;
-  font-weight: 800;
-  font-size: clamp(1.05rem, 2.2vw, 1.35rem);
-  min-height: 5.3rem;
+  min-height: 8.3rem;
+  border-radius: 0.7rem;
+  border: 0.15rem solid #9cc7ea;
+  background: linear-gradient(180deg, #fff, #dcf0ff);
   display: grid;
   place-items: center;
-  transition: transform 130ms ease;
+  gap: 0.35rem;
+  padding: 0.35rem;
+  text-align: center;
+  transition: transform 140ms ease;
 }
 
-.reel.spinning {
-  animation: reelPulse 150ms linear infinite;
+.reel-symbol-image {
+  width: 4rem;
+  height: 4rem;
+  object-fit: contain;
 }
 
-@keyframes reelPulse {
+.reel-symbol-label {
+  font-size: 0.86rem;
+  font-weight: 700;
+  color: #114477;
+}
+
+.spin-active .reel.spinning {
+  animation: reelHop 180ms linear infinite;
+}
+
+@keyframes reelHop {
   0% {
     transform: translateY(-2px);
   }
@@ -230,11 +339,121 @@ input[type="range"] {
   }
 }
 
-.outcome {
-  font-size: 1.08rem;
+.reels-wrap.result-win {
+  animation: reelWinFlash 440ms ease;
+}
+
+@keyframes reelWinFlash {
+  0% {
+    box-shadow: 0 0 0 transparent;
+  }
+
+  50% {
+    box-shadow: 0 0 1.2rem rgb(255 227 125 / 80%);
+  }
+
+  100% {
+    box-shadow: 0 0 0 transparent;
+  }
+}
+
+.reels-wrap.result-loss {
+  animation: reelLossShake 320ms ease;
+}
+
+@keyframes reelLossShake {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+
+  35% {
+    transform: translateX(-4px);
+  }
+
+  70% {
+    transform: translateX(4px);
+  }
+}
+
+.lever-btn {
+  background: transparent;
+  border: none;
+  min-height: 0;
+  padding: 0;
+  display: grid;
+  place-items: center;
+  transform-origin: top center;
+}
+
+.lever-btn img {
+  width: 3.7rem;
+  height: auto;
+  filter: drop-shadow(0 0.25rem 0.4rem rgb(0 0 0 / 45%));
+}
+
+.lever-btn.pull-down {
+  transform: rotate(14deg) translateY(4px);
+}
+
+.lever-btn.return-up {
+  animation: leverReturn 220ms ease;
+}
+
+@keyframes leverReturn {
+  from {
+    transform: rotate(14deg) translateY(4px);
+  }
+
+  to {
+    transform: rotate(0deg) translateY(0);
+  }
+}
+
+.stat-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.6rem;
+  margin-bottom: 0.9rem;
+}
+
+.stat-card {
+  padding: 0.65rem;
+  border-radius: 0.65rem;
+  border: 0.11rem solid #87afd0;
+  background: rgb(255 255 255 / 86%);
+}
+
+.stat-card .label {
+  display: block;
+  font-size: 0.86rem;
+  color: var(--text-muted);
+}
+
+.stat-card strong {
+  font-size: 1.1rem;
+}
+
+.control-row {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-bottom: 0.6rem;
+  flex-wrap: wrap;
+}
+
+.control-row input[type="number"] {
+  max-width: 8rem;
+}
+
+.limit-row label {
   font-weight: 700;
+}
+
+.outcome {
   min-height: 1.5rem;
-  margin: 0.2rem 0;
+  margin: 0.3rem 0;
+  font-weight: 800;
 }
 
 .outcome.win {
@@ -249,20 +468,35 @@ input[type="range"] {
   color: var(--warning);
 }
 
+.outcome.big-win {
+  text-shadow: 0 0 0.5rem rgb(255 216 83 / 72%);
+}
+
 .responsible {
   margin: 0.2rem 0;
-  color: #5c4513;
   min-height: 1.4rem;
+  color: #133b62;
+}
+
+.hud-column {
+  display: grid;
+  gap: 0.9rem;
+}
+
+.session-panel,
+.info-panel,
+.settings-panel {
+  padding: 0.9rem;
 }
 
 .summary-grid {
   display: grid;
   grid-template-columns: auto 1fr;
-  gap: 0.45rem 0.8rem;
+  gap: 0.4rem 0.7rem;
 }
 
 .summary-grid dt {
-  color: var(--muted);
+  color: var(--text-muted);
 }
 
 .summary-grid dd {
@@ -273,57 +507,179 @@ input[type="range"] {
 .loyalty-row {
   display: flex;
   justify-content: space-between;
-  margin-top: var(--space-2);
+  margin-top: 0.6rem;
 }
 
 .progress {
-  height: 0.8rem;
-  border-radius: 999px;
-  border: 0.1rem solid #8f7b5f;
-  overflow: hidden;
   margin-top: 0.35rem;
+  height: 0.85rem;
+  border-radius: 999px;
+  overflow: hidden;
+  border: 0.1rem solid #75a4cd;
   background: #fff;
 }
 
 .progress-fill {
-  height: 100%;
   width: 0%;
-  background: linear-gradient(90deg, #0f5b8d, #27a0dc);
+  height: 100%;
+  background: linear-gradient(90deg, #28c4f8, #1a63b9);
   transition: width 200ms ease;
 }
 
 .paytable {
   width: 100%;
   border-collapse: collapse;
-  margin-bottom: var(--space-3);
+  margin-bottom: 0.8rem;
 }
 
 .paytable th,
 .paytable td {
-  border-bottom: 0.08rem solid var(--line);
   text-align: left;
-  padding: 0.45rem 0.3rem;
+  border-bottom: 0.08rem solid #9db8d2;
+  padding: 0.38rem 0.25rem;
 }
 
 .paytable th {
-  color: var(--muted);
+  color: var(--text-muted);
 }
 
-.fairness-list {
+.fairness-list,
+.rules-list {
   margin: 0;
-  padding-left: 1.1rem;
+  padding-left: 1.2rem;
 }
 
 .setting-row {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 0.65rem;
-  gap: var(--space-2);
+  gap: 0.7rem;
+  margin-bottom: 0.6rem;
 }
 
 .muted {
-  color: var(--muted);
+  color: #214a73;
+}
+
+.big-win-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgb(0 34 71 / 48%);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 45;
+}
+
+.big-win-overlay.active {
+  display: flex;
+}
+
+.big-win-card {
+  width: min(92vw, 28rem);
+  border-radius: 1rem;
+  border: 0.15rem solid #ffe77b;
+  padding: 1.4rem;
+  text-align: center;
+  background:
+    linear-gradient(180deg, rgb(255 244 160 / 97%), rgb(253 219 92 / 94%)),
+    url("../assets/images/spongebob-pattern-bg.jpg") center / cover no-repeat;
+  color: #3d2600;
+  box-shadow: 0 1rem 2rem rgb(0 0 0 / 35%);
+  animation: popIn 250ms ease;
+}
+
+@keyframes popIn {
+  from {
+    opacity: 0;
+    transform: scale(0.92);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.bubble-strip {
+  display: flex;
+  justify-content: center;
+  gap: 0.45rem;
+  margin-top: 0.6rem;
+}
+
+.bubble {
+  width: 0.7rem;
+  height: 0.7rem;
+  border-radius: 999px;
+  background: rgb(110 208 255 / 90%);
+  animation: bubbleRise 980ms ease-in-out infinite;
+}
+
+.bubble:nth-child(2) {
+  animation-delay: 120ms;
+}
+
+.bubble:nth-child(3) {
+  animation-delay: 230ms;
+}
+
+.bubble:nth-child(4) {
+  animation-delay: 340ms;
+}
+
+.bubble:nth-child(5) {
+  animation-delay: 460ms;
+}
+
+@keyframes bubbleRise {
+  0%,
+  100% {
+    transform: translateY(0);
+    opacity: 0.6;
+  }
+
+  50% {
+    transform: translateY(-7px);
+    opacity: 1;
+  }
+}
+
+.info-modal {
+  position: fixed;
+  inset: 0;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  background: rgb(2 24 48 / 55%);
+  z-index: 50;
+  padding: 1rem;
+}
+
+.info-modal.open {
+  display: flex;
+}
+
+.info-dialog {
+  width: min(95vw, 47rem);
+  max-height: 88vh;
+  overflow: auto;
+  border-radius: 1rem;
+  border: 0.14rem solid #89afcf;
+  box-shadow: var(--shadow);
+  padding: 1.2rem;
+  background:
+    linear-gradient(180deg, rgb(253 254 255 / 94%), rgb(248 249 231 / 94%)),
+    url("../assets/images/spongebob-pattern-bg.jpg") center / cover no-repeat;
+}
+
+.close-modal-btn {
+  float: right;
+}
+
+:focus-visible {
+  outline: 0.18rem solid #042f57;
+  outline-offset: 0.1rem;
 }
 
 .sr-only {
@@ -337,44 +693,43 @@ input[type="range"] {
   border: 0;
 }
 
-:focus-visible {
-  outline: 0.2rem solid var(--focus);
-  outline-offset: 0.1rem;
-}
-
 body.high-contrast {
-  --bg: #121212;
   --panel: #111;
+  --panel-soft: #1a1a1a;
   --text: #fff;
-  --muted: #e6e6e6;
-  --line: #ffe082;
-  --accent: #00b6ff;
-  --accent-strong: #0086be;
-  --danger: #ff7a7a;
-  --success: #8ef5a8;
-  --warning: #ffd56f;
-  --focus: #ffe082;
-  background: #060606;
+  --text-muted: #f0f0f0;
+  --panel-outline: #ffe082;
+  --danger: #ff9b9b;
+  --success: #8ff2b0;
+  --warning: #ffe082;
+  background: #020407;
 }
 
-body.high-contrast .app-header {
-  background: #000;
+body.high-contrast .panel,
+body.high-contrast .entry-shell,
+body.high-contrast .age-shell,
+body.high-contrast .info-dialog,
+body.high-contrast .big-win-card,
+body.high-contrast .entry-audio {
+  background: #0f141a;
   color: #fff;
-  border-bottom-color: #ffe082;
-}
-
-body.high-contrast .btn-secondary,
-body.high-contrast .btn-ghost,
-body.high-contrast input[type="number"],
-body.high-contrast input[type="range"] {
-  color: #fff;
-  background: #1f1f1f;
   border-color: #ffe082;
 }
 
-body.high-contrast .reel,
-body.high-contrast .stat-card {
-  background: #141414;
+body.high-contrast input,
+body.high-contrast .btn-secondary,
+body.high-contrast .btn-ghost,
+body.high-contrast .btn-info {
+  background: #1d232b;
+  color: #fff;
+  border-color: #ffe082;
+}
+
+body.high-contrast .stat-card,
+body.high-contrast .reel {
+  background: #131a22;
+  color: #fff;
+  border-color: #ffe082;
 }
 
 body.large-print {
@@ -382,38 +737,35 @@ body.large-print {
 }
 
 body.large-print .btn,
-body.large-print input[type="number"] {
-  min-height: 3.2rem;
-  font-size: 1.02em;
+body.large-print input[type="number"],
+body.large-print input[type="text"] {
+  min-height: 3.1rem;
 }
 
-body.reduce-motion .reel,
-body.reduce-motion .progress-fill,
-body.reduce-motion .btn {
-  transition: none;
+body.reduce-motion * {
+  animation-duration: 1ms !important;
+  transition-duration: 1ms !important;
 }
 
-body.reduce-motion .reel.spinning {
-  animation: none;
-}
-
-@media (max-width: 980px) {
-  .controls-panel,
-  .reels-panel,
-  .session-panel,
-  .info-panel,
-  .settings-panel {
-    grid-column: span 12;
-  }
-}
-
-@media (max-width: 640px) {
-  .app-shell {
-    padding: var(--space-2);
-  }
-
-  .stat-grid {
+@media (max-width: 1020px) {
+  .game-layout {
     grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 760px) {
+  .entry-shell,
+  .age-shell {
+    margin-top: 6vh;
+    padding: 1.2rem;
+  }
+
+  .machine-row {
+    grid-template-columns: 1fr;
+  }
+
+  .lever-btn {
+    justify-self: center;
   }
 
   .control-row {
@@ -422,11 +774,12 @@ body.reduce-motion .reel.spinning {
   }
 
   .control-row input[type="number"],
-  .btn {
+  .control-row .btn {
     width: 100%;
+    max-width: none;
   }
 
-  .reels {
+  .stat-grid {
     grid-template-columns: 1fr;
   }
 }
