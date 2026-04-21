@@ -119,20 +119,30 @@ export async function spinReels(options = {}) {
     (finalSymbol, reelIndex) =>
       new Promise((resolve) => {
         onReelStart(reelIndex);
+        const totalDurationMs = 1280 + reelIndex * 420;
+        const slowdownThresholdMs = Math.floor(totalDurationMs * 0.68);
+        let elapsedMs = 0;
 
-        const intervalMs = 80 + reelIndex * 12;
-        const stopAfterMs = 900 + reelIndex * 360;
-
-        const intervalHandle = window.setInterval(() => {
+        const cycle = () => {
           onReelUpdate(reelIndex, drawWeightedSymbolId(), false);
-        }, intervalMs);
 
-        window.setTimeout(() => {
-          window.clearInterval(intervalHandle);
-          onReelUpdate(reelIndex, finalSymbol, true);
-          onReelStop(reelIndex, finalSymbol);
-          resolve();
-        }, stopAfterMs);
+          const isSlowingDown = elapsedMs >= slowdownThresholdMs;
+          const minDelay = isSlowingDown ? 108 + reelIndex * 18 : 52 + reelIndex * 10;
+          const maxDelay = isSlowingDown ? 148 + reelIndex * 20 : 82 + reelIndex * 12;
+          const nextDelay = Math.floor(minDelay + Math.random() * (maxDelay - minDelay + 1));
+
+          elapsedMs += nextDelay;
+          if (elapsedMs >= totalDurationMs) {
+            onReelUpdate(reelIndex, finalSymbol, true);
+            onReelStop(reelIndex, finalSymbol);
+            resolve();
+            return;
+          }
+
+          window.setTimeout(cycle, nextDelay);
+        };
+
+        cycle();
       }),
   );
 

@@ -73,3 +73,74 @@ _____________________________________________________________
 - **What We Learned:**  
   AI can make the same structure, features, and desgin but
   whith small touch of color and text type
+
+  ____________
+
+  **Date:** 04/20/2026
+- **Team Member(s):** James Villanueva
+- **Phase:** Debugging
+- **Goal:**  
+    To debug the program
+
+- **Prompt / Request to AI:**  
+  you are a professional graphic designer with over a decade of professional experience, you specialize  in web apps and online casino apps. Make the top banner centered and cover more. Also, add more animation to the slots spinning to make it look cooler. 
+
+- **Why We Used AI Here:**  
+  To refine the output
+
+- **AI Output Summary:**  
+  Really good output. Fixed problems that I mentioned to it
+   
+- **Result:**  
+  Success
+
+- **Issues / Observations:**  
+  very nice graphics
+
+- **Decision Made:**  
+  Continue 
+
+- **Manual Edit Needed?:**  
+  no
+
+- **If Yes, Why?:**  
+   N/A
+
+- **What We Learned:**  
+  AI, when clear instructions, follows them well. 
+
+__________________________
+
+
+  **Date:** 04/20/2026
+- **Team Member(s):** James Villanueva
+- **Phase:** Debugging
+- **Goal:**  
+    To debug the program
+
+- **Prompt / Request to AI:**  
+  you are a professional graphic designer with over a decade of professional experience, you specialize  in web apps and online casino apps. Make the "Feel pain, accept pain and know pain, for those who doesn't know pain shall never understand true peace!" look cool with some font and styling. 
+
+- **Why We Used AI Here:**  
+  To refine the output
+
+- **AI Output Summary:**  
+  Really good output. Fixed problems that I mentioned to it
+   
+- **Result:**  
+  Success
+
+- **Issues / Observations:**  
+  very nice graphics
+
+- **Decision Made:**  
+  Done
+
+- **Manual Edit Needed?:**  
+  no
+
+- **If Yes, Why?:**  
+   N/A
+
+- **What We Learned:**  
+ AI follows the instructions well
