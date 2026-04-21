@@ -3,13 +3,13 @@
  */
 
 const SYMBOL_CATALOG = Object.freeze([
-  { id: "PAIN", label: "Pain", icon: "assets/icons/symbol-hieu.png" },
-  { id: "ITACHI", label: "Itachi", icon: "assets/icons/symbol-james.png" },
-  { id: "KONAN", label: "Konan", icon: "assets/icons/symbol-alexis.png" },
-  { id: "KISAME", label: "Kisame", icon: "assets/icons/symbol-jason.png" },
-  { id: "DEIDARA", label: "Deidara", icon: "assets/icons/symbol-daniel.png" },
-  { id: "TOBI", label: "Tobi", icon: "assets/icons/symbol-woosik.png" },
-  { id: "ZETSU", label: "Zetsu", icon: "assets/icons/symbol-fahad.png" }
+  { id: "PAIN", label: "PAIN", icon: "assets/icons/symbol-hieu.png" },
+  { id: "ITACHI", label: "ITACHI", icon: "assets/icons/symbol-james.png" },
+  { id: "KONAN", label: "KONAN", icon: "assets/icons/symbol-alexis.png" },
+  { id: "KISAME", label: "KISAME", icon: "assets/icons/symbol-jason.png" },
+  { id: "DEIDARA", label: "DEIDARA", icon: "assets/icons/symbol-daniel.png" },
+  { id: "TOBI", label: "TOBI", icon: "assets/icons/symbol-woosik.png" },
+  { id: "ZETSU", label: "ZETSU", icon: "assets/icons/symbol-fahad.png" }
 ]);
 
 export const REEL_SYMBOLS = Object.freeze(SYMBOL_CATALOG.map((symbol) => symbol.id));

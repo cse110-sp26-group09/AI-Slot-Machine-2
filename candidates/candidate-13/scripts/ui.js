@@ -12,18 +12,27 @@ function renderReelSymbol(reelElement, symbol) {
   const meta = SYMBOL_META[symbol] || { label: symbol, icon: "" };
   reelElement.replaceChildren();
 
+  const wrapper = document.createElement("div");
+  wrapper.className = "reel-symbol";
+
   if (meta.icon) {
     const image = document.createElement("img");
     image.src = meta.icon;
     image.alt = meta.label;
     image.className = "reel-symbol-img";
-    reelElement.appendChild(image);
+    wrapper.appendChild(image);
   } else {
     const fallback = document.createElement("span");
     fallback.textContent = meta.label;
-    reelElement.appendChild(fallback);
+    wrapper.appendChild(fallback);
   }
 
+  const caption = document.createElement("span");
+  caption.className = "reel-symbol-name";
+  caption.textContent = meta.label;
+  wrapper.appendChild(caption);
+
+  reelElement.appendChild(wrapper);
   reelElement.setAttribute("aria-label", meta.label);
   reelElement.dataset.symbol = symbol;
 }
@@ -40,6 +49,7 @@ export function getUIRefs() {
     ageGateMessage: document.getElementById("ageGateMessage"),
     openInfoButton: document.getElementById("openInfoButton"),
     openInfoInGame: document.getElementById("openInfoInGame"),
+    backToHomeFromGame: document.getElementById("backToHomeFromGame"),
     closeInfoButton: document.getElementById("closeInfoButton"),
     closeInfoBackdrop: document.getElementById("closeInfoBackdrop"),
     infoModal: document.getElementById("infoModal"),
@@ -53,7 +63,6 @@ export function getUIRefs() {
     betInput: document.getElementById("betInput"),
     betDown: document.getElementById("betDown"),
     betUp: document.getElementById("betUp"),
-    spinButton: document.getElementById("spinButton"),
     leverSpin: document.getElementById("leverSpin"),
     reels: [
       document.getElementById("reel0"),
@@ -152,7 +161,6 @@ export function syncControls(refs, state) {
 }
 
 export function setSpinEnabled(refs, enabled) {
-  refs.spinButton.disabled = !enabled;
   refs.leverSpin.disabled = !enabled;
 }
 

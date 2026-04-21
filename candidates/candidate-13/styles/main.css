@@ -29,6 +29,7 @@ body {
 }
 
 body {
+  min-height: 100dvh;
   font-family: var(--font-main);
   color: var(--text);
   background: var(--bg-dark);
@@ -36,6 +37,7 @@ body {
 
 .app-root {
   min-height: 100vh;
+  min-height: 100dvh;
   position: relative;
 }
 
@@ -54,6 +56,7 @@ body {
 .screen {
   display: none;
   min-height: 100vh;
+  min-height: 100dvh;
 }
 
 .screen.is-active {
@@ -66,8 +69,9 @@ body {
   justify-content: center;
   padding: 1.2rem;
   position: relative;
-  background-position: center;
-  background-size: cover;
+  background-position: top center;
+  background-size: contain;
+  background-repeat: no-repeat;
 }
 
 .screen-entry::before,
@@ -81,10 +85,14 @@ body {
 
 .screen-entry {
   background-image: url("../assets/images/akatsuki-loading-bg.jpg");
+  background-size: cover;
+  background-position: center top;
 }
 
 .screen-age {
   background-image: url("../assets/images/akatsuki-loading-bg.jpg");
+  background-size: cover;
+  background-position: center top;
 }
 
 .screen-entry.is-active,
@@ -187,8 +195,9 @@ body {
   position: relative;
   padding: 1rem;
   background-image: url("../assets/images/akatsuki-gameplay-bg.jpg");
-  background-position: center;
-  background-size: cover;
+  background-position: top center;
+  background-size: contain;
+  background-repeat: no-repeat;
 }
 
 .screen-game.is-active {
@@ -209,8 +218,14 @@ body {
   justify-items: center;
 }
 
-.info-chip {
+.game-header-actions {
+  display: flex;
+  gap: 0.55rem;
   justify-self: end;
+}
+
+.info-chip {
+  justify-self: auto;
 }
 
 .title-banner {
@@ -234,6 +249,7 @@ body {
   display: grid;
   grid-template-columns: minmax(0, 1.28fr) minmax(320px, 0.9fr);
   gap: 1rem;
+  align-items: start;
 }
 
 .side-panels {
@@ -251,10 +267,6 @@ body {
   border-radius: var(--radius);
   padding: 1rem;
   box-shadow: var(--shadow);
-}
-
-.panel-primary {
-  min-height: 560px;
 }
 
 .panel h2 {
@@ -325,6 +337,20 @@ body {
   object-fit: cover;
   border: 2px solid rgba(255, 255, 255, 0.23);
   box-shadow: 0 0 14px rgba(0, 0, 0, 0.45);
+}
+
+.reel-symbol {
+  display: grid;
+  justify-items: center;
+  gap: 0.38rem;
+}
+
+.reel-symbol-name {
+  margin: 0;
+  text-align: center;
+  font-size: 0.76rem;
+  color: #ffd8de;
+  line-height: 1.2;
 }
 
 .reel.win {
@@ -744,6 +770,10 @@ th {
   color: #000;
 }
 
+.high-contrast .reel-symbol-name {
+  color: #fff;
+}
+
 .large-print {
   font-size: 118%;
 }
@@ -758,10 +788,6 @@ th {
 @media (max-width: 1050px) {
   .game-layout {
     grid-template-columns: 1fr;
-  }
-
-  .panel-primary {
-    min-height: auto;
   }
 }
 

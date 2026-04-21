@@ -62,7 +62,10 @@
 
     <section id="gameScreen" class="screen screen-game" aria-labelledby="bannerTitle">
       <header class="game-header">
-        <button type="button" id="openInfoInGame" class="info-chip">Rules</button>
+        <div class="game-header-actions">
+          <button type="button" id="openInfoInGame" class="info-chip">Rules</button>
+          <button type="button" id="backToHomeFromGame" class="info-chip">Home</button>
+        </div>
         <img
           id="bannerTitle"
           class="title-banner"
@@ -104,11 +107,10 @@
             <label for="betInput">Bet</label>
             <input id="betInput" type="number" min="5" max="100" step="5">
             <button type="button" id="betUp" class="btn btn-secondary" aria-label="Increase bet">+</button>
-            <button type="button" id="spinButton" class="btn btn-spin">Spin</button>
           </div>
 
           <p id="outcomeText" class="outcome outcome-neutral" aria-live="polite">
-            Place your bet and spin.
+            Place your bet and pull the lever.
           </p>
           <p id="responsiblePrompt" class="responsible responsible-neutral" aria-live="polite">
             Set a session loss limit to keep play intentional.
@@ -193,7 +195,7 @@
 
         <ul class="rules-list">
           <li>Choose a bet from 5 to 100 tokens.</li>
-          <li>Pull the lever or press Spin to roll the 3 reels.</li>
+          <li>Pull the lever to roll the 3 reels.</li>
           <li>Any pair pays 0.5x bet; triple matches pay based on the symbol tier.</li>
           <li>Session loss limits can pause gameplay automatically.</li>
           <li>Loyalty rewards and daily rewards are tracked in session summary.</li>

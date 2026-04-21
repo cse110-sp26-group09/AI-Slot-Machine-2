@@ -111,6 +111,13 @@ function registerEvents() {
     setModalOpen(refs, true);
   });
 
+  refs.backToHomeFromGame.addEventListener("click", () => {
+    dismissBigWinOverlay();
+    setModalOpen(refs, false);
+    showScreen(refs, "entry");
+    setAgeGateMessage("Compliance check required before gameplay.", "neutral");
+  });
+
   refs.closeInfoButton.addEventListener("click", () => {
     setModalOpen(refs, false);
   });
@@ -129,8 +136,6 @@ function registerEvents() {
       dismissBigWinOverlay();
     }
   });
-
-  refs.spinButton.addEventListener("click", () => onSpin(false));
 
   refs.leverSpin.addEventListener("click", () => onSpin(true));
 
