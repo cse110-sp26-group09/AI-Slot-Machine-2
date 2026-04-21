@@ -2,12 +2,48 @@
  * Symbol catalog and reel behavior.
  */
 export const REEL_SYMBOLS = Object.freeze([
-  { id: "MODEL", name: "Model", glyph: "MODEL", weight: 14 },
-  { id: "GPU", name: "GPU", glyph: "GPU", weight: 15 },
-  { id: "TOKEN", name: "Token", glyph: "TOKEN", weight: 17 },
-  { id: "PROMPT", name: "Prompt", glyph: "PROMPT", weight: 17 },
-  { id: "CACHE", name: "Cache", glyph: "CACHE", weight: 18 },
-  { id: "GLITCH", name: "Glitch", glyph: "GLITCH", weight: 19 },
+  {
+    id: "MODEL",
+    name: "Pain",
+    glyph: "PAIN",
+    icon: "assets/icons/symbol-hieu.png",
+    weight: 14,
+  },
+  {
+    id: "GPU",
+    name: "Itachi",
+    glyph: "ITACHI",
+    icon: "assets/icons/symbol-jason.png",
+    weight: 15,
+  },
+  {
+    id: "TOKEN",
+    name: "Konan",
+    glyph: "KONAN",
+    icon: "assets/icons/symbol-woosik.png",
+    weight: 17,
+  },
+  {
+    id: "PROMPT",
+    name: "Obito",
+    glyph: "OBITO",
+    icon: "assets/icons/symbol-daniel.png",
+    weight: 17,
+  },
+  {
+    id: "CACHE",
+    name: "Kisame",
+    glyph: "KISAME",
+    icon: "assets/icons/symbol-josh.png",
+    weight: 18,
+  },
+  {
+    id: "GLITCH",
+    name: "Deidara",
+    glyph: "DEIDARA",
+    icon: "assets/icons/symbol-fahad.png",
+    weight: 19,
+  },
 ]);
 
 const SYMBOL_MAP = new Map(REEL_SYMBOLS.map((symbol) => [symbol.id, symbol]));

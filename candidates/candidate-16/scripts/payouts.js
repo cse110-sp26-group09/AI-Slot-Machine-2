@@ -7,18 +7,27 @@ const THREE_OF_A_KIND = Object.freeze({
   GLITCH: 5,
 });
 
+const SYMBOL_NAMES = Object.freeze({
+  MODEL: "Pain",
+  GPU: "Itachi",
+  TOKEN: "Konan",
+  PROMPT: "Obito",
+  CACHE: "Kisame",
+  GLITCH: "Deidara",
+});
+
 const AI_STACK_COMBO = Object.freeze(["PROMPT", "TOKEN", "MODEL"]);
 const AI_STACK_MULTIPLIER = 8;
 const TWO_MATCH_MULTIPLIER = 1.1;
 
 export const PAYTABLE_ROWS = Object.freeze([
-  { key: "MODEL3", pattern: "3x MODEL", multiplier: "20x" },
-  { key: "GPU3", pattern: "3x GPU", multiplier: "15x" },
-  { key: "TOKEN3", pattern: "3x TOKEN", multiplier: "12x" },
-  { key: "PROMPT3", pattern: "3x PROMPT", multiplier: "10x" },
-  { key: "CACHE3", pattern: "3x CACHE", multiplier: "8x" },
-  { key: "GLITCH3", pattern: "3x GLITCH", multiplier: "5x" },
-  { key: "STACK", pattern: "PROMPT + TOKEN + MODEL", multiplier: "8x" },
+  { key: "MODEL3", pattern: "3x Pain", multiplier: "20x" },
+  { key: "GPU3", pattern: "3x Itachi", multiplier: "15x" },
+  { key: "TOKEN3", pattern: "3x Konan", multiplier: "12x" },
+  { key: "PROMPT3", pattern: "3x Obito", multiplier: "10x" },
+  { key: "CACHE3", pattern: "3x Kisame", multiplier: "8x" },
+  { key: "GLITCH3", pattern: "3x Deidara", multiplier: "5x" },
+  { key: "STACK", pattern: "Obito + Konan + Pain", multiplier: "8x" },
   { key: "PAIR", pattern: "Any 2 matching symbols", multiplier: "1.1x" },
 ]);
 
@@ -90,16 +99,17 @@ function evaluateOutcome(symbols) {
 
   if (a === b && b === c) {
     const multiplier = THREE_OF_A_KIND[a] ?? 0;
+    const symbolName = SYMBOL_NAMES[a] ?? a;
     return {
       multiplier,
-      title: `Three ${a} symbols`,
+      title: `Three ${symbolName} symbols`,
     };
   }
 
   if (isAiStackCombo(symbols)) {
     return {
       multiplier: AI_STACK_MULTIPLIER,
-      title: "Full AI stack combo",
+      title: "Akatsuki trinity combo",
     };
   }
 

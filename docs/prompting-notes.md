@@ -616,5 +616,7 @@ Before making major changes, briefly summarize:
 Notes: Adds theme and more functionality
 
 Result: 
+candidate-13: looks good but we want to add stuff instead of just white backgrounds on the slots of our pictures. Image not being centered (no heads). Only see 5 different people instead of 11. 
 
+candidate-16: looks good and spin is really nice but reduce motion is buggy and top banner placement is weird. 
 ___

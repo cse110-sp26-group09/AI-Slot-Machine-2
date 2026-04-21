@@ -1,5 +1,6 @@
+# Entry 14
 **Date:** 04/19/2026
-- **Team Member(s):** ALexis Navarrete
+- **Team Member(s):** Alexis Navarrete
 - **Phase:** Implementation 
 - **Goal:**  
     Test the promt form user #4
@@ -34,3 +35,37 @@
 - **What We Learned:**  
   AI can make interesting errors without konwing why is 
   happening and how to solve it.
+_____________________________________________
+
+  **Date:** 04/20/2026
+- **Team Member(s):** James Villanueva
+- **Phase:** Refinement
+- **Goal:**  
+    Test the promt form user #4
+
+- **Prompt / Request to AI:**  
+  Refinement prompt Akatsuki
+
+- **Why We Used AI Here:**  
+  To refine the output
+
+- **AI Output Summary:**  
+  Really good output. Only real complaint is the offset of assets. 
+   
+- **Result:**  
+  Succes 
+
+- **Issues / Observations:**  
+  very nice graphics, slightly offset though 
+
+- **Decision Made:**  
+  Continue 
+
+- **Manual Edit Needed?:**  
+  no
+
+- **If Yes, Why?:**  
+   N/A
+
+- **What We Learned:**  
+  AI, when provided materials, can make good stuff. 
