@@ -6,52 +6,87 @@
   const SYMBOLS = [
     {
       id: "aditya",
-      label: "Aditya",
+      label: "Nagato",
       image: "assets/icons/symbol-aditya.png",
-      weight: 22,
-      tripleMultiplier: 8
+      weight: 13,
+      tripleMultiplier: 9
     },
     {
       id: "alexis",
-      label: "Alexis",
+      label: "Konan",
       image: "assets/icons/symbol-alexis.png",
-      weight: 19,
-      tripleMultiplier: 12
+      weight: 12,
+      tripleMultiplier: 11
     },
     {
       id: "daniel",
-      label: "Daniel",
+      label: "Uchiha ",
       image: "assets/icons/symbol-daniel.png",
-      weight: 15,
-      tripleMultiplier: 18
+      weight: 11,
+      tripleMultiplier: 13
     },
     {
-      id: "powell",
-      label: "Powell",
-      image: "assets/icons/symbol-powell.png",
-      weight: 12,
-      tripleMultiplier: 24
-    },
-    {
-      id: "hieu",
-      label: "Hieu",
-      image: "assets/icons/symbol-hieu.png",
+      id: "fahad",
+      label: "Kisame",
+      image: "assets/icons/symbol-fahad.png",
       weight: 10,
-      tripleMultiplier: 38
-    },
-    {
-      id: "james",
-      label: "James",
-      image: "assets/icons/symbol-james.png",
-      weight: 7,
-      tripleMultiplier: 64
+      tripleMultiplier: 16
     },
     {
       id: "hemendra",
-      label: "Hemendra",
+      label: "Sasori",
       image: "assets/icons/symbol-hemendra.png",
+      weight: 9,
+      tripleMultiplier: 19
+    },
+    {
+      id: "hieu",
+      label: "Deidara",
+      image: "assets/icons/symbol-hieu.png",
+      weight: 8,
+      tripleMultiplier: 24
+    },
+    {
+      id: "james",
+      label: "Hidan",
+      image: "assets/icons/symbol-james.png",
+      weight: 7,
+      tripleMultiplier: 30
+    },
+    {
+      id: "jason",
+      label: "Kakuzu",
+      image: "assets/icons/symbol-jason.png",
+      weight: 6,
+      tripleMultiplier: 38
+    },
+    {
+      id: "josh",
+      label: "Tobi",
+      image: "assets/icons/symbol-josh.png",
+      weight: 5,
+      tripleMultiplier: 50
+    },
+    {
+      id: "powell",
+      label: "Zetsu",
+      image: "assets/icons/symbol-powell.png",
+      weight: 4,
+      tripleMultiplier: 64
+    },
+    {
+      id: "waleed",
+      label: "Obito",
+      image: "assets/icons/symbol-waleed.png",
       weight: 3,
-      tripleMultiplier: 160
+      tripleMultiplier: 92
+    },
+    {
+      id: "woosik",
+      label: "Yahiko",
+      image: "assets/icons/symbol-woosik.png",
+      weight: 2,
+      tripleMultiplier: 140
     }
   ];
 

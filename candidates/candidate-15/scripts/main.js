@@ -50,6 +50,10 @@
       },
       onLeverPull: () => {
         ui.triggerLeverPull();
+      },
+      onMainMenu: () => {
+        ui.showInfoModal(false);
+        ui.showScreen("intro");
       }
     });
 

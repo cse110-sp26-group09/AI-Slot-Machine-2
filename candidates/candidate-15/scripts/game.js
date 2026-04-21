@@ -31,6 +31,7 @@
       onChangeBet: this.handleBetChange.bind(this),
       onToggleLossLimit: this.handleLossLimitToggle.bind(this),
       onApplyLossLimit: this.handleLossLimitApply.bind(this),
+      onToggleVfx: this.handleVfxToggle.bind(this),
       onToggleSound: this.handleSoundToggle.bind(this),
       onSetVolume: this.handleVolumeChange.bind(this),
       onToggleContrast: this.handleContrastToggle.bind(this),
@@ -68,7 +69,11 @@
       soundEnabled: saved.settings ? Boolean(saved.settings.soundEnabled) : merged.settings.soundEnabled,
       volume: saved.settings ? clamp(Number(saved.settings.volume), 0, 1) : merged.settings.volume,
       highContrast: saved.settings ? Boolean(saved.settings.highContrast) : merged.settings.highContrast,
-      reducedMotion: saved.settings ? Boolean(saved.settings.reducedMotion) : merged.settings.reducedMotion
+      reducedMotion: saved.settings ? Boolean(saved.settings.reducedMotion) : merged.settings.reducedMotion,
+      vfxEnabled:
+        saved.settings && Object.prototype.hasOwnProperty.call(saved.settings, "vfxEnabled")
+          ? Boolean(saved.settings.vfxEnabled)
+          : merged.settings.vfxEnabled
     };
     merged.daily = {
       lastClaimDate:
@@ -115,9 +120,10 @@
       const spinData = Reels.buildSpin();
       await this.ui.animateSpin(spinData, {
         reducedMotion: this.state.settings.reducedMotion,
-        onTick: () => Audio.playSpinTick(),
-        onReelStop: (reelIndex) => Audio.playReelStop(reelIndex),
-        onAnticipation: () => Audio.playAnticipation()
+        vfxEnabled: this.state.settings.vfxEnabled,
+        onTick: this.state.settings.vfxEnabled ? () => Audio.playSpinTick() : null,
+        onReelStop: this.state.settings.vfxEnabled ? (reelIndex) => Audio.playReelStop(reelIndex) : null,
+        onAnticipation: this.state.settings.vfxEnabled ? () => Audio.playAnticipation() : null
       });
 
       this.state.reelSymbolIds = spinData.result;
@@ -144,7 +150,8 @@
       await this.ui.playRewardSequence(
         evaluation.outcome,
         this.state.outcomeText,
-        this.state.settings.reducedMotion
+        this.state.settings.reducedMotion,
+        this.state.settings.vfxEnabled
       );
     } finally {
       this.isSpinning = false;
@@ -188,6 +195,11 @@
   GameController.prototype.handleSoundToggle = function handleSoundToggle(enabled) {
     this.state.settings.soundEnabled = enabled;
     Audio.setEnabled(enabled);
+    this.persistAndRender();
+  };
+
+  GameController.prototype.handleVfxToggle = function handleVfxToggle(enabled) {
+    this.state.settings.vfxEnabled = enabled;
     this.persistAndRender();
   };
 
@@ -384,6 +396,7 @@
       volume: this.state.settings.volume,
       highContrast: this.state.settings.highContrast,
       reducedMotion: this.state.settings.reducedMotion,
+      vfxEnabled: this.state.settings.vfxEnabled,
       dailyAvailable: this.state.daily.availableReward > 0,
       dailyText:
         this.state.daily.availableReward > 0
@@ -428,7 +441,8 @@
         soundEnabled: true,
         volume: 0.6,
         highContrast: false,
-        reducedMotion: false
+        reducedMotion: false,
+        vfxEnabled: true
       }
     };
   }

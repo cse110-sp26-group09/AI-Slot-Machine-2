@@ -43,10 +43,12 @@
       elements.entryVolumeRange.value = String(Math.round(viewModel.volume * 100));
       elements.contrastToggle.checked = viewModel.highContrast;
       elements.motionToggle.checked = viewModel.reducedMotion;
+      elements.vfxToggle.checked = viewModel.vfxEnabled;
       elements.dailyRewardText.textContent = viewModel.dailyText;
       elements.claimDailyBtn.disabled = !viewModel.dailyAvailable;
       elements.loyaltyText.textContent = viewModel.loyaltyText;
       elements.loyaltyProgress.style.width = `${viewModel.loyaltyProgressPercent}%`;
+      elements.machine.classList.toggle("no-vfx", !viewModel.vfxEnabled);
     }
 
     function renderPaytable(symbols, metrics) {
@@ -62,27 +64,28 @@
     /**
      * Animates a spin and resolves when all reels stop.
      * @param {{reelPlans:Object[],anticipation:boolean}} spinData
-     * @param {{reducedMotion:boolean,onTick:function,onReelStop:function,onAnticipation:function}} options
+     * @param {{reducedMotion:boolean,vfxEnabled:boolean,onTick:function,onReelStop:function,onAnticipation:function}} options
      * @returns {Promise<void>}
      */
     function animateSpin(spinData, options) {
       const { reelPlans, anticipation } = spinData;
-      const { reducedMotion, onTick, onReelStop, onAnticipation } = options;
+      const { reducedMotion, vfxEnabled, onTick, onReelStop, onAnticipation } = options;
+      const animateVfx = Boolean(vfxEnabled);
 
-      elements.machine.classList.add("spinning");
-      if (anticipation && !reducedMotion) {
+      elements.machine.classList.toggle("spinning", animateVfx);
+      if (anticipation && !reducedMotion && animateVfx) {
         elements.machine.classList.add("anticipation");
         if (typeof onAnticipation === "function") {
           onAnticipation();
         }
       }
 
-      if (reducedMotion) {
+      if (reducedMotion || !animateVfx) {
         reelPlans.forEach((plan, index) => {
           setReel(elements.reels[index], plan.final);
         });
 
-        return wait(180).then(() => {
+        return wait(160).then(() => {
           finishSpinAnimation();
         });
       }
@@ -117,8 +120,12 @@
       });
     }
 
-    function playRewardSequence(outcome, outcomeText, reducedMotion) {
+    function playRewardSequence(outcome, outcomeText, reducedMotion, vfxEnabled) {
       if (outcome !== "big-win" && outcome !== "jackpot") {
+        return Promise.resolve();
+      }
+
+      if (!vfxEnabled) {
         return Promise.resolve();
       }
 
@@ -138,6 +145,9 @@
     }
 
     function triggerLeverPull() {
+      if (elements.machine.classList.contains("no-vfx")) {
+        return;
+      }
       elements.machine.classList.add("lever-pull");
       wait(250).then(() => {
         elements.machine.classList.remove("lever-pull");
@@ -220,6 +230,7 @@
       },
       introInfoBtn: byId("introInfoBtn"),
       headerInfoBtn: byId("headerInfoBtn"),
+      mainMenuBtn: byId("mainMenuBtn"),
       closeInfoBtn: byId("closeInfoBtn"),
       infoBackdrop: byId("infoBackdrop"),
       infoModal: byId("infoModal"),
@@ -247,6 +258,7 @@
       leverBtn: byId("leverBtn"),
       contrastToggle: byId("contrastToggle"),
       motionToggle: byId("motionToggle"),
+      vfxToggle: byId("vfxToggle"),
       soundToggle: byId("soundToggle"),
       volumeRange: byId("volumeRange"),
       entrySoundToggle: byId("entrySoundToggle"),
@@ -345,6 +357,12 @@
       }
     });
 
+    elements.vfxToggle.addEventListener("change", (event) => {
+      if (handlers.onToggleVfx) {
+        handlers.onToggleVfx(event.target.checked);
+      }
+    });
+
     elements.claimDailyBtn.addEventListener("click", () => {
       if (handlers.onClaimDaily) {
         handlers.onClaimDaily();
@@ -372,6 +390,12 @@
     elements.headerInfoBtn.addEventListener("click", () => {
       if (flowHandlers.onOpenInfo) {
         flowHandlers.onOpenInfo();
+      }
+    });
+
+    elements.mainMenuBtn.addEventListener("click", () => {
+      if (flowHandlers.onMainMenu) {
+        flowHandlers.onMainMenu();
       }
     });
 
