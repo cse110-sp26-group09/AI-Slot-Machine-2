@@ -44,6 +44,14 @@ export const REEL_SYMBOLS = Object.freeze([
     icon: "assets/icons/symbol-fahad.png",
     weight: 19,
   },
+  {
+    id: "HACKER",
+    name: "Kakuzu",
+    glyph: "KAKUZU",
+    icon: "assets/icons/symbol-waleed.png",
+    weight: 19,
+  },
+  
 ]);
 
 const SYMBOL_MAP = new Map(REEL_SYMBOLS.map((symbol) => [symbol.id, symbol]));
