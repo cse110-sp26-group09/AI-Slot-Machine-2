@@ -4,13 +4,55 @@
   const root = (global.SlotMachine = global.SlotMachine || {});
 
   const SYMBOLS = [
-    { id: "token", label: "Token", icon: "🪙", weight: 22, tripleMultiplier: 10 },
-    { id: "prompt", label: "Prompt", icon: "✍️", weight: 18, tripleMultiplier: 14 },
-    { id: "credit", label: "Credit", icon: "💳", weight: 16, tripleMultiplier: 18 },
-    { id: "cache", label: "Cache", icon: "💾", weight: 14, tripleMultiplier: 24 },
-    { id: "gpu", label: "GPU", icon: "⚙️", weight: 10, tripleMultiplier: 40 },
-    { id: "model", label: "Model", icon: "🤖", weight: 7, tripleMultiplier: 65 },
-    { id: "singularity", label: "Singularity", icon: "🚀", weight: 3, tripleMultiplier: 180 }
+    {
+      id: "aditya",
+      label: "Aditya",
+      image: "assets/icons/symbol-aditya.png",
+      weight: 22,
+      tripleMultiplier: 8
+    },
+    {
+      id: "alexis",
+      label: "Alexis",
+      image: "assets/icons/symbol-alexis.png",
+      weight: 19,
+      tripleMultiplier: 12
+    },
+    {
+      id: "daniel",
+      label: "Daniel",
+      image: "assets/icons/symbol-daniel.png",
+      weight: 15,
+      tripleMultiplier: 18
+    },
+    {
+      id: "powell",
+      label: "Powell",
+      image: "assets/icons/symbol-powell.png",
+      weight: 12,
+      tripleMultiplier: 24
+    },
+    {
+      id: "hieu",
+      label: "Hieu",
+      image: "assets/icons/symbol-hieu.png",
+      weight: 10,
+      tripleMultiplier: 38
+    },
+    {
+      id: "james",
+      label: "James",
+      image: "assets/icons/symbol-james.png",
+      weight: 7,
+      tripleMultiplier: 64
+    },
+    {
+      id: "hemendra",
+      label: "Hemendra",
+      image: "assets/icons/symbol-hemendra.png",
+      weight: 3,
+      tripleMultiplier: 160
+    }
   ];
 
   const PAIR_MULTIPLIER = 0.9;
@@ -46,7 +88,7 @@
   }
 
   /**
-   * Provides a simple, transparent RTP approximation from configured weights and multipliers.
+   * Provides RTP approximation from configured weights and multipliers.
    * @returns {{rtp:number,winRate:number,pairWinRate:number,tripleWinRate:number}}
    */
   function getTheoreticalMetrics() {
@@ -58,12 +100,12 @@
     let expectedMultiplier = 0;
 
     SYMBOLS.forEach((symbol, index) => {
-      const p = probabilities[index];
-      const p3 = p * p * p;
-      const pPair = 3 * p * p * (1 - p);
+      const probability = probabilities[index];
+      const pThree = probability * probability * probability;
+      const pPair = 3 * probability * probability * (1 - probability);
       pairWinRate += pPair;
-      tripleWinRate += p3;
-      expectedMultiplier += p3 * symbol.tripleMultiplier;
+      tripleWinRate += pThree;
+      expectedMultiplier += pThree * symbol.tripleMultiplier;
     });
 
     expectedMultiplier += pairWinRate * PAIR_MULTIPLIER;

@@ -4,12 +4,12 @@
   const root = (global.SlotMachine = global.SlotMachine || {});
   const { Payouts, Reels, Storage, Accessibility, Audio } = root;
 
-  const BET_STEPS = [10, 20, 30, 50, 75, 100, 150, 200];
+  const BET_STEPS = [10, 20, 30, 50, 75, 100];
   const LOYALTY_POINTS_PER_LEVEL = 14;
 
   /**
    * Main game coordinator.
-   * @param {{setHandlers:function,render:function,renderPaytable:function,animateSpin:function}} ui
+   * @param {{setHandlers:function,render:function,renderPaytable:function,animateSpin:function,playRewardSequence:function}} ui
    */
   function GameController(ui) {
     this.ui = ui;
@@ -110,6 +110,7 @@
       this.state.outcomeText = "Spinning...";
       this.state.outcomeType = "neutral";
       this.persistAndRender();
+      Audio.playSpin();
 
       const spinData = Reels.buildSpin();
       await this.ui.animateSpin(spinData, {
@@ -139,6 +140,12 @@
       } else {
         Audio.playWin(evaluation.outcome);
       }
+
+      await this.ui.playRewardSequence(
+        evaluation.outcome,
+        this.state.outcomeText,
+        this.state.settings.reducedMotion
+      );
     } finally {
       this.isSpinning = false;
       this.persistAndRender();
@@ -272,7 +279,7 @@
       return;
     }
 
-    const prefix = evaluation.outcome === "jackpot" ? "Jackpot!" : "Win!";
+    const prefix = evaluation.outcome === "jackpot" ? "Legendary Jackpot!" : "Win!";
     this.state.outcomeText = `${prefix} 3 ${matchLabel}s paid ${payout} credits, net +${net} credits.`;
     this.state.outcomeType = "win";
     if (loyaltyBonus > 0) {
@@ -385,7 +392,7 @@
               this.state.daily.streak + 1
             )}).`
           : "Daily reward claimed today. Come back tomorrow for your next bonus.",
-      loyaltyText: `Loyalty tier ${this.state.loyaltyLevel} • ${this.state.loyaltyPoints}/${nextGoal} spins to next tier`,
+      loyaltyText: `Loyalty tier ${this.state.loyaltyLevel} | ${this.state.loyaltyPoints}/${nextGoal} spins to next tier`,
       loyaltyProgressPercent: progressPercent
     };
   };
@@ -409,7 +416,7 @@
       outcomeText: "Set your bet and spin.",
       outcomeType: "neutral",
       responsibleMessage: "Tip: Enable a loss limit to cap downside this session.",
-      reelSymbolIds: ["token", "prompt", "credit"],
+      reelSymbolIds: ["aditya", "alexis", "daniel"],
       loyaltyLevel: 1,
       loyaltyPoints: 0,
       daily: {
