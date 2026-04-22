@@ -44,6 +44,7 @@ function createWindow(windowOverrides) {
 function loadScripts(scriptPaths, options) {
   const config = options || {};
   const windowObject = createWindow(config.windowOverrides);
+  const candidateRoot = path.resolve(__dirname, "candidate-06");
 
   const context = vm.createContext({
     window: windowObject,
@@ -58,7 +59,7 @@ function loadScripts(scriptPaths, options) {
   });
 
   scriptPaths.forEach(function (relativePath) {
-    const absolutePath = path.resolve(__dirname, "..", relativePath);
+    const absolutePath = path.resolve(candidateRoot, relativePath);
     const source = fs.readFileSync(absolutePath, "utf8");
     vm.runInContext(source, context, { filename: absolutePath });
   });
