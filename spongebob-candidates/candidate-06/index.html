@@ -7,6 +7,8 @@
     <link rel="stylesheet" href="styles/main.css" />
   </head>
   <body>
+    <a class="skip-link" href="#spin-button">Skip to spin</a>
+
     <div class="audio-dock" aria-label="Sound controls">
       <label class="sound-toggle" for="sound-enabled">
         <input id="sound-enabled" type="checkbox" checked /> Sound
@@ -15,7 +17,17 @@
       <input id="volume-input" type="range" min="0" max="100" step="1" value="45" />
     </div>
 
-    <section id="entry-screen" class="screen entry-screen active" aria-label="Welcome screen">
+    <section id="loading-screen" class="screen loading-screen active" aria-label="Loading screen">
+      <div class="loading-card panel">
+        <h1 class="loading-title">Bikini Bottom Slots</h1>
+        <p class="entry-copy">Loading reels, bubbles, and sound deck...</p>
+        <div class="loading-track" role="progressbar" aria-label="Loading progress" aria-valuemin="0" aria-valuemax="100">
+          <div id="loading-fill" class="loading-fill"></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="entry-screen" class="screen entry-screen" aria-label="Welcome screen">
       <button id="open-info-entry" class="button secondary info-corner" type="button">Info</button>
       <div class="entry-card panel">
         <h1>Bikini Bottom Slots</h1>
@@ -50,6 +62,11 @@
         <span class="bubble bubble-4"></span>
         <span class="bubble bubble-5"></span>
         <span class="bubble bubble-6"></span>
+      </div>
+      <div class="session-ribbon panel" aria-label="Running session totals">
+        <div><span>Total Spun</span><strong id="ribbon-spun">0.00</strong></div>
+        <div><span>Total Won</span><strong id="ribbon-won">0.00</strong></div>
+        <div><span>Net Result</span><strong id="ribbon-net">0.00</strong></div>
       </div>
       <header class="game-header">
         <div class="banner-shell">
@@ -100,15 +117,17 @@
             </div>
 
             <button id="spin-button" class="button spin" type="button">Spin</button>
-
-            <button id="lever-button" class="lever-button" type="button" aria-label="Pull lever to spin">
-              <img id="lever-image" src="assets/images/lever.png" alt="Slot lever" />
-              <span>Pull Lever</span>
-            </button>
           </div>
-
-          <div id="outcome" class="outcome" role="status" aria-live="polite">
-            Set your session limits, then spin when ready.
+          <p class="tap-hint small-text">
+            Tap while spinning to speed up. Tap again for Slam Stop.
+          </p>
+          <div class="outcome-area">
+            <div id="payline-text" class="payline-status" aria-live="polite">
+              Payline ready.
+            </div>
+            <div id="outcome" class="outcome" role="status" aria-live="polite">
+              Set your session limits, then spin when ready.
+            </div>
           </div>
           <div id="responsible-message" class="prompt" role="status" aria-live="polite">
             Tip: take short breaks every 20 spins to keep play enjoyable.
@@ -119,6 +138,7 @@
               <p class="big-win-tag">Major Win</p>
               <h3 id="big-win-title">Jellyfish Jackpot!</h3>
               <p id="big-win-text"></p>
+              <button id="big-win-dismiss" class="button spin hidden" type="button">Tap to Continue</button>
             </div>
           </div>
         </section>
@@ -129,8 +149,8 @@
             <dl class="summary-grid">
               <div><dt>Current Balance</dt><dd id="balance-value">0</dd></div>
               <div><dt>Current Bet</dt><dd id="current-bet-value">0</dd></div>
-              <div><dt>Total Spend</dt><dd id="spend-value">0</dd></div>
-              <div><dt>Total Returned</dt><dd id="returned-value">0</dd></div>
+              <div><dt>Total Spun</dt><dd id="spend-value">0</dd></div>
+              <div><dt>Total Won</dt><dd id="returned-value">0</dd></div>
               <div><dt>Session Net</dt><dd id="net-value">0</dd></div>
               <div><dt>Spins</dt><dd id="spins-value">0</dd></div>
               <div><dt>Wins</dt><dd id="wins-value">0</dd></div>
@@ -146,6 +166,30 @@
               <div id="xp-progress" class="progress-fill"></div>
             </div>
             <p id="tier-progress-text" class="small-text">0 XP to Silver</p>
+          </section>
+
+          <section class="panel history-panel" aria-labelledby="history-title">
+            <button id="history-toggle" class="history-toggle" type="button" aria-expanded="true">
+              <span id="history-title">Spin History</span>
+              <span id="history-count">0/20</span>
+            </button>
+            <div id="history-content" class="history-content">
+              <p class="small-text">Last spins with bet, symbols, payout, and net result.</p>
+              <div class="history-wrap">
+                <table>
+                  <thead>
+                    <tr>
+                      <th scope="col">Spin</th>
+                      <th scope="col">Bet</th>
+                      <th scope="col">Result</th>
+                      <th scope="col">Payout</th>
+                      <th scope="col">Net</th>
+                    </tr>
+                  </thead>
+                  <tbody id="history-body"></tbody>
+                </table>
+              </div>
+            </div>
           </section>
 
           <section class="panel guardrail-panel" aria-labelledby="guardrail-title">

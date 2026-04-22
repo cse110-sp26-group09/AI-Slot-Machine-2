@@ -7,6 +7,7 @@
 (function attachGameModule(global) {
   const SlotApp = (global.SlotApp = global.SlotApp || {});
 
+  const HISTORY_LIMIT = 20;
   const TIER_LEVELS = [
     { name: "Bronze", minXp: 0 },
     { name: "Silver", minXp: 200 },
@@ -72,6 +73,8 @@
       netResult: 0,
       xp: 0,
       currentSymbols: [],
+      spinHistory: [],
+      historyLimit: HISTORY_LIMIT,
       lastOutcome: "Session ready.",
       responsiblePrompt:
         "Set your limits, keep bets comfortable, and take short breaks during longer sessions."
@@ -161,6 +164,7 @@
       state.netResult = 0;
       state.xp = 0;
       state.currentSymbols = [];
+      state.spinHistory = [];
       state.lastOutcome = "Session ready.";
       updateLoyalty();
       updateLimitPrompt();
@@ -193,9 +197,17 @@
       state.isSpinning = isSpinning;
     }
 
+    function pushHistoryEntry(entry) {
+      state.spinHistory.unshift(entry);
+      if (state.spinHistory.length > HISTORY_LIMIT) {
+        state.spinHistory = state.spinHistory.slice(0, HISTORY_LIMIT);
+      }
+    }
+
     function applyOutcome(params) {
       const outcome = params.outcome;
       const symbols = params.symbols;
+      const spinMeta = params.spinMeta || {};
       const bet = state.currentBet;
 
       state.totalSpend = roundToCents(state.totalSpend + bet);
@@ -215,12 +227,28 @@
       updateLimitPrompt();
 
       const netChange = roundToCents(outcome.payout - bet);
+      const historyEntry = {
+        spin: state.spins,
+        bet: bet,
+        symbols: symbols.map(function mapSymbol(symbol) {
+          return symbol.code;
+        }),
+        payout: outcome.payout,
+        net: netChange,
+        kind: outcome.kind,
+        stopMode: spinMeta.stopMode || "normal",
+        timestamp: Date.now()
+      };
+
+      pushHistoryEntry(historyEntry);
+
       return {
         bet: bet,
         payout: outcome.payout,
         netChange: netChange,
         isPaused: state.isPaused,
-        pauseReason: state.pauseReason
+        pauseReason: state.pauseReason,
+        historyEntry: historyEntry
       };
     }
 
@@ -270,6 +298,8 @@
         tierProgressPercent: state.tierProgressPercent,
         xpToNextTier: state.xpToNextTier,
         currentSymbols: state.currentSymbols.slice(),
+        spinHistory: state.spinHistory.slice(),
+        historyLimit: state.historyLimit,
         responsiblePrompt: state.responsiblePrompt,
         lastOutcome: state.lastOutcome
       };

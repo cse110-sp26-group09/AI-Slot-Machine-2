@@ -1,3 +1,4 @@
+# Entry 6
 - **Date:**
 4/19
 - **Team Member(s):**
@@ -139,3 +140,38 @@ no
 N/A
 - **What We Learned:**
 AI can make something decently good after many refinements. 
+
+__________________________________________
+
+  **Date:** 04/21/2026
+- **Team Member(s):** Jason Nguyen
+- **Phase:** Merge candidates
+- **Goal:**  
+    To take the best features from each candidate, add key features, and merge them
+
+- **Prompt / Request to AI:**  
+  Spongebob prompt (Merger)
+
+- **Why We Used AI Here:**  
+  To finalize the output 
+
+- **AI Output Summary:**  
+  Really good output. Fixed problems that I mentioned to it
+   
+- **Result:**  
+  Success
+
+- **Issues / Observations:**  
+  very nice spin animation/mechanics, massive improvements to background and box UI, clear blaance
+
+- **Decision Made:**  
+  Done
+
+- **Manual Edit Needed?:**  
+  no
+
+- **If Yes, Why?:**  
+   N/A
+
+- **What We Learned:**  
+ Being specific about key changes and taking the best features from multiple AI candidate runs can produce outstanding results.

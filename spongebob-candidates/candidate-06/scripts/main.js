@@ -10,6 +10,8 @@
     month: 4,
     day: 22
   };
+  const BONUS_SYMBOL_ID = "spongebob";
+  const REEL_DURATION_MS = 2000;
 
   function formatSigned(value) {
     const sign = value > 0 ? "+" : "";
@@ -31,36 +33,72 @@
     }, []);
   }
 
-  function buildOutcomeText(outcome, result, symbols) {
+  function getCelebrationTier(outcome, betAmount) {
+    if (!outcome.isWin || betAmount <= 0) {
+      return "loss";
+    }
+
+    const ratio = outcome.payout / betAmount;
+    if (ratio >= 50) {
+      return "mega";
+    }
+    if (ratio >= 10) {
+      return "big";
+    }
+    return "small";
+  }
+
+  function buildOutcomeMessage(outcome, result, symbols) {
+    const ratio = result.bet > 0 ? outcome.payout / result.bet : 0;
+
+    if (!outcome.isWin) {
+      return {
+        text: "No match this spin (net " + formatSigned(result.netChange) + ").",
+        tone: "negative",
+        payline: "No match on this payline."
+      };
+    }
+
     if (outcome.kind === "triple") {
       const symbol = findSymbolById(symbols, outcome.symbolId);
       const symbolName = symbol ? symbol.label : outcome.symbolId.toUpperCase();
-      return (
-        "Triple " +
-        symbolName +
-        "! Payout " +
-        outcome.payout.toFixed(2) +
-        " (net " +
-        formatSigned(result.netChange) +
-        ")."
-      );
+      return {
+        text:
+          "Triple " +
+          symbolName +
+          "! " +
+          ratio.toFixed(1) +
+          "x payout: " +
+          outcome.payout.toFixed(2) +
+          " (net " +
+          formatSigned(result.netChange) +
+          ").",
+        tone: "positive",
+        payline: "3-of-a-kind locked. Dramatic reel stop confirmed."
+      };
     }
 
     if (outcome.kind === "pair") {
       const pairSymbol = findSymbolById(symbols, outcome.symbolId);
       const pairName = pairSymbol ? pairSymbol.label : outcome.symbolId.toUpperCase();
-      return (
-        "Pair " +
-        pairName +
-        ": payout " +
-        outcome.payout.toFixed(2) +
-        " (net " +
-        formatSigned(result.netChange) +
-        ")."
-      );
+      const isPartial = outcome.payout < result.bet;
+      return {
+        text:
+          (isPartial ? "Partial return: " : "Pair " + pairName + " win: ") +
+          outcome.payout.toFixed(2) +
+          " (net " +
+          formatSigned(result.netChange) +
+          ").",
+        tone: isPartial ? "anticipation" : "positive",
+        payline: "2-of-a-kind paid " + ratio.toFixed(1) + "x."
+      };
     }
 
-    return "No match this spin (net " + formatSigned(result.netChange) + ").";
+    return {
+      text: "Spin complete (net " + formatSigned(result.netChange) + ").",
+      tone: result.netChange >= 0 ? "positive" : "negative",
+      payline: "Outcome settled."
+    };
   }
 
   function parseBirthDate(rawValue) {
@@ -125,6 +163,7 @@
     const accessibility = Accessibility.createController();
 
     let reducedMotion = false;
+    let activeSpinSession = null;
 
     function syncState() {
       ui.renderState(game.getState());
@@ -149,16 +188,19 @@
       game.updateSessionSettings(settings);
       syncState();
       ui.setOutcome("Session limits updated.", "");
+      ui.setPaylineText("Payline ready.", "");
     }
 
     function handleResetSession(settings) {
       game.startNewSession(settings);
       const symbols = Payouts.SYMBOLS;
+      ui.clearWinEffects();
       ui.renderReel(0, symbols[0], true);
       ui.renderReel(1, symbols[1], true);
       ui.renderReel(2, symbols[2], true);
       syncState();
       ui.setOutcome("New session started with your selected limits.", "");
+      ui.setPaylineText("Fresh session loaded.", "");
     }
 
     function handlePlay() {
@@ -199,63 +241,112 @@
       audio.playWelcome();
     }
 
+    function handleSpinControlsWhileSpinning(source) {
+      if (!activeSpinSession) {
+        return false;
+      }
+
+      const status = activeSpinSession.getStatus();
+      if (status.slamRequested) {
+        return true;
+      }
+
+      if (status.speedRequested) {
+        activeSpinSession.requestSlamStop();
+        ui.setSpinControlMode("slam");
+        ui.setOutcome("Slam Stop engaged. Locking reels now...", "anticipation");
+        ui.setPaylineText("Slam Stop active.", "anticipation");
+        return true;
+      }
+
+      activeSpinSession.requestSpeedUp();
+      ui.setSpinControlMode("speed");
+      ui.setOutcome("Speed-up enabled. Tap again for Slam Stop.", "anticipation");
+      ui.setPaylineText("Rapid mode active.", "anticipation");
+      return true;
+    }
+
     async function handleSpin(source) {
+      if (activeSpinSession && handleSpinControlsWhileSpinning(source)) {
+        return;
+      }
+
       const canSpin = game.getCanSpin();
       if (!canSpin.ok) {
         ui.setOutcome(canSpin.reason, "negative");
         return;
       }
 
-      if (source === "lever") {
-        ui.animateLeverPull();
-      }
-
       game.setSpinning(true);
       ui.clearWinEffects();
+      ui.setSpinControlMode("ready");
       syncState();
-      ui.setOutcome("Spinning reels...", "");
+      ui.setPaylineText("Reels spinning left to right...", "");
+      ui.setOutcome("Spinning reels... tap to speed up.", "");
       audio.playSpinStart();
 
-      const symbols = await Reels.spin({
+      activeSpinSession = Reels.startSpin({
         symbols: Payouts.SYMBOLS,
         reducedMotion: reducedMotion,
-        onUpdate: function (reelIndex, symbol, isFinal) {
-          ui.renderReel(reelIndex, symbol, isFinal);
+        bonusSymbolId: BONUS_SYMBOL_ID,
+        reelDurationMs: REEL_DURATION_MS,
+        onUpdate: function (reelIndex, symbol, isFinal, motion) {
+          ui.renderReel(reelIndex, symbol, isFinal, motion);
         },
-        onReelStop: function (reelIndex) {
-          audio.playReelStop(reelIndex);
+        onReelStop: function (reelIndex, symbol, motion) {
+          audio.playReelStop(reelIndex, motion);
+        },
+        onAnticipation: function () {
+          const bonusSymbol = findSymbolById(Payouts.SYMBOLS, BONUS_SYMBOL_ID);
+          ui.showAnticipation(bonusSymbol ? bonusSymbol.label : "Bonus");
+          audio.playAnticipation();
         }
       });
 
+      let symbols = [];
+      let stopMode = "normal";
+      try {
+        const spinResult = await activeSpinSession.promise;
+        symbols = spinResult.symbols;
+        stopMode = spinResult.stopMode;
+      } finally {
+        activeSpinSession = null;
+      }
+
       const stateBeforeOutcome = game.getState();
       const outcome = Payouts.evaluateSpin(symbols, stateBeforeOutcome.currentBet);
-      const result = game.applyOutcome({ symbols: symbols, outcome: outcome });
+      const result = game.applyOutcome({
+        symbols: symbols,
+        outcome: outcome,
+        spinMeta: {
+          stopMode: stopMode
+        }
+      });
       const winningReelIndexes = outcome.isWin
         ? getWinningReelIndexes(symbols, outcome.symbolId)
         : [];
+      const message = buildOutcomeMessage(outcome, result, Payouts.SYMBOLS);
+      const symbol = outcome.symbolId ? findSymbolById(Payouts.SYMBOLS, outcome.symbolId) : null;
+      const celebrationTier = getCelebrationTier(outcome, result.bet);
 
       game.setSpinning(false);
+      ui.setSpinControlMode("idle");
       syncState();
 
-      const tone = result.netChange > 0 ? "positive" : "negative";
-      ui.setOutcome(buildOutcomeText(outcome, result, Payouts.SYMBOLS), tone);
+      ui.setOutcome(message.text, message.tone);
+      ui.setPaylineText(message.payline, celebrationTier === "loss" ? "loss" : "small");
+      audio.playOutcome(celebrationTier);
 
-      if (outcome.kind === "triple") {
-        const symbol = findSymbolById(Payouts.SYMBOLS, outcome.symbolId);
-        ui.showWinEffects(winningReelIndexes, "jackpot");
-        ui.showBigWin(symbol ? symbol.label : "Major", outcome.payout);
-        audio.playWin("triple");
-      } else if (outcome.payout > 0) {
-        ui.showWinEffects(winningReelIndexes, "pair");
-        ui.showMinorWin();
-        audio.playWin("pair");
-      } else {
-        ui.clearWinEffects();
-        audio.playLoss();
-      }
+      await ui.playCelebration({
+        level: celebrationTier,
+        reelIndexes: winningReelIndexes,
+        symbolLabel: symbol ? symbol.label : "Bonus",
+        payout: outcome.payout,
+        bet: result.bet
+      });
 
       if (result.isPaused) {
-        ui.setOutcome(result.pauseReason + " " + buildOutcomeText(outcome, result, Payouts.SYMBOLS), "negative");
+        ui.setOutcome(result.pauseReason + " " + message.text, "negative");
       }
     }
 
@@ -298,8 +389,12 @@
     ui.renderReel(0, seedSymbols[0], true);
     ui.renderReel(1, seedSymbols[1], true);
     ui.renderReel(2, seedSymbols[2], true);
-
     syncState();
-    ui.setOutcome("Session ready. Pull the lever or press Spin when comfortable.", "");
+    ui.setPaylineText("Payline ready.", "");
+    ui.setOutcome("Session ready. Press Spin when comfortable.", "");
+
+    ui.playLoadingSequence(reducedMotion ? 420 : 1300).then(function () {
+      ui.setScreen("entry");
+    });
   });
 })(window);
