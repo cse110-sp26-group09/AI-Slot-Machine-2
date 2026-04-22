@@ -1127,6 +1127,56 @@ ___
 Refinement prompt for final spongebob candidate from 5, 6, 7, 8.
 
 ```
+You are building an improved slot machine web application. In the folder there are 4 candidates that you will be working off of to refine.
+
+What to keep from candidates:
+
+
+Bubble animation after each spin from candidate 6
+General slot UI from candidate 6
+Title UI from candidate 6
+Loading screen candidate 7 which doesn’t make the users type slash
+Transparent UI from candidate 5, unlike candidate 6 which is just white background
+Center-aligned text in each box
+Implement the Candidate-05 single-reel-at-a-time blur spin animation — reels should resolve sequentially left to right, each decelerating with a dramatic slow-down before locking
+Make sure each slot spins for the same amount of time such as 2 seconds each
+Add a physical lever on the right side of the screen as an alternative spin trigger (tap or swipe-down gesture to pull) — this satisfies the "illusion of control" interaction paradigm
+The spin should feel weighty: fast initial blur → gradual deceleration → satisfying thud/lock per reel
+Support "Slam Stop" tap to resolve reels early for fast-paced players
+Add a persistent spin history panel (collapsible) showing the last 10–20 spin outcomes: bet, result symbols, payout, net
+Include a running session summary: total spun, total won, net result — always accessible without navigating away
+Apply tiered win celebrations(make it flashy every time you spin) based on payout-to-bet ratio (per Waleed's audio-visual research):
+Loss: brief red payline glow
+Small win (1–5x): brief payline glow, short chime
+Big win (10–49x): outcome message glows and pulses, coin burst, upbeat fanfare
+Mega/Jackpot (50x+): full bubble instantiation, screen brightness pulse, prolonged celebration requiring tap-to-dismiss
+Ascending anticipation tone when 2 of 3 bonus symbols have landed
+Add the ability to speed up the roll when tapping/clicking
+
+What to change:
+Remove the banner image and replace it with a glowing title similar to in candidate 6
+
+Use Candidate-06 as the base because it has strong architecture, modular code, and advanced features such as session tracking, guardrails, accessibility, and audio systems.
+
+Incorporate improvements from Candidate-05, specifically
+- Cleaner and more structured UI layout
+- Better user experience and screen flow
+- Improved outcome messaging (win, loss, partial win feedback) with glow on win
+- More polished visual organization of game elements
+
+Requirements:
+- Keep Candidate-06’s modular structure (separate game logic, UI, audio, etc.)
+- Maintain all advanced features (XP system, guardrails, accessibility)
+- Improve UI clarity and layout using Candidate-05 design ideas
+- Ensure the game feels intuitive for casual users
+- Keep animations smooth and engaging
+- Maintain clean and readable code
+- Bright background (do not darken)
+
+Goal:
+Combine the strong backend architecture of Candidate-06 with the cleaner UI and UX of Candidate-05 to create a polished and user-friendly slot machine.
+
+Return a complete working version of the project.
 
 ```
 
