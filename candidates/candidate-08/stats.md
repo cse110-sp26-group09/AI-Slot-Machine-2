@@ -54,3 +54,34 @@ Yes, the names say the acronym as well as their names. I needed to go in there a
 The UI could just be made better in that sense. It's kind of ugly when there's both.
 - **What We Learned:**
 AI can listen to me and do themed integrations into existing data. 
+
+__________________________________________
+
+
+- **Date:**
+4/21
+- **Team Member(s):**
+James Villanueva
+- **Phase:**
+Refinement
+- **Goal:**
+Refining initial Output
+- **Prompt / Request to AI:**
+the output is not always correct, sometimes it pays out when not matching. Also make it look cooler please
+Theme Spongebob
+- **Why We Used AI Here:**
+Give Spongebob theme to initial output of a slot machine
+- **AI Output Summary:**
+Spongebob-themed slot machine.
+- **Result:**
+Success
+- **Issues / Observations:**
+This is good. I like this. The theme is on point and the the sound effects are quite good. They are playing when they need to. 
+- **Decision Made:**
+TBD
+- **Manual Edit Needed?:** 
+no
+- **If Yes, Why?:**
+The UI could just be made better in that sense. It's kind of ugly when there's both.
+- **What We Learned:**
+AI can introduce bugs even with specific instructions 

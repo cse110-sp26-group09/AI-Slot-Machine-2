@@ -317,10 +317,16 @@ async function animateSpin(el, randomSpinFn, finalSymbols, settings, onReelStop)
 
   el.reelsWrap.classList.add("spin-active");
   el.reels.forEach((reel) => reel.classList.add("spinning"));
+  const reelIsSpinning = finalSymbols.map(() => true);
 
   const interval = setInterval(() => {
     const temporary = randomSpinFn();
-    temporary.forEach((symbol, index) => renderSymbol(el.reels[index], symbol));
+    temporary.forEach((symbol, index) => {
+      if (!reelIsSpinning[index]) {
+        return;
+      }
+      renderSymbol(el.reels[index], symbol);
+    });
   }, 95);
 
   const stopDelays = [500, 790, 1080];
@@ -330,9 +336,13 @@ async function animateSpin(el, randomSpinFn, finalSymbols, settings, onReelStop)
       (symbol, index) =>
         new Promise((resolve) => {
           setTimeout(() => {
+            reelIsSpinning[index] = false;
             renderSymbol(el.reels[index], symbol);
             el.reels[index].classList.remove("spinning");
             onReelStop(index);
+            if (reelIsSpinning.every((isSpinning) => !isSpinning)) {
+              clearInterval(interval);
+            }
             resolve();
           }, stopDelays[index]);
         })
@@ -340,6 +350,7 @@ async function animateSpin(el, randomSpinFn, finalSymbols, settings, onReelStop)
   );
 
   clearInterval(interval);
+  renderReelsImmediately(el, finalSymbols);
   el.reelsWrap.classList.remove("spin-active");
 }
 
