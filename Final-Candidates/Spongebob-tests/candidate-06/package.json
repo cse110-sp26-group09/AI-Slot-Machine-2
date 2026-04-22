@@ -1,0 +1,7 @@
+{
+  "name": "candidate-06",
+  "private": true,
+  "scripts": {
+    "test": "node --test tests/game.test.js tests/payouts.test.js tests/reels.test.js"
+  }
+}
