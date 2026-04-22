@@ -818,6 +818,304 @@ ___
 Refinement prompt for final akatsuki candidate from 13, 14, 15, 16.
 
 ```
+You are refining the **final Akatsuki-themed slot machine candidate** inside a student software engineering repository using **vanilla HTML, CSS, JavaScript, and browser APIs only**.
+
+This is a **final synthesis refinement pass**, not a rebuild.
+
+Your job is to combine the strongest proven features from the shortlisted Akatsuki candidates into **one best final product** while preserving working logic, assignment-relevant functionality, and maintainable code structure.
+
+Do **not** rebuild from scratch unless absolutely necessary. Prefer preserving and improving working systems over replacing them.
+
+## Primary Goal
+Create the **best final Akatsuki slot machine implementation** by synthesizing the strongest aspects of:
+
+- **Candidate 13** for working guardrails/settings completeness, good sound behavior, and overall full product flow
+- **Candidate 14** for cleaner gameplay UI, better spacing discipline, stronger machine-page layout, and engaging loyalty presentation
+- **Candidate 15** for the **full 12-icon symbol set**, stronger payout/rules completeness, and better feature breadth
+- **Candidate 16** for the **best spin animation**, best banner placement, and best quote presentation
+
+The final result should feel like the **single best product-quality candidate**, not a patchwork of features.
+
+## Critical Preservation Rules
+- Do **not** remove working assignment-relevant features.
+- Do **not** break the current slot logic if it already works.
+- Do **not** change the tech stack.
+- Do **not** remove session tracking, payout transparency, sound controls, or guardrails if already functional.
+- Do **not** remove bet customization.
+- Do **not** remove the **100 max bet cap**.
+- Do **not** reduce the reel symbol set below **12 intended icons**.
+- Do **not** introduce unnecessary complexity or unrelated features.
+- Do **not** leave large blank or dead space in the gameplay layout.
+- Do **not** sacrifice layout clarity for flashy effects.
+
+## Final Product Requirements
+
+### 1. Loading Screen
+Build the best loading screen by combining:
+- the cleaner **card/presentation quality of Candidates 14 and 16**
+- the **complete flow thinking of Candidate 13**
+- the **sound control clarity seen in the stronger candidates**
+
+Requirements:
+- Use the provided Akatsuki loading background image
+- Fit the background image properly so the important characters are visible
+- Avoid overly aggressive cropping where faces/characters are cut off
+- Include a prominent **Play** button
+- Include an **Info** button
+- Include working sound/music toggle and volume control
+- Make the loading screen feel polished and centered
+
+### 2. Info / Rules Modal
+Use the strongest discoverability pattern from candidates that already surfaced rules well, especially:
+- **Candidate 15** for in-flow rules/payout visibility
+- **Candidate 13** for complete product-minded flow support
+
+Requirements:
+- Info button should open a modal/panel
+- It must show the payout summary for **all 12 symbols/icons**
+- It must explain:
+  - 3-reel gameplay
+  - payout structure
+  - customizable bet behavior
+  - maximum bet of **100**
+  - loss-limit / session control behavior
+- Must be clean, readable, and scroll-safe if needed
+
+### 3. Age Verification
+Preserve the age-gate behavior seen in the stronger candidates:
+- **Candidate 13**
+- **Candidate 14**
+- **Candidate 15**
+- **Candidate 16**
+
+Requirements:
+- MM/DD/YYYY input
+- Must enforce **21+**
+- Maximum valid birth date must reflect **04/22/2005**
+- Must include a **Back** button
+- Must clearly deny entry if underage
+- Should feel polished and intentional, not like a placeholder screen
+
+### 4. Gameplay Screen
+Use the **best overall gameplay synthesis**:
+- **Candidate 14** for cleaner gameplay layout and better space usage
+- **Candidate 16** for banner placement, quote UI, and spin animation quality
+- **Candidate 15** for symbol completeness and payout/rules completeness
+- **Candidate 13** for settings/guardrails completeness and stable product flow
+
+Requirements:
+- Gameplay background should load correctly
+- Banner and quote should be presented like **Candidate 16**
+- The slot machine should remain the visual focal point
+- Layout should be compact and intentional like the best parts of **Candidate 14**
+- There must be **no large blank space under the slot machine**
+- Balance, bet, and session information must remain visible without interfering with the reel area
+- Include a **Home** button in gameplay
+- Include an in-game **Info/Rules** button if feasible without clutter
+
+## Required Feature Synthesis
+
+### A. Reel Symbol Set
+Take from **Candidate 15**:
+- Use the **full 12 intended icons**
+- Ensure all 12 are wired correctly in the reel logic and payout/rules system
+
+Do not ship the final version with only the partial symbol coverage seen in **Candidates 13, 14, or 16**.
+
+### B. Spin Animation
+Take from **Candidate 16**:
+- Use Candidate 16 as the benchmark for **spin animation quality**
+- Preserve the best reel movement, visual energy, and spin feel
+- The spin should feel satisfying, polished, and lively
+- Keep lever interaction if feasible
+- Reduced motion mode should still remain usable
+
+### C. Title Banner and Quote
+Take from **Candidate 16**:
+- Use its stronger centered banner placement
+- Use its stronger quote treatment/presentation
+- Keep the Akatsuki quote readable and visually polished
+
+### D. Gameplay Layout and Space Usage
+Take from **Candidate 14**:
+- Use Candidate 14 as the reference for a cleaner gameplay UI
+- Avoid dead space
+- Keep panels and machine aligned better
+- Improve overall information density without clutter
+
+### E. Guardrails / Settings
+Take from **Candidate 13** and strongest pieces from **Candidate 15**:
+- sound toggle
+- volume control
+- reduced motion / accessibility settings if already working
+- loss-limit controls
+- session reset / restart behavior
+- guardrail completeness
+
+### F. Rules / Payout Completeness
+Take from **Candidate 15**:
+- better payout/rules completeness
+- stronger discoverability of rules
+- proper presentation of all symbol payouts
+
+## Betting and Session Constraints
+
+### Betting
+- Bet must remain **customizable**
+- Maximum bet must remain **100**
+- Do not remove the cap
+- Controls must be easy to understand
+- Bet UI should not clutter or visually compete with the slot machine
+
+### Session Transparency
+Maintain visible and working:
+- balance
+- current bet
+- session net
+- total spent
+- total won
+- spins
+- win rate or related useful metrics if already working
+
+### Loss Limit
+Preserve a working session loss-limit system:
+- user can configure it
+- it pauses or blocks further play when reached
+- it should remain understandable and visible
+- it should not dominate the UI
+
+## Audio Requirements
+Preserve the strongest working sound behavior from the better candidates, especially:
+- **Candidate 13**
+- **Candidate 14**
+- **Candidate 15**
+
+Requirements:
+- background music works correctly
+- welcome sound works correctly
+- spin sound works correctly
+- win sound works correctly
+- sound toggle works
+- volume control works
+- audio should feel reliable and intentional
+
+## Win Feedback Requirements
+Use the strongest reward feel from the better candidates while keeping polish and clarity.
+
+Requirements:
+- wins must show clear win messaging
+- wins must feel satisfying
+- major wins must trigger a stronger celebration sequence
+- big wins should feel special but not chaotic
+- the final experience should feel rewarding and polished
+
+Take inspiration from:
+- **Candidate 13** for visible win messaging / reward flow
+- **Candidate 15** for major-win support
+- **Candidate 16** for strong visual energy around spins and polish
+
+## Navigation Requirements
+The final version must include:
+- **Info** button
+- **Back** button where appropriate
+- **Home** button or equivalent clear navigation back to the main menu
+
+Use the strongest navigation patterns from:
+- **Candidate 13** for back/home flow support
+- **Candidate 15** for in-game rules discoverability
+
+## Visual / Theme Requirements
+The final candidate must clearly feel like the best Akatsuki-themed version.
+
+Use the provided assets intentionally:
+- loading background
+- gameplay background
+- banner image
+- slot background
+- pattern background
+- 12 reel icons
+- music and sound effects
+
+The final product should feel:
+- dark
+- dramatic
+- red/black themed
+- anime-inspired
+- polished
+- cohesive
+- readable
+
+Avoid:
+- awkward image cropping
+- blank layout zones
+- white visual artifacts behind reel icons
+- overly cluttered panels
+- weak alignment
+
+## Implementation Priorities
+When making tradeoffs, prioritize in this order:
+
+1. **working logic and assignment compliance**
+2. **full feature completeness**
+3. **layout quality and usability**
+4. **spin feel and polish**
+5. **theme fidelity**
+
+## Acceptance Criteria
+The final implementation is successful only if it satisfies all of the following:
+
+1. **Loading screen looks polished**
+   - background fitted well
+   - characters visible
+   - Play and Info visible
+   - sound controls work
+
+2. **Info modal works**
+   - shows payouts for all **12 icons**
+   - rules are readable and complete
+
+3. **Age verification works**
+   - MM/DD/YYYY
+   - enforces 21+
+   - uses 04/22/2005 cutoff
+   - includes Back button
+
+4. **Gameplay page is the best combined version**
+   - title and quote UI like **Candidate 16**
+   - cleaner gameplay layout like **Candidate 14**
+   - full 12-symbol set like **Candidate 15**
+   - strong guardrails/settings like **Candidate 13**
+   - no blank space under the slot machine
+
+5. **Spin animation is excellent**
+   - use **Candidate 16** as the reference
+   - lever/spin interaction feels satisfying
+
+6. **Betting is correct**
+   - customizable
+   - capped at **100**
+
+7. **Audio works**
+   - music and sounds behave correctly
+
+8. **Navigation is complete**
+   - Info / Back / Home flows are available where needed
+
+9. **Overall product feels like the best final Akatsuki candidate**
+   - cohesive
+   - stable
+   - polished
+   - feature-complete
+
+## Final Instruction
+Refine the implementation into the **single best final Akatsuki candidate** by **selectively combining** the strongest features from Candidates **13, 14, 15, and 16**.
+
+Do not simply copy features blindly. Make them work together as one cohesive product.
+
+Before making major changes, briefly summarize:
+1. which candidate features you are preserving
+2. which candidate features you are borrowing
+3. how you will combine them without breaking working logic
 
 ```
 Notes: Implements features from other candidates that are lacking some features to become a complete product.
