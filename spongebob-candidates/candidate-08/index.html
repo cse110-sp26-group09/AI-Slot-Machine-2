@@ -1,0 +1,242 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bikini Bottom Slots</title>
+    <link rel="stylesheet" href="styles/main.css" />
+  </head>
+  <body data-screen="entry">
+    <section id="entryScreen" class="screen entry-screen screen-active" aria-hidden="false">
+      <button id="entryInfoBtn" class="btn btn-info" type="button">Info</button>
+      <div class="entry-shell">
+        <h1>Bikini Bottom Slots</h1>
+        <p class="entry-tagline">Spin bright reels, track your session, and play responsibly.</p>
+        <button id="entryPlayBtn" class="btn btn-primary entry-play-btn" type="button">Play</button>
+
+        <div class="entry-audio">
+          <h2>Sound</h2>
+          <div class="setting-row">
+            <label for="entrySoundToggle">Music + SFX</label>
+            <input id="entrySoundToggle" type="checkbox" checked />
+          </div>
+          <div class="setting-row">
+            <label for="entryVolumeInput">Volume</label>
+            <input id="entryVolumeInput" type="range" min="0" max="1" step="0.05" value="0.4" />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="ageGateScreen" class="screen age-screen" aria-hidden="true">
+      <div class="age-shell">
+        <h2>Age Verification</h2>
+        <p>
+          This game is restricted to users who are 21 or older. Enter your date of birth in
+          <strong>MM/DD/YYYY</strong> format.
+        </p>
+        <p class="age-eligible-note">Maximum eligible birth date: <strong>04/22/2005</strong></p>
+
+        <form id="ageGateForm" class="age-form" novalidate>
+          <label for="birthdateInput">Date of Birth</label>
+          <input
+            id="birthdateInput"
+            type="text"
+            inputmode="numeric"
+            placeholder="MM/DD/YYYY"
+            autocomplete="bday"
+            aria-describedby="ageGateMessage"
+            required
+          />
+          <div class="age-buttons">
+            <button class="btn btn-primary" type="submit">Verify &amp; Continue</button>
+            <button id="ageBackBtn" class="btn btn-ghost" type="button">Back</button>
+          </div>
+        </form>
+
+        <p id="ageGateMessage" class="age-message" aria-live="polite"></p>
+      </div>
+    </section>
+
+    <main id="gameScreen" class="screen game-screen" aria-hidden="true">
+      <header class="game-header">
+        <button id="gameplayInfoBtn" class="btn btn-info" type="button">Info</button>
+        <img class="game-banner" src="assets/images/spongebob-banner.png" alt="Bikini Bottom Slots banner" />
+      </header>
+
+      <div class="game-layout">
+        <section class="panel slot-panel" aria-label="Slot machine">
+          <div class="stat-grid">
+            <div class="stat-card">
+              <span class="label">Balance</span>
+              <strong id="balanceValue">0</strong>
+            </div>
+            <div class="stat-card">
+              <span class="label">Current Bet</span>
+              <strong id="betValue">0</strong>
+            </div>
+            <div class="stat-card">
+              <span class="label">Last Result</span>
+              <strong id="lastDeltaValue">0</strong>
+            </div>
+          </div>
+
+          <div class="machine-row">
+            <div id="reelsWrap" class="reels-wrap">
+              <div class="reels" aria-live="polite" aria-atomic="true">
+                <div class="reel" id="reel0"></div>
+                <div class="reel" id="reel1"></div>
+                <div class="reel" id="reel2"></div>
+              </div>
+            </div>
+
+            <button id="leverBtn" class="lever-btn" type="button" aria-label="Pull lever to spin">
+              <img src="assets/images/lever.png" alt="" />
+              <span class="sr-only">Pull lever to spin</span>
+            </button>
+          </div>
+
+          <div class="control-row" role="group" aria-label="Bet controls">
+            <button id="betDownBtn" class="btn btn-secondary" type="button">- Bet</button>
+            <label for="betInput" class="sr-only">Bet amount</label>
+            <input id="betInput" type="number" min="1" max="100" step="1" />
+            <button id="betUpBtn" class="btn btn-secondary" type="button">+ Bet</button>
+            <button id="spinBtn" class="btn btn-primary" type="button">Spin Reels</button>
+          </div>
+
+          <div class="control-row">
+            <button id="addCreditsBtn" class="btn btn-secondary" type="button">Add 50 Credits</button>
+          </div>
+
+          <div class="control-row limit-row" role="group" aria-label="Session loss limit controls">
+            <label for="lossLimitInput">Session Loss Limit</label>
+            <input id="lossLimitInput" type="number" min="0" step="5" value="100" />
+            <button id="applyLimitBtn" class="btn btn-secondary" type="button">Apply</button>
+          </div>
+
+          <p id="limitStatus" class="muted"></p>
+          <p id="outcomeMessage" class="outcome" aria-live="polite"></p>
+          <p id="responsibleMessage" class="responsible" aria-live="polite"></p>
+        </section>
+
+        <aside class="hud-column">
+          <section class="panel session-panel" aria-label="Session summary and loyalty progress">
+            <h2>Session Summary</h2>
+
+            <dl class="summary-grid">
+              <dt>Total Spend</dt>
+              <dd id="totalSpendValue">0</dd>
+              <dt>Total Payout</dt>
+              <dd id="totalPayoutValue">0</dd>
+              <dt>Net Result</dt>
+              <dd id="netResultValue">0</dd>
+              <dt>Spins</dt>
+              <dd id="spinsValue">0</dd>
+            </dl>
+
+            <button id="resetSessionBtn" class="btn btn-ghost" type="button">Start New Session Summary</button>
+
+            <h3>Loyalty Track</h3>
+            <div class="loyalty-row">
+              <span id="tierValue">Bronze</span>
+              <span id="xpValue">0 XP</span>
+            </div>
+            <div class="progress" aria-label="Loyalty progress">
+              <div id="xpProgressBar" class="progress-fill"></div>
+            </div>
+          </section>
+
+          <section class="panel info-panel" aria-label="Payout explanation and fairness details">
+            <h2>Paytable</h2>
+            <table id="paytable" class="paytable">
+              <thead>
+                <tr>
+                  <th scope="col">Pattern</th>
+                  <th scope="col">Payout</th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+
+            <h3>Fairness</h3>
+            <ul class="fairness-list">
+              <li id="rtpValue"></li>
+              <li id="rngValue"></li>
+              <li id="fairnessNote"></li>
+            </ul>
+          </section>
+
+          <section class="panel settings-panel" aria-label="Accessibility and sound settings">
+            <h2>Accessibility &amp; Sound</h2>
+
+            <div class="setting-row">
+              <label for="highContrastToggle">High Contrast</label>
+              <input id="highContrastToggle" type="checkbox" />
+            </div>
+
+            <div class="setting-row">
+              <label for="largeTextToggle">Large Print + Buttons</label>
+              <input id="largeTextToggle" type="checkbox" />
+            </div>
+
+            <div class="setting-row">
+              <label for="reduceMotionToggle">Reduce Reel Motion</label>
+              <input id="reduceMotionToggle" type="checkbox" />
+            </div>
+
+            <div class="setting-row">
+              <label for="soundToggle">Sound</label>
+              <input id="soundToggle" type="checkbox" checked />
+            </div>
+
+            <div class="setting-row">
+              <label for="volumeInput">Volume</label>
+              <input id="volumeInput" type="range" min="0" max="1" step="0.05" value="0.4" />
+            </div>
+          </section>
+        </aside>
+      </div>
+
+      <div id="bigWinOverlay" class="big-win-overlay" aria-hidden="true">
+        <div class="big-win-card" role="status" aria-live="assertive">
+          <h2>Jellyfish Jackpot</h2>
+          <p id="bigWinText">Major Win! Triple Match!</p>
+          <div class="bubble-strip" aria-hidden="true">
+            <span class="bubble"></span>
+            <span class="bubble"></span>
+            <span class="bubble"></span>
+            <span class="bubble"></span>
+            <span class="bubble"></span>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <div id="infoModal" class="info-modal" aria-hidden="true">
+      <div class="info-dialog" role="dialog" aria-modal="true" aria-labelledby="infoModalTitle">
+        <button id="closeInfoBtn" class="btn btn-ghost close-modal-btn" type="button">Close</button>
+        <h2 id="infoModalTitle">Bikini Bottom Rules &amp; Payouts</h2>
+        <p>
+          Match symbols across all three reels for major wins. Any pair pays a minor win. Each spin is random and
+          independent.
+        </p>
+        <table id="modalPaytable" class="paytable">
+          <thead>
+            <tr>
+              <th scope="col">Pattern</th>
+              <th scope="col">Payout</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+        <ul class="rules-list">
+          <li>You must verify age 21+ before gameplay.</li>
+          <li>Bet range is customizable from 1 to 100 credits.</li>
+          <li>Session loss limits can pause spins for safer play.</li>
+        </ul>
+      </div>
+    </div>
+
+    <script type="module" src="scripts/main.js"></script>
+  </body>
+</html>
