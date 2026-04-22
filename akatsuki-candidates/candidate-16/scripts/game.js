@@ -6,6 +6,7 @@ const BET_MIN = 5;
 const BET_MAX = 100;
 const BET_STEP = 5;
 const DEFAULT_LOSS_LIMIT = 150;
+const DEFAULT_REELS = REEL_SYMBOLS.slice(0, 3).map((symbol) => symbol.id);
 
 const LOYALTY_TIERS = Object.freeze([
   { name: "Bronze", min: 0, nextMin: 150 },
@@ -448,7 +449,7 @@ function createDefaultState() {
     version: 1,
     balance: STARTING_BALANCE,
     bet: 20,
-    reels: ["MODEL", "TOKEN", "PROMPT"],
+    reels: [...DEFAULT_REELS],
     isSpinning: false,
     session: {
       spent: 0,
@@ -576,11 +577,12 @@ function clampVolume(value) {
  */
 function sanitizeReels(reels) {
   if (!Array.isArray(reels) || reels.length !== 3) {
-    return ["MODEL", "TOKEN", "PROMPT"];
+    return [...DEFAULT_REELS];
   }
 
   const validIds = new Set(REEL_SYMBOLS.map((symbol) => symbol.id));
-  return reels.map((id) => (validIds.has(id) ? id : "GLITCH"));
+  const fallback = REEL_SYMBOLS[0]?.id ?? DEFAULT_REELS[0];
+  return reels.map((id) => (validIds.has(id) ? id : fallback));
 }
 
 /**

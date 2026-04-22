@@ -1,34 +1,48 @@
-const THREE_OF_A_KIND = Object.freeze({
-  MODEL: 20,
-  GPU: 15,
-  TOKEN: 12,
-  PROMPT: 10,
-  CACHE: 8,
-  GLITCH: 5,
+import { REEL_SYMBOLS } from "./reels.js";
+
+const TRIPLE_MULTIPLIERS = Object.freeze({
+  NAGATO: 9,
+  KONAN: 11,
+  ITACHI: 13,
+  KISAME: 16,
+  SASORI: 19,
+  DEIDARA: 24,
+  HIDAN: 30,
+  KAKUZU: 38,
+  TOBI: 50,
+  ZETSU: 64,
+  OBITO: 92,
+  YAHIKO: 140,
 });
 
-const SYMBOL_NAMES = Object.freeze({
-  MODEL: "Pain",
-  GPU: "Itachi",
-  TOKEN: "Konan",
-  PROMPT: "Obito",
-  CACHE: "Kisame",
-  GLITCH: "Deidara",
-});
-
-const AI_STACK_COMBO = Object.freeze(["PROMPT", "TOKEN", "MODEL"]);
-const AI_STACK_MULTIPLIER = 8;
+const AKATSUKI_ALIGNMENT_COMBO = Object.freeze(["NAGATO", "KONAN", "OBITO"]);
+const AKATSUKI_ALIGNMENT_MULTIPLIER = 18;
 const TWO_MATCH_MULTIPLIER = 1.1;
+const JACKPOT_MULTIPLIER = 30;
+
+const SYMBOL_META_BY_ID = new Map(REEL_SYMBOLS.map((symbol) => [symbol.id, symbol]));
+
+const tripleRows = REEL_SYMBOLS.map((symbol) => ({
+  key: `${symbol.id}3`,
+  pattern: `3x ${symbol.name}`,
+  multiplier: `${TRIPLE_MULTIPLIERS[symbol.id]}x`,
+  icon: symbol.icon,
+}));
 
 export const PAYTABLE_ROWS = Object.freeze([
-  { key: "MODEL3", pattern: "3x Pain", multiplier: "20x" },
-  { key: "GPU3", pattern: "3x Itachi", multiplier: "15x" },
-  { key: "TOKEN3", pattern: "3x Konan", multiplier: "12x" },
-  { key: "PROMPT3", pattern: "3x Obito", multiplier: "10x" },
-  { key: "CACHE3", pattern: "3x Kisame", multiplier: "8x" },
-  { key: "GLITCH3", pattern: "3x Deidara", multiplier: "5x" },
-  { key: "STACK", pattern: "Obito + Konan + Pain", multiplier: "8x" },
-  { key: "PAIR", pattern: "Any 2 matching symbols", multiplier: "1.1x" },
+  ...tripleRows,
+  {
+    key: "ALIGNMENT",
+    pattern: "Nagato + Konan + Obito (any order)",
+    multiplier: `${AKATSUKI_ALIGNMENT_MULTIPLIER}x`,
+    icon: null,
+  },
+  {
+    key: "PAIR",
+    pattern: "Any 2 matching symbols",
+    multiplier: `${TWO_MATCH_MULTIPLIER}x`,
+    icon: null,
+  },
 ]);
 
 /**
@@ -49,9 +63,10 @@ export function evaluateSpin(symbols, bet) {
   const spinNet = payout - bet;
 
   let lineType = "loss";
-  if (payout > 0 && spinNet > 0) {
-    lineType = outcome.multiplier >= 8 ? "jackpot" : "win";
-  } else if (payout === bet) {
+  if (payout > 0) {
+    lineType = outcome.multiplier >= JACKPOT_MULTIPLIER && spinNet > 0 ? "jackpot" : "win";
+  }
+  if (payout === bet) {
     lineType = "push";
   }
 
@@ -98,18 +113,18 @@ function evaluateOutcome(symbols) {
   const [a, b, c] = symbols;
 
   if (a === b && b === c) {
-    const multiplier = THREE_OF_A_KIND[a] ?? 0;
-    const symbolName = SYMBOL_NAMES[a] ?? a;
+    const multiplier = TRIPLE_MULTIPLIERS[a] ?? 0;
+    const symbolName = SYMBOL_META_BY_ID.get(a)?.name ?? a;
     return {
       multiplier,
       title: `Three ${symbolName} symbols`,
     };
   }
 
-  if (isAiStackCombo(symbols)) {
+  if (isAkatsukiAlignment(symbols)) {
     return {
-      multiplier: AI_STACK_MULTIPLIER,
-      title: "Akatsuki trinity combo",
+      multiplier: AKATSUKI_ALIGNMENT_MULTIPLIER,
+      title: "Akatsuki alignment combo",
     };
   }
 
@@ -130,9 +145,9 @@ function evaluateOutcome(symbols) {
  * @param {string[]} symbols
  * @returns {boolean}
  */
-function isAiStackCombo(symbols) {
+function isAkatsukiAlignment(symbols) {
   const sorted = [...symbols].sort();
-  const target = [...AI_STACK_COMBO].sort();
+  const target = [...AKATSUKI_ALIGNMENT_COMBO].sort();
   return sorted.every((value, index) => value === target[index]);
 }
 

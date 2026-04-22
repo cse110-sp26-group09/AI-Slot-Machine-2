@@ -56,6 +56,11 @@ function wireScreenFlow({ ui, audio }) {
       ui.setAgeGateMessage("Verification required before entering gameplay.", "info");
       ui.setActiveScreen("entry");
     },
+    onHomeFromGame() {
+      ui.clearBirthDateInput();
+      ui.setAgeGateMessage("Verification required before entering gameplay.", "info");
+      ui.setActiveScreen("entry");
+    },
     onSubmitAgeGate(value) {
       const validation = validateBirthDate(value);
       ui.setAgeGateMessage(validation.message, validation.tone);

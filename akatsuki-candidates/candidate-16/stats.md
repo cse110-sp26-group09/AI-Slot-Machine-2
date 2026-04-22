@@ -144,3 +144,40 @@ __________________________
 
 - **What We Learned:**  
  AI follows the instructions well
+
+__________________________________________
+
+
+
+  **Date:** 04/21/2026
+- **Team Member(s):** James Villanueva
+- **Phase:** Merge candidates
+- **Goal:**  
+    To take the best features from each candidate and merge them
+
+- **Prompt / Request to AI:**  
+  Akatsuki prompt (Merger)
+
+- **Why We Used AI Here:**  
+  To finalize the output 
+
+- **AI Output Summary:**  
+  Really good output. Fixed problems that I mentioned to it
+   
+- **Result:**  
+  Success
+
+- **Issues / Observations:**  
+  very nice graphics
+
+- **Decision Made:**  
+  Done
+
+- **Manual Edit Needed?:**  
+  no
+
+- **If Yes, Why?:**  
+   N/A
+
+- **What We Learned:**  
+ AI can create good stuff after lots of work. 

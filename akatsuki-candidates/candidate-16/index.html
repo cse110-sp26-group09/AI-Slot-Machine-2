@@ -14,6 +14,7 @@
     <section class="screen screen-entry is-active" id="entryScreen" aria-label="Entry screen">
       <button id="infoButton" class="btn btn-subtle info-button" type="button">Info</button>
       <div class="entry-card">
+        <p class="entry-kicker">Akatsuki Gaming Archive</p>
         <h1>Akatsuki Slots</h1>
         <p class="subtitle">High-risk reels, clear odds, and strict session controls.</p>
         <div class="entry-actions">
@@ -21,11 +22,11 @@
         </div>
         <div class="entry-audio" aria-label="Sound controls">
           <div class="setting-row">
-            <label for="entrySoundToggle">Music</label>
+            <label for="entrySoundToggle">Sound</label>
             <input id="entrySoundToggle" type="checkbox" checked />
           </div>
           <div class="setting-row">
-            <label for="entryVolumeSlider">Volume</label>
+            <label for="entryVolumeSlider">Music / SFX Volume</label>
             <input id="entryVolumeSlider" type="range" min="0" max="100" value="60" />
           </div>
         </div>
@@ -57,6 +58,10 @@
     <section class="screen screen-gameplay" id="gameplayScreen" aria-label="Gameplay" aria-hidden="true">
       <div class="app-shell">
         <header class="top-bar">
+          <div class="top-actions">
+            <button id="gameplayInfoButton" class="btn btn-subtle" type="button">Info</button>
+            <button id="gameplayHomeButton" class="btn btn-subtle" type="button">Home</button>
+          </div>
           <div class="title-wrap">
             <img class="title-banner" src="assets/images/akatsuki-banner.jpeg" alt="Akatsuki title banner" />
             <p class="quote-line">
@@ -92,16 +97,16 @@
               <div class="reel-stage">
                 <div class="reel-row" role="img" aria-label="Three slot reels">
                   <div class="reel" id="reel-0">
-                    <img class="reel-icon" src="assets/icons/symbol-hieu.png" alt="Reel symbol" />
-                    <span class="reel-label">Pain</span>
+                    <img class="reel-icon" src="assets/icons/symbol-aditya.png" alt="Reel symbol" />
+                    <span class="reel-label">Nagato</span>
                   </div>
                   <div class="reel" id="reel-1">
-                    <img class="reel-icon" src="assets/icons/symbol-jason.png" alt="Reel symbol" />
-                    <span class="reel-label">Itachi</span>
+                    <img class="reel-icon" src="assets/icons/symbol-alexis.png" alt="Reel symbol" />
+                    <span class="reel-label">Konan</span>
                   </div>
                   <div class="reel" id="reel-2">
-                    <img class="reel-icon" src="assets/icons/symbol-woosik.png" alt="Reel symbol" />
-                    <span class="reel-label">Konan</span>
+                    <img class="reel-icon" src="assets/icons/symbol-daniel.png" alt="Reel symbol" />
+                    <span class="reel-label">Itachi</span>
                   </div>
                 </div>
 
@@ -180,7 +185,7 @@
               <table>
                 <thead>
                   <tr>
-                    <th>Pattern</th>
+                    <th>Symbol / Pattern</th>
                     <th>Payout</th>
                   </tr>
                 </thead>
@@ -250,16 +255,19 @@
         <table>
           <thead>
             <tr>
-              <th>Pattern</th>
+              <th>Symbol / Pattern</th>
               <th>Payout</th>
             </tr>
           </thead>
           <tbody id="infoPaytableBody"></tbody>
         </table>
         <ul class="rules-list">
-          <li>Set your bet from 5 to 100 tokens.</li>
-          <li>Loss limit pauses spins once reached unless you adjust it.</li>
-          <li>Daily reward and loyalty bonuses can extend your session.</li>
+          <li>Gameplay uses 3 reels and a single center payline.</li>
+          <li>Bet is customizable from 5 to 100 tokens. Maximum bet is capped at 100.</li>
+          <li>Three matching symbols pay that symbol's listed multiplier; pair matches pay a partial return.</li>
+          <li>Loss-limit guardrails can pause spins when your configured session loss threshold is reached.</li>
+          <li>Session stats are tracked live: balance, current bet, net, spent, won, and spin outcomes.</li>
+          <li>Daily reward and loyalty bonuses can extend your session with transparent updates.</li>
           <li>Major wins trigger a stronger celebration sequence.</li>
         </ul>
         <button id="closeInfoButton" class="btn btn-primary" type="button">Close</button>

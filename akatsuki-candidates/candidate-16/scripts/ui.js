@@ -56,6 +56,7 @@ export function createUI() {
    * @param {{
    * onPlay: () => void,
    * onBackToEntry: () => void,
+   * onHomeFromGame: () => void,
    * onSubmitAgeGate: (value: string) => void,
    * onAnyInteraction: () => void
    * }} handlers
@@ -77,6 +78,17 @@ export function createUI() {
     elements.infoButton.addEventListener("click", () => {
       handlers.onAnyInteraction();
       openInfoModal();
+    });
+
+    elements.gameplayInfoButton.addEventListener("click", () => {
+      handlers.onAnyInteraction();
+      openInfoModal();
+    });
+
+    elements.gameplayHomeButton.addEventListener("click", () => {
+      handlers.onAnyInteraction();
+      closeInfoModal();
+      handlers.onHomeFromGame();
     });
 
     elements.closeInfoButton.addEventListener("click", closeInfoModal);
@@ -109,6 +121,10 @@ export function createUI() {
       item.classList.toggle("is-active", isActive);
       item.setAttribute("aria-hidden", isActive ? "false" : "true");
     });
+
+    if (screen !== "gameplay") {
+      elements.winnerOverlay.hidden = true;
+    }
   }
 
   /**
@@ -167,6 +183,7 @@ export function createUI() {
     elements.spinButton.disabled = !derived.canSpin;
     elements.spinLever.disabled = !derived.canSpin;
     elements.spinLever.classList.toggle("pulled", isSpinning);
+    elements.gameplayHomeButton.disabled = isSpinning;
 
     elements.dailyRewardButton.disabled = !derived.dailyReward.available;
     elements.dailyStatus.textContent = derived.dailyReward.available
@@ -200,12 +217,8 @@ export function createUI() {
       return;
     }
 
-    const markup = rows
-      .map((row) => `<tr><td>${escapeHtml(row.pattern)}</td><td>${escapeHtml(row.multiplier)}</td></tr>`)
-      .join("");
-
-    elements.paytableBody.innerHTML = markup;
-    elements.infoPaytableBody.innerHTML = markup;
+    renderPaytableRows(elements.paytableBody, rows);
+    renderPaytableRows(elements.infoPaytableBody, rows);
     paytableInitialized = true;
   }
 
@@ -355,6 +368,38 @@ export function createUI() {
   }
 
   /**
+   * @param {HTMLTableSectionElement} tbody
+   * @param {{pattern: string, multiplier: string, icon?: string | null}[]} rows
+   */
+  function renderPaytableRows(tbody, rows) {
+    tbody.replaceChildren();
+    for (const row of rows) {
+      const tr = document.createElement("tr");
+      const patternCell = document.createElement("td");
+      const multiplierCell = document.createElement("td");
+
+      if (row.icon) {
+        const wrap = document.createElement("span");
+        wrap.className = "pay-symbol";
+        const icon = document.createElement("img");
+        icon.src = row.icon;
+        icon.alt = "";
+        icon.setAttribute("aria-hidden", "true");
+        const text = document.createElement("span");
+        text.textContent = row.pattern;
+        wrap.append(icon, text);
+        patternCell.appendChild(wrap);
+      } else {
+        patternCell.textContent = row.pattern;
+      }
+
+      multiplierCell.textContent = row.multiplier;
+      tr.append(patternCell, multiplierCell);
+      tbody.appendChild(tr);
+    }
+  }
+
+  /**
    * @returns {HTMLElement[]}
    */
   function getWinHighlightTargets() {
@@ -397,6 +442,8 @@ function getElements() {
     gameplayScreen: query("gameplayScreen"),
     playButton: query("playButton"),
     infoButton: query("infoButton"),
+    gameplayInfoButton: query("gameplayInfoButton"),
+    gameplayHomeButton: query("gameplayHomeButton"),
     infoModal: query("infoModal"),
     closeInfoButton: query("closeInfoButton"),
     ageGateForm: query("ageGateForm"),
@@ -480,17 +527,4 @@ function signedTokens(amount) {
   const rounded = Math.floor(Math.abs(amount));
   const sign = amount > 0 ? "+" : amount < 0 ? "-" : "";
   return `${sign}${rounded.toLocaleString("en-US")} tokens`;
-}
-
-/**
- * @param {string} text
- * @returns {string}
- */
-function escapeHtml(text) {
-  return text
-    .replaceAll("&", "&amp;")
-    .replaceAll("<", "&lt;")
-    .replaceAll(">", "&gt;")
-    .replaceAll('"', "&quot;")
-    .replaceAll("'", "&#039;");
 }
