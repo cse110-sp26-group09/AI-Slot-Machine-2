@@ -153,6 +153,41 @@ __________________________________________
   Spongebob prompt (Merger)
 
 - **Why We Used AI Here:**  
+  To finalize the output by combining the best parts of candidates 5 and 6
+
+- **AI Output Summary:**  
+  Really good output that looks and feels nice to use, although the lever placement is a small UI bug
+   
+- **Result:**  
+  Success
+
+- **Issues / Observations:**  
+  Very nice spin animation/mechanics, massive improvements to background and box UI, clear balance. The only major flaw is the lever, which is out of place and not aligned with other elements.
+
+- **Decision Made:**  
+  This will likely be our final candidate
+
+- **Manual Edit Needed?:**  
+  yes
+
+- **If Yes, Why?:**  
+  The lever has been placed in an awkward position in the middle of the screen and disrupts the otherwise polished UI.
+
+- **What We Learned:**  
+ Being specific about key changes and taking the best features from multiple AI candidate runs can produce outstanding results.
+
+ __________________________________________
+
+  **Date:** 04/21/2026
+- **Team Member(s):** Jason Nguyen
+- **Phase:** Merge candidates
+- **Goal:**  
+    To take the best features from each candidate, add key features, and merge them
+
+- **Prompt / Request to AI:**  
+  Spongebob prompt (Merger)
+
+- **Why We Used AI Here:**  
   To finalize the output 
 
 - **AI Output Summary:**  
@@ -162,10 +197,10 @@ __________________________________________
   Success
 
 - **Issues / Observations:**  
-  very nice spin animation/mechanics, massive improvements to background and box UI, clear blaance
+  Very nice spin animation/mechanics, massive improvements to background and box UI, clear blaance
 
 - **Decision Made:**  
-  Done
+  This will likely be our final candidate
 
 - **Manual Edit Needed?:**  
   no
@@ -175,3 +210,38 @@ __________________________________________
 
 - **What We Learned:**  
  Being specific about key changes and taking the best features from multiple AI candidate runs can produce outstanding results.
+
+ __________________________________________
+
+  **Date:** 04/21/2026
+- **Team Member(s):** Jason Nguyen
+- **Phase:** Debugging
+- **Goal:**  
+    To remove the slot machine lever
+
+- **Prompt / Request to AI:**  
+  can you just remove the lever and the button for it
+
+- **Why We Used AI Here:**  
+  To quickly fix the issue
+
+- **AI Output Summary:**  
+  The lever was removed while preserving the UI layout, as asked.
+   
+- **Result:**  
+  Success
+
+- **Issues / Observations:**  
+  UI looks fantastic now with no major concerns.
+
+- **Decision Made:**  
+  This will likely be our final candidate
+
+- **Manual Edit Needed?:**  
+  no
+
+- **If Yes, Why?:**  
+   N/A
+
+- **What We Learned:**  
+ Being specific about key changes and taking the best features from multiple AI candidate runs can produce outstanding results. Small changes using the AI are fast and reasonable.
