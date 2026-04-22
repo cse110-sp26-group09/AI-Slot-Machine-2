@@ -23,6 +23,10 @@ TBD
 no
 - **If Yes, Why?:**
 N/A
+- **Reprompt Edit Needed?**
+No
+- **If Yes, Why?:**
+N/A
 - **What We Learned:**
 AI can make a decent basic model
 
@@ -48,6 +52,14 @@ Was stuck on the payout screen
 - **Decision Made:**
 Re-prompt to fix the issue
 - **Manual Edit Needed?:** 
+No
+- **If Yes, Why?:**
+N/A
+- **Reprompt Edit Needed?**
+No
+- **If Yes, Why?:**
+N/A
+- **Reprompt Edit Needed?**
 Yes
 - **If Yes, Why?:**
 To fix the bug frozen on the payout screen

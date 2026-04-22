@@ -46,6 +46,8 @@ Each entry should document:
 - **Decision Made:** N/A
 - **Manual Edit Needed?:** N/A
 - **If Yes, Why?:** N/A
+- **Reprompt Edit Needed?** No
+- **If Yes, Why?:** N/A
 - **What We Learned:** We learned that we have to improve our prompt and incorporate user stories, more context, and research.
 
 ---
@@ -73,6 +75,10 @@ Success
 TBD
 - **Manual Edit Needed?:** 
 no
+- **If Yes, Why?:**
+N/A
+- **Reprompt Edit Needed?**
+No
 - **If Yes, Why?:**
 N/A
 - **What We Learned:**
@@ -105,6 +111,10 @@ TBD
 no
 - **If Yes, Why?:**
 N/A
+- **Reprompt Edit Needed?**
+No
+- **If Yes, Why?:**
+N/A
 - **What We Learned:**
 AI can make a decent basic model
 
@@ -133,6 +143,10 @@ Takes away spent tokens only after spin is finished which is wie
 TBD
 - **Manual Edit Needed?:** 
 no
+- **If Yes, Why?:**
+N/A
+- **Reprompt Edit Needed?**
+No
 - **If Yes, Why?:**
 N/A
 - **What We Learned:**
@@ -165,6 +179,10 @@ TBD
 no
 - **If Yes, Why?:**
 N/A
+- **Reprompt Edit Needed?**
+No
+- **If Yes, Why?:**
+N/A
 - **What We Learned:**
 AI can make a decent basic model
 ____________________________________
@@ -191,6 +209,10 @@ Has lots of features that are great but super ugly even with contrast mode
 Continue
 - **Manual Edit Needed?:** 
 no
+- **If Yes, Why?:**
+N/A
+- **Reprompt Edit Needed?**
+No
 - **If Yes, Why?:**
 N/A
 - **What We Learned:**
@@ -222,6 +244,10 @@ Continue
 no
 - **If Yes, Why?:**
 N/A
+- **Reprompt Edit Needed?**
+No
+- **If Yes, Why?:**
+N/A
 - **What We Learned:**
 AI can interpret vague commands if lucky. 
 
@@ -251,6 +277,10 @@ Continue
 no
 - **If Yes, Why?:**
 N/A
+- **Reprompt Edit Needed?**
+No
+- **If Yes, Why?:**
+N/A
 - **What We Learned:**
 AI can interpret vague commands if lucky. 
 
@@ -278,6 +308,10 @@ Has lots of features that are great
 Done
 - **Manual Edit Needed?:** 
 no
+- **If Yes, Why?:**
+N/A
+- **Reprompt Edit Needed?**
+No
 - **If Yes, Why?:**
 N/A
 - **What We Learned:**
@@ -310,6 +344,10 @@ continue
 no
 - **If Yes, Why?:**
 N/A
+- **Reprompt Edit Needed?**
+No
+- **If Yes, Why?:**
+N/A
 - **What We Learned:**
 AI can make a decent model with extra features
 
@@ -337,6 +375,10 @@ Has lots of features that are great and is only a little ugly
 continue
 - **Manual Edit Needed?:** 
 no
+- **If Yes, Why?:**
+N/A
+- **Reprompt Edit Needed?**
+No
 - **If Yes, Why?:**
 N/A
 - **What We Learned:**
@@ -369,6 +411,10 @@ continue
 no
 - **If Yes, Why?:**
 N/A
+- **Reprompt Edit Needed?**
+No
+- **If Yes, Why?:**
+N/A
 - **What We Learned:**
 AI can follow instructions
 
@@ -398,6 +444,10 @@ continue
 no
 - **If Yes, Why?:**
 N/A
+- **Reprompt Edit Needed?**
+No
+- **If Yes, Why?:**
+N/A
 - **What We Learned:**
 AI can follow instructions
 ______________________________
@@ -424,6 +474,10 @@ Has a nice font and overall pretty good
 done
 - **Manual Edit Needed?:** 
 no
+- **If Yes, Why?:**
+N/A
+- **Reprompt Edit Needed?**
+No
 - **If Yes, Why?:**
 N/A
 - **What We Learned:**
@@ -456,45 +510,16 @@ __________________________________________
   This will likely be our final candidate
 
 - **Manual Edit Needed?:**  
+  no
+
+- **If Yes, Why?:**
+  N/A
+
+- **Reprompt Edit Needed?**
   yes
 
 - **If Yes, Why?:**  
   The lever has been placed in an awkward position in the middle of the screen and disrupts the otherwise polished UI.
-
-- **What We Learned:**  
- Being specific about key changes and taking the best features from multiple AI candidate runs can produce outstanding results.
-
- __________________________________________
-
-  **Date:** 04/21/2026
-- **Team Member(s):** Jason Nguyen
-- **Phase:** Merge candidates
-- **Goal:**  
-    To take the best features from each candidate, add key features, and merge them
-
-- **Prompt / Request to AI:**  
-  Spongebob prompt (Merger)
-
-- **Why We Used AI Here:**  
-  To finalize the output 
-
-- **AI Output Summary:**  
-  Really good output. Fixed problems that I mentioned to it
-   
-- **Result:**  
-  Success
-
-- **Issues / Observations:**  
-  Very nice spin animation/mechanics, massive improvements to background and box UI, clear blaance
-
-- **Decision Made:**  
-  This will likely be our final candidate
-
-- **Manual Edit Needed?:**  
-  no
-
-- **If Yes, Why?:**  
-   N/A
 
 - **What We Learned:**  
  Being specific about key changes and taking the best features from multiple AI candidate runs can produce outstanding results.
@@ -527,6 +552,12 @@ __________________________________________
 
 - **Manual Edit Needed?:**  
   no
+
+- **If Yes, Why?:**
+  N/A
+
+- **Reprompt Edit Needed?**
+  No
 
 - **If Yes, Why?:**  
    N/A
@@ -561,6 +592,10 @@ TBD
 no
 - **If Yes, Why?:**
 N/A
+- **Reprompt Edit Needed?**
+No
+- **If Yes, Why?:**
+N/A
 - **What We Learned:**
 AI can make a decent basic model
 
@@ -586,6 +621,10 @@ Was stuck on the payout screen
 - **Decision Made:**
 Re-prompt to fix the issue
 - **Manual Edit Needed?:** 
+No
+- **If Yes, Why?:**
+N/A
+- **Reprompt Edit Needed?**
 Yes
 - **If Yes, Why?:**
 To fix the bug frozen on the payout screen
@@ -619,6 +658,10 @@ TBD
 no
 - **If Yes, Why?:**
 N/A
+- **Reprompt Edit Needed?**
+No
+- **If Yes, Why?:**
+N/A
 - **What We Learned:**
 AI can make a decent basic model
 
@@ -649,6 +692,10 @@ TBD
 Yes, the names say the acronym as well as their names. I needed to go in there and manually fix that. 
 - **If Yes, Why?:**
 The UI could just be made better in that sense. It's kind of ugly when there's both.
+- **Reprompt Edit Needed?**
+No
+- **If Yes, Why?:**
+N/A
 - **What We Learned:**
 AI can listen to me and do themed integrations into existing data. 
 
@@ -677,9 +724,13 @@ This is good. I like this. The theme is on point and the the sound effects are q
 - **Decision Made:**
 TBD
 - **Manual Edit Needed?:** 
-no
+No
 - **If Yes, Why?:**
-The UI could just be made better in that sense. It's kind of ugly when there's both.
+N/A
+- **Reprompt Edit Needed?**
+No
+- **If Yes, Why?:**
+N/A
 - **What We Learned:**
 AI can introduce bugs even with specific instructions 
 
@@ -687,40 +738,45 @@ AI can introduce bugs even with specific instructions
 
 # Entry 09
 - **Date:** 04/19/2026
-- **Team Member(s):** ALexis Navarrete
+- **Team Member(s):** Alexis Navarrete
 - **Phase:** Implementation 
 - **Goal:**  
   What were we trying to accomplish?
-    Test the promt form user #3
+    Test the prompt from user #3
 
 - **Prompt / Request to AI:**  
   Paste the exact prompt or summarize it clearly.
   Prompt 3
 
 - **Why We Used AI Here:**  
-  Why was AI helpful for this step?
-  To test the promt effectivity on LLM
+  To test the prompt effectivity on codex
 
 - **AI Output Summary:**  
-  The website work but needs imporovemts
+  The website work does not work
 
 - **Result:**  
-  Partial Success 
+  Failure
 
 - **Issues / Observations:**  
-  --
+  The spin mechanic does not work at all and there is no CSS
 
 - **Decision Made:**  
-  What did the team decide to do next?
+  We scrapped this
 
 - **Manual Edit Needed?:**  
-  Yes / No
+  No
+
+- **If Yes, Why?:**
+  N/A
+
+- **Reprompt Edit Needed?**
+  Yes
 
 - **If Yes, Why?:**  
-  Only fill this out if AI attempts failed and a human edited the code.
+  The website does not resemble a slot machine in the slightest.
 
 - **What We Learned:**  
-  Short reflection on the outcome.
+  Sometimes you gotta try again or make sure the people you designate for prompting can do it correctly.
 
 ---
 
@@ -756,8 +812,14 @@ AI can introduce bugs even with specific instructions
 - **Manual Edit Needed?:**  
   No
 
+- **If Yes, Why?:**
+  N/A
+
+- **Reprompt Edit Needed?**
+  No
+
 - **If Yes, Why?:**  
-    N/A
+  N/A
 
 - **What We Learned:**  
   Below Average compared to last experiment outcomes.
@@ -793,11 +855,17 @@ AI can introduce bugs even with specific instructions
   No contine 
 
 - **Manual Edit Needed?:**  
+  No
+
+- **If Yes, Why?:**
+  N/A
+
+- **Reprompt Edit Needed?**
   Yes
 
 - **If Yes, Why?:**  
-   The JS of the age verifaction its not making the corresponing change
-   to the main page 
+  The JS of the age verifaction its not making the corresponding change
+  to the main page 
 
 - **What We Learned:**  
   The errors that AI can make, would lead to more problems that what we can imagine
@@ -827,6 +895,10 @@ Looks good but does not work
 TBD
 - **Manual Edit Needed?:** 
 no
+- **If Yes, Why?:**
+N/A
+- **Reprompt Edit Needed?**
+No
 - **If Yes, Why?:**
 N/A
 - **What We Learned:**
@@ -862,6 +934,12 @@ AI can fail if the prompt is too advanced
   Continue 
 
 - **Manual Edit Needed?:**  
+  No
+
+- **If Yes, Why?:**
+  N/A
+
+- **Reprompt Edit Needed?**
   No
 
 - **If Yes, Why?:**  
@@ -900,6 +978,12 @@ AI can fail if the prompt is too advanced
   Continue 
 
 - **Manual Edit Needed?:**  
+  No
+
+- **If Yes, Why?:**
+  N/A
+
+- **Reprompt Edit Needed?**
   Yes
 
 - **If Yes, Why?:**  
@@ -939,10 +1023,16 @@ AI can fail if the prompt is too advanced
   Continue 
 
 - **Manual Edit Needed?:**  
+  No
+
+- **If Yes, Why?:**
+  N/A
+
+- **Reprompt Edit Needed?**
   Yes
 
 - **If Yes, Why?:**  
-   The blinking of the website might be a mayor problem
+   The blinking of the website might be a major problem
 
 - **What We Learned:**  
   AI can make interesting errors without konwing why is 
@@ -975,6 +1065,12 @@ _____________________________________________
 
 - **Manual Edit Needed?:**  
   no
+
+- **If Yes, Why?:**
+  N/A
+
+- **Reprompt Edit Needed?**
+  No
 
 - **If Yes, Why?:**  
    N/A
@@ -1010,6 +1106,12 @@ _____________________________________________
 
 - **Manual Edit Needed?:**  
   no
+
+- **If Yes, Why?:**
+  N/A
+
+- **Reprompt Edit Needed?**
+  No
 
 - **If Yes, Why?:**  
    N/A
@@ -1047,6 +1149,12 @@ _____________________________________________
 - **Manual Edit Needed?:**  
   no
 
+- **If Yes, Why?:**
+  N/A
+
+- **Reprompt Edit Needed?**
+  No
+
 - **If Yes, Why?:**  
    N/A
 
@@ -1081,6 +1189,12 @@ _____________________________________________
 
 - **Manual Edit Needed?:**  
   no
+
+- **If Yes, Why?:**
+  N/A
+
+- **Reprompt Edit Needed?**
+  No
 
 - **If Yes, Why?:**  
    N/A
@@ -1117,6 +1231,12 @@ _____________________________________________
 - **Manual Edit Needed?:**  
   no
 
+- **If Yes, Why?:**
+  N/A
+
+- **Reprompt Edit Needed?**
+  No
+
 - **If Yes, Why?:**  
    N/A
 
@@ -1151,6 +1271,12 @@ _____________________________________________
 
 - **Manual Edit Needed?:**  
   no
+
+- **If Yes, Why?:**
+  N/A
+
+- **Reprompt Edit Needed?**
+  No
 
 - **If Yes, Why?:**  
    N/A
@@ -1187,6 +1313,12 @@ _____________________________________________
   Continue 
 
 - **Manual Edit Needed?:**  
+  No
+
+- **If Yes, Why?:**
+  N/A
+
+- **Reprompt Edit Needed?**
   Yes
 
 - **If Yes, Why?:**  
@@ -1227,6 +1359,12 @@ _____________________________________________
   Continue 
 
 - **Manual Edit Needed?:**  
+  No
+
+- **If Yes, Why?:**
+  N/A
+
+- **Reprompt Edit Needed?**
   Yes
 
 - **If Yes, Why?:**  
@@ -1266,6 +1404,12 @@ _____________________________________________________________
   Continue 
 
 - **Manual Edit Needed?:**  
+  No
+
+- **If Yes, Why?:**
+  N/A
+
+- **Reprompt Edit Needed?**
   Yes
 
 - **If Yes, Why?:**  
@@ -1304,8 +1448,14 @@ _____________________________________________________________
 - **Manual Edit Needed?:**  
   no
 
+- **If Yes, Why?:**
+  N/A
+
+- **Reprompt Edit Needed?**
+  No
+
 - **If Yes, Why?:**  
-   N/A
+  N/A
 
 - **What We Learned:**  
   AI, when clear instructions, follows them well. 
@@ -1339,6 +1489,12 @@ __________________________
 
 - **Manual Edit Needed?:**  
   no
+
+- **If Yes, Why?:**
+  N/A
+
+- **Reprompt Edit Needed?**
+  No
 
 - **If Yes, Why?:**  
    N/A
@@ -1377,6 +1533,12 @@ __________________________________________
 - **Manual Edit Needed?:**  
   no
 
+- **If Yes, Why?:**
+  N/A
+
+- **Reprompt Edit Needed?**
+  No
+
 - **If Yes, Why?:**  
    N/A
 
@@ -1404,11 +1566,11 @@ Use this section only when the team changes how it is using AI.
 Use this section to track any direct code edits made by humans after first attempting the fix through AI.
 
 ## Manual Edit 1
-- **Date:**
+- **Date:** 
 - **Team Member(s):**
 - **File(s) Edited:**
 - **Problem:**
-- **AI Attempt Made First?:** Yes / No
+- **AI Attempt Made First?:**
 - **Why AI Was Not Enough:**
 - **Summary of Manual Fix:**
 - **Impact on Project:**

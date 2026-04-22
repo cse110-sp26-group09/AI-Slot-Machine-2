@@ -23,6 +23,10 @@ TBD
 no
 - **If Yes, Why?:**
 N/A
+- **Reprompt Edit Needed?**
+No
+- **If Yes, Why?:**
+N/A
 - **What We Learned:**
 AI can make a decent basic model
 

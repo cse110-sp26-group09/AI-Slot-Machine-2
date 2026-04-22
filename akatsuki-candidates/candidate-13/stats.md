@@ -28,6 +28,12 @@
 - **Manual Edit Needed?:**  
   No
 
+- **If Yes, Why?:**
+  N/A
+
+- **Reprompt Edit Needed?**
+  No
+
 - **If Yes, Why?:**  
    N/A
 
@@ -64,6 +70,12 @@
   Continue 
 
 - **Manual Edit Needed?:**  
+  No
+
+- **If Yes, Why?:**
+  N/A
+
+- **Reprompt Edit Needed?**
   Yes
 
 - **If Yes, Why?:**  

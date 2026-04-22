@@ -23,5 +23,9 @@ TBD
 no
 - **If Yes, Why?:**
 N/A
+- **Reprompt Edit Needed?**
+No
+- **If Yes, Why?:**
+N/A
 - **What We Learned:**
 AI can fail if the prompt is too advanced

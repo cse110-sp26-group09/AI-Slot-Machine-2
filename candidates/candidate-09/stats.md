@@ -1,36 +1,41 @@
 # Entry 09
 - **Date:** 04/19/2026
-- **Team Member(s):** ALexis Navarrete
+- **Team Member(s):** Alexis Navarrete
 - **Phase:** Implementation 
 - **Goal:**  
   What were we trying to accomplish?
-    Test the promt form user #3
+    Test the prompt from user #3
 
 - **Prompt / Request to AI:**  
   Paste the exact prompt or summarize it clearly.
   Prompt 3
 
 - **Why We Used AI Here:**  
-  Why was AI helpful for this step?
-  To test the promt effectivity on LLM
+  To test the prompt effectivity on codex
 
 - **AI Output Summary:**  
-  The website work but needs imporovemts
+  The website work does not work
 
 - **Result:**  
-  Partial Success 
+  Failure
 
 - **Issues / Observations:**  
-  --
+  The spin mechanic does not work at all and there is no CSS
 
 - **Decision Made:**  
-  What did the team decide to do next?
+  We scrapped this
 
 - **Manual Edit Needed?:**  
-  Yes / No
+  No
+
+- **If Yes, Why?:**
+  N/A
+
+- **Reprompt Edit Needed?**
+  Yes
 
 - **If Yes, Why?:**  
-  Only fill this out if AI attempts failed and a human edited the code.
+  The website does not resemble a slot machine in the slightest.
 
 - **What We Learned:**  
-  Short reflection on the outcome.
+  Sometimes you gotta try again or make sure the people you designate for prompting can do it correctly.

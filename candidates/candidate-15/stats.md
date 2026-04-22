@@ -25,6 +25,12 @@
   Continue 
 
 - **Manual Edit Needed?:**  
+  No
+
+- **If Yes, Why?:**
+  N/A
+
+- **Reprompt Edit Needed?**
   Yes
 
 - **If Yes, Why?:**  
@@ -61,5 +67,9 @@ TBD
 Yes, the program is only using 7 out of the 12 characters we gave them. I had to go in and fix this. THe program is also not using the themed Akatsuki names. It's using our real names. I went back and fixed this.  
 - **If Yes, Why?:**
 The UI could just be made better in that sense. It just kind of doesn't go with the theme if I leave things like that be. 
+- **Reprompt Edit Needed?**
+No-
+- **If Yes, Why?:**
+N/A
 - **What We Learned:**
 AI can listen to me and do themed integrations into existing data. 

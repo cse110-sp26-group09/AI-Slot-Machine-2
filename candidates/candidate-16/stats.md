@@ -27,6 +27,12 @@
   Continue 
 
 - **Manual Edit Needed?:**  
+  No
+
+- **If Yes, Why?:**
+  N/A
+
+- **Reprompt Edit Needed?**
   Yes
 
 - **If Yes, Why?:**  
@@ -66,6 +72,12 @@ _____________________________________________________________
   Continue 
 
 - **Manual Edit Needed?:**  
+  No
+
+- **If Yes, Why?:**
+  N/A
+
+- **Reprompt Edit Needed?**
   Yes
 
 - **If Yes, Why?:**  
@@ -104,6 +116,12 @@ _____________________________________________________________
 - **Manual Edit Needed?:**  
   no
 
+- **If Yes, Why?:**
+  N/A
+
+- **Reprompt Edit Needed?**
+  No
+
 - **If Yes, Why?:**  
    N/A
 
@@ -139,6 +157,12 @@ __________________________
 
 - **Manual Edit Needed?:**  
   no
+
+- **If Yes, Why?:**
+  N/A
+
+- **Reprompt Edit Needed?**
+  No
 
 - **If Yes, Why?:**  
    N/A

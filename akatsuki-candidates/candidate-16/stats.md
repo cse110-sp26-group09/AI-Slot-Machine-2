@@ -27,7 +27,13 @@
   Continue 
 
 - **Manual Edit Needed?:**  
-  Yes
+  No
+
+- **If Yes, Why?:**
+  N/A
+
+- **Reprompt Edit Needed?**
+  No
 
 - **If Yes, Why?:**  
    The blinking of the website might be a mayor problem
@@ -66,7 +72,13 @@ _____________________________________________________________
   Continue 
 
 - **Manual Edit Needed?:**  
-  Yes
+  No
+
+- **If Yes, Why?:**
+  N/A
+
+- **Reprompt Edit Needed?**
+  No
 
 - **If Yes, Why?:**  
    The blinking of the website might be a mayor problem
@@ -104,6 +116,12 @@ _____________________________________________________________
 - **Manual Edit Needed?:**  
   no
 
+- **If Yes, Why?:**
+  N/A
+
+- **Reprompt Edit Needed?**
+  No
+
 - **If Yes, Why?:**  
    N/A
 
@@ -139,6 +157,12 @@ __________________________
 
 - **Manual Edit Needed?:**  
   no
+
+- **If Yes, Why?:**
+  N/A
+
+- **Reprompt Edit Needed?**
+  No
 
 - **If Yes, Why?:**  
    N/A
@@ -176,6 +200,12 @@ __________________________________________
 
 - **Manual Edit Needed?:**  
   no
+
+- **If Yes, Why?:**
+  N/A
+
+- **Reprompt Edit Needed?**
+  No
 
 - **If Yes, Why?:**  
    N/A

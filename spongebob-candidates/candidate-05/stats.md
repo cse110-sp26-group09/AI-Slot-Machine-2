@@ -23,6 +23,10 @@ TBD
 no
 - **If Yes, Why?:**
 N/A
+- **Reprompt Edit Needed?**
+No
+- **If Yes, Why?:**
+N/A
 - **What We Learned:**
 AI can make a decent basic model
 ____________________________________
@@ -49,6 +53,10 @@ Has lots of features that are great but super ugly even with contrast mode
 Continue
 - **Manual Edit Needed?:** 
 no
+- **If Yes, Why?:**
+N/A
+- **Reprompt Edit Needed?**
+No
 - **If Yes, Why?:**
 N/A
 - **What We Learned:**
@@ -80,6 +88,10 @@ Continue
 no
 - **If Yes, Why?:**
 N/A
+- **Reprompt Edit Needed?**
+No
+- **If Yes, Why?:**
+N/A
 - **What We Learned:**
 AI can interpret vague commands if lucky. 
 
@@ -108,6 +120,10 @@ Continue
 no
 - **If Yes, Why?:**
 N/A
+- **Reprompt Edit Needed?**
+No
+- **If Yes, Why?:**
+N/A
 - **What We Learned:**
 AI can interpret vague commands if lucky. 
 
@@ -134,6 +150,10 @@ Has lots of features that are great
 Done
 - **Manual Edit Needed?:** 
 no
+- **If Yes, Why?:**
+N/A
+- **Reprompt Edit Needed?**
+No
 - **If Yes, Why?:**
 N/A
 - **What We Learned:**

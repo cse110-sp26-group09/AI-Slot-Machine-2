@@ -53,6 +53,10 @@ TBD
 Yes, the names say the acronym as well as their names. I needed to go in there and manually fix that. 
 - **If Yes, Why?:**
 The UI could just be made better in that sense. It's kind of ugly when there's both.
+- **Reprompt Edit Needed?**
+No
+- **If Yes, Why?:**
+The UI could just be made better in that sense. It's kind of ugly when there's both.
 - **What We Learned:**
 AI can listen to me and do themed integrations into existing data. 
 
@@ -81,8 +85,12 @@ This is good. I like this. The theme is on point and the the sound effects are q
 - **Decision Made:**
 TBD
 - **Manual Edit Needed?:** 
-no
+No
 - **If Yes, Why?:**
-The UI could just be made better in that sense. It's kind of ugly when there's both.
+N/A
+- **Reprompt Edit Needed?**
+No
+- **If Yes, Why?:**
+N/A
 - **What We Learned:**
 AI can introduce bugs even with specific instructions 

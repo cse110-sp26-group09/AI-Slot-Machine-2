@@ -23,6 +23,10 @@ continue
 no
 - **If Yes, Why?:**
 N/A
+- **Reprompt Edit Needed?**
+No
+- **If Yes, Why?:**
+N/A
 - **What We Learned:**
 AI can make a decent model with extra features
 
@@ -49,6 +53,10 @@ Has lots of features that are great and is only a little ugly
 continue
 - **Manual Edit Needed?:** 
 no
+- **If Yes, Why?:**
+N/A
+- **Reprompt Edit Needed?**
+No
 - **If Yes, Why?:**
 N/A
 - **What We Learned:**
@@ -81,6 +89,10 @@ continue
 no
 - **If Yes, Why?:**
 N/A
+- **Reprompt Edit Needed?**
+No
+- **If Yes, Why?:**
+N/A
 - **What We Learned:**
 AI can follow instructions
 
@@ -110,6 +122,10 @@ continue
 no
 - **If Yes, Why?:**
 N/A
+- **Reprompt Edit Needed?**
+No
+- **If Yes, Why?:**
+N/A
 - **What We Learned:**
 AI can follow instructions
 ______________________________
@@ -136,6 +152,10 @@ Has a nice font and overall pretty good
 done
 - **Manual Edit Needed?:** 
 no
+- **If Yes, Why?:**
+N/A
+- **Reprompt Edit Needed?**
+No
 - **If Yes, Why?:**
 N/A
 - **What We Learned:**
@@ -168,45 +188,16 @@ __________________________________________
   This will likely be our final candidate
 
 - **Manual Edit Needed?:**  
-  yes
+  No
+
+- **If Yes, Why?:**
+  N/A
+
+- **Reprompt Edit Needed?**
+  Yes
 
 - **If Yes, Why?:**  
   The lever has been placed in an awkward position in the middle of the screen and disrupts the otherwise polished UI.
-
-- **What We Learned:**  
- Being specific about key changes and taking the best features from multiple AI candidate runs can produce outstanding results.
-
- __________________________________________
-
-  **Date:** 04/21/2026
-- **Team Member(s):** Jason Nguyen
-- **Phase:** Merge candidates
-- **Goal:**  
-    To take the best features from each candidate, add key features, and merge them
-
-- **Prompt / Request to AI:**  
-  Spongebob prompt (Merger)
-
-- **Why We Used AI Here:**  
-  To finalize the output 
-
-- **AI Output Summary:**  
-  Really good output. Fixed problems that I mentioned to it
-   
-- **Result:**  
-  Success
-
-- **Issues / Observations:**  
-  Very nice spin animation/mechanics, massive improvements to background and box UI, clear blaance
-
-- **Decision Made:**  
-  This will likely be our final candidate
-
-- **Manual Edit Needed?:**  
-  no
-
-- **If Yes, Why?:**  
-   N/A
 
 - **What We Learned:**  
  Being specific about key changes and taking the best features from multiple AI candidate runs can produce outstanding results.
@@ -239,6 +230,12 @@ __________________________________________
 
 - **Manual Edit Needed?:**  
   no
+
+- **If Yes, Why?:**
+  N/A
+
+- **Reprompt Edit Needed?**
+  No
 
 - **If Yes, Why?:**  
    N/A

@@ -25,10 +25,16 @@
   Continue 
 
 - **Manual Edit Needed?:**  
+  No
+
+- **If Yes, Why?:**
+  N/A
+
+- **Reprompt Edit Needed?**
   Yes
 
 - **If Yes, Why?:**  
-   The blinking of the website might be a mayor problem
+   The blinking of the website might be a major problem
 
 - **What We Learned:**  
   AI can make the features, but not distibuted well on the 

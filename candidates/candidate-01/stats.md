@@ -11,4 +11,6 @@
 - **Decision Made:** N/A
 - **Manual Edit Needed?:** N/A
 - **If Yes, Why?:** N/A
+- **Reprompt Edit Needed?** No
+- **If Yes, Why?:** N/A
 - **What We Learned:** We learned that we have to improve our prompt and incorporate user stories, more context, and research.

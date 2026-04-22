@@ -23,6 +23,10 @@ continue
 no
 - **If Yes, Why?:**
 N/A
+- **Reprompt Edit Needed?**
+No
+- **If Yes, Why?:**
+N/A
 - **What We Learned:**
 AI can make a decent model with extra features
 
@@ -49,6 +53,10 @@ Has lots of features that are great and is only a little ugly
 continue
 - **Manual Edit Needed?:** 
 no
+- **If Yes, Why?:**
+N/A
+- **Reprompt Edit Needed?**
+No
 - **If Yes, Why?:**
 N/A
 - **What We Learned:**
@@ -81,6 +89,10 @@ continue
 no
 - **If Yes, Why?:**
 N/A
+- **Reprompt Edit Needed?**
+No
+- **If Yes, Why?:**
+N/A
 - **What We Learned:**
 AI can follow instructions
 
@@ -110,6 +122,10 @@ continue
 no
 - **If Yes, Why?:**
 N/A
+- **Reprompt Edit Needed?**
+No
+- **If Yes, Why?:**
+N/A
 - **What We Learned:**
 AI can follow instructions
 ______________________________
@@ -136,6 +152,10 @@ Has a nice font and overall pretty good
 done
 - **Manual Edit Needed?:** 
 no
+- **If Yes, Why?:**
+N/A
+- **Reprompt Edit Needed?**
+No
 - **If Yes, Why?:**
 N/A
 - **What We Learned:**
