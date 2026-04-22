@@ -9,7 +9,7 @@ The goal is to document our process in real time, including prompts, outputs, de
 
 - **Team Number:** Group 09
 - **Team Name:** Akatsuki
-- **Project:** AI Slot Machine SWE Warm-Up
+- **Project:** AI Slot Machine SWE Warm-Up II
 - **Primary Harness:** Codex
 - **Model Used:** Codex 5.3 High Reasoning 
 - **Start Date:** 4/18

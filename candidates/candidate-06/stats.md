@@ -1,3 +1,4 @@
+# Entry 06
 - **Date:**
 4/19
 - **Team Member(s):**

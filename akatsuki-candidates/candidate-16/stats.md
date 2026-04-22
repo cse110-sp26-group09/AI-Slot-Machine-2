@@ -1,8 +1,9 @@
+# Entry 16
 **Date:** 04/19/2026
-- **Team Member(s):** ALexis Navarrete
+- **Team Member(s):** Alexis Navarrete
 - **Phase:** Implementation 
 - **Goal:**  
-    Test the promt form user #4
+    Test the prompt form user #4
 
 - **Prompt / Request to AI:**  
   Prompt 4
