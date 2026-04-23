@@ -1,3 +1,5 @@
+# Holistic Final Report
+
 **Team:** Akatsuki (Team 09)  
 **Project:** AI-Driven Slot Machine Spongebob + Akatsuki  
 **Date:** April 21, 2026  
