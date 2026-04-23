@@ -33,6 +33,7 @@ Team members (Aditya, Waleed, Josh, Daniel, Woosik, Fahad) contributed research 
 - `daniel-research.md` — Research notes from Daniel
 - `josh-research.md` — Research notes from Josh
 - `waleeds_research.md` — Research notes from Waleed
+- `woosik_research.md` — Research notes from Woosik
 
 ## Notes
 

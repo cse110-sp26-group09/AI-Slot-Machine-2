@@ -249,6 +249,37 @@ Waleed contributed the research on:
 - celebration tiers
 - common theme structures
 
+### Woosik — Research
+Woosik contributed to the research through:
+- user persona development
+- design and interaction insights
+
+
+### James Villanueva — Dev Lead
+James served as the development lead, overseeing implementation work. Responsibilities included:
+- executing prompts in Codex to generate code and features
+- fixing bugs and issues that arose from generated code
+- running refinement prompts to improve candidate implementations
+- coordinating dev team prompting efforts
+- helping shape prompting direction and candidate quality
+
+### Hieu Le — Developer
+Hieu contributed to development by:
+- executing prompts in Codex to build features
+- fixing bugs and debugging generated code
+- running iterative refinement prompts
+
+### Alexis — Developer
+Alexis contributed to development and presentation by:
+- executing prompts in Codex to implement features
+- helping with bug fixes and code refinement
+- contributing to slides and presentation materials
+
+### Hemendra — Developer
+Hemendra contributed to development by:
+- executing prompts in Codex to build features
+- helping with prompting and code debugging
+
 ---
 
 ## Final Note

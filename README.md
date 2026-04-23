@@ -141,6 +141,7 @@ AI-Slot-Machine-2/
 │   ├── FINAL-REPORT.md
 │   ├── presentation.pdf
 │   ├── presentation-video.mp4
+|   ├── demo-video.mp4
 │   └── README.md
 ├── plan/
 │   ├── README.md
