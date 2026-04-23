@@ -1,39 +1,39 @@
 # Source Code Directory
 
-This directory contains the implementation of the slot machine application.
+This directory contains the final slot machine implementation for the AI Slot Machine project.
 
-## Goals
+## Contents
 
-The source code in this project should reflect software engineering best practices, including:
+- `index.html` — application entry point and main UI scaffold
+- `package.json` — package metadata and local scripts for the `src/` app
+- `scripts/` — JavaScript modules that implement game behavior and UI logic
+  - `main.js` — application startup, initialization, and wiring
+  - `game.js` — core game flow, state transitions, and spin control
+  - `reels.js` — reel generation, symbol selection, and outcome handling
+  - `payouts.js` — payout rules, score calculations, and win logic
+  - `ui.js` — DOM updates, event handling, and display rendering
+  - `audio.js` — sound effect playback and audio controls
+  - `accessibility.js` — accessibility enhancements and keyboard support
+- `styles/` — CSS for layout, visuals, and responsive styling
+- `assets/` — shared media and theme resources
+  - `audio/` — sound files used by the game
+  - `icons/` — icon assets
+  - `images/` — image resources
+  - `palette.md` — design palette notes
+  - `theme-notes.md` — visual and theme guidance
 
-- clear organization
-- meaningful names
-- small, focused modules
-- minimal duplication
-- appropriate error handling
-- easy maintenance and updates
+## Purpose
 
-## Suggested Structure
+The `src/` directory contains the working game implementation for the selected winner, `candidate-06`.
 
-- `index.html` — entry point for the application
-- `styles/main.css` — application styling
-- `scripts/main.js` — startup logic
-- `scripts/game.js` — game state and spin flow
-- `scripts/reels.js` — reel logic and outcomes
-- `scripts/payouts.js` — payout calculations and rules
-- `scripts/ui.js` — DOM rendering and interaction updates
-- `scripts/audio.js` — sound effects and audio behavior
-- `assets/` — images, icons, and sounds
+## Development Expectations
 
-## Quality Expectations
+- Keep modules small, focused, and reusable
+- Use clear naming for scripts, styles, and assets
+- Document non-obvious behavior with comments
+- Keep UI updates separated from game logic
+- Verify behavior with tests in `tests/`
 
-As development progresses, code in this directory should be:
+## How to use
 
-- linted
-- documented with comments and JSDoc where needed
-- covered by unit tests at minimum
-- reviewed for readability and consistency
-
-## Notes
-
-If manual edits are made after failed prompting attempts, those changes should be documented in the development logs.
+Open `src/index.html` in a browser to run the game locally, or use the repository root scripts if configured to serve the app.

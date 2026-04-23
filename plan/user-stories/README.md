@@ -1,25 +1,30 @@
 # User Stories Directory
 
-This directory contains the user stories that guide the slot machine’s product behavior.
+This directory holds user stories that define the slot machine application's behavior and features.
 
 ## Purpose
 
-The user stories help ensure that the application is not only technically functional, but also aligned with user goals and expectations.
+User stories ensure the application meets user needs and expectations, not just technical requirements. They guide development toward a user-centered product.
 
 ## Scope
 
-The assignment requires at least five user stories. Our user stories focus on:
+The project requires at least five user stories. These stories emphasize:
 
-- clarity of game mechanics
-- satisfying feedback
-- ease of use
-- accessibility of controls
-- replay value and engagement
+- Clear game mechanics and rules
+- Satisfying visual and audio feedback
+- Intuitive controls and ease of use
+- Accessibility features
+- Engagement and replay value
 
-## How these stories are used
+## Usage
 
-These stories inform:
-- feature prioritization
-- interface design
-- acceptance expectations
-- prompting goals during implementation
+User stories inform:
+
+- Feature prioritization and development order
+- Interface and interaction design
+- Acceptance criteria for features
+- AI prompting and implementation goals
+
+## Files
+
+- `user-stories.md` — Complete set of user stories for the project

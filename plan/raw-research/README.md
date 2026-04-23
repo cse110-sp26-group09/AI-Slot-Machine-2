@@ -1,33 +1,39 @@
 # Raw Research Directory
 
-This directory contains the unfiltered research artifacts gathered during the research and planning phase.
+This directory holds unfiltered research materials collected during the planning phase of the AI Slot Machine project.
 
 ## Purpose
 
-The research in this folder helps our team better understand:
+The research here supports understanding:
 
-- Slot machine conventions and terminology
-- Common visual themes and interaction patterns
-- Reward systems, sounds, and animations
-- Different types of players and usage motivations
-- Potential product directions for our implementation
+- Slot machine conventions, terminology, and mechanics
+- Visual themes, interaction patterns, and UI elements
+- Reward systems, audio cues, and animations
+- Player types, motivations, and usage contexts
+- Potential features and directions for the game implementation
 
-## Types of research included
+## Contents
 
-Examples of artifacts that may appear here:
+Examples of research artifacts:
 
-- Competitor research
-- Notes on slot machine features
-- Visual references
-- Terminology notes
-- Wireframe ideas
-- Links to external boards or collected assets
-- Observations about user experience patterns
+- Competitor analysis and market examples
+- Feature notes and gameplay ideas
+- Visual references and design inspiration
+- Terminology definitions and domain knowledge
+- Wireframe sketches or interface concepts
+- Links to external resources or asset collections
+- User experience observations and patterns
 
-## Team expectation
+## Team Contributions
 
-Aditya, Waleed, Josh, Daniel, Woosik, Fahad should contribute to research as discussed in the meeting, whether that is domain knowledge, user research, interface ideas, visual inspiration, or interaction notes.
+Team members (Aditya, Waleed, Josh, Daniel, Woosik, Fahad) contributed research including domain knowledge, user insights, interface ideas, visual inspiration, and interaction notes.
 
-## Important
+## Files
 
-This directory is intentionally messy compared to the rest of the repo. It is meant to preserve the raw material that informed the product and prompting strategy.
+- `daniel-research.md` — Research notes from Daniel
+- `josh-research.md` — Research notes from Josh
+- `waleeds_research.md` — Research notes from Waleed
+
+## Notes
+
+This directory preserves raw, unpolished materials that shaped the product design and AI prompting. It may appear unstructured by design to maintain the original research context.

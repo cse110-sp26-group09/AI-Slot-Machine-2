@@ -19,9 +19,129 @@ By the end of this project, our team aims to answer:
 
 ```text
 AI-Slot-Machine-2/
-├── README.md
 ├── .gitignore
+├── README.md
 ├── package.json
+├── candidates/
+│   ├── README.md
+│   ├── akatsuki-candidates/
+│   │   ├── candidate-13/
+│   │   ├── candidate-14/
+│   │   ├── candidate-15/
+│   │   └── candidate-16/
+│   ├── candidate-01/
+│   │   ├── index.html
+│   │   ├── README.md
+│   │   ├── stats.md
+│   │   ├── scripts/
+│   │   └── styles/
+│   ├── candidate-02/
+│   │   ├── index.html
+│   │   ├── stats.md
+│   │   ├── scripts/
+│   │   └── styles/
+│   ├── candidate-03/
+│   │   ├── index.html
+│   │   ├── stats.md
+│   │   ├── scripts/
+│   │   └── styles/
+│   ├── candidate-04/
+│   │   ├── index.html
+│   │   ├── README.md
+│   │   ├── stats.md
+│   │   ├── docs/
+│   │   ├── scripts/
+│   │   └── styles/
+│   ├── candidate-05/
+│   │   ├── index.html
+│   │   ├── stats.md
+│   │   ├── assets/
+│   │   ├── scripts/
+│   │   └── styles/
+│   ├── candidate-06/
+│   │   ├── index.html
+│   │   ├── stats.md
+│   │   ├── assets/
+│   │   ├── scripts/
+│   │   └── styles/
+│   ├── candidate-07/
+│   │   ├── index.html
+│   │   ├── stats.md
+│   │   ├── assets/
+│   │   ├── scripts/
+│   │   └── styles/
+│   ├── candidate-08/
+│   │   ├── index.html
+│   │   ├── stats.md
+│   │   ├── assets/
+│   │   ├── scripts/
+│   │   └── styles/
+│   ├── candidate-09/
+│   │   ├── esbuild.config.js
+│   │   ├── package.json
+│   │   ├── README.md
+│   │   ├── stats.md
+│   │   ├── client/
+│   │   └── server/
+│   ├── candidate-10/
+│   │   ├── esbuild.config.js
+│   │   ├── package.json
+│   │   ├── README.md
+│   │   ├── stats.md
+│   │   ├── client/
+│   │   └── server/
+│   ├── candidate-11/
+│   │   ├── package.json
+│   │   ├── README.md
+│   │   ├── stats.md
+│   │   ├── client/
+│   │   ├── scripts/
+│   │   └── server/
+│   ├── candidate-12/
+│   │   ├── package.json
+│   │   ├── README.md
+│   │   ├── stats.md
+│   │   ├── client/
+│   │   ├── scripts/
+│   │   └── server/
+│   ├── candidate-13/
+│   │   ├── index.html
+│   │   ├── stats.md
+│   │   ├── assets/
+│   │   ├── scripts/
+│   │   └── styles/
+│   ├── candidate-14/
+│   │   ├── index.html
+│   │   ├── stats.md
+│   │   ├── assets/
+│   │   ├── scripts/
+│   │   └── styles/
+│   ├── candidate-15/
+│   │   ├── index.html
+│   │   ├── stats.md
+│   │   ├── assets/
+│   │   ├── scripts/
+│   │   └── styles/
+│   ├── candidate-16/
+│   │   ├── index.html
+│   │   ├── stats.md
+│   │   ├── assets/
+│   │   ├── scripts/
+│   │   └── styles/
+│   ├── Final-Candidates/
+│   │   ├── Akatsuki/
+│   │   └── Spongebob/
+│   └── spongebob-candidates/
+│       ├── candidate-05/
+│       └── candidate-06/
+├── docs/
+│   ├── README.md
+│   └── prompting-notes.md
+├── final-report/
+│   ├── FINAL-REPORT.md
+│   ├── presentation.pdf
+│   ├── presentation-video.mp4
+│   └── README.md
 ├── plan/
 │   ├── README.md
 │   ├── research-overview.md
@@ -29,26 +149,44 @@ AI-Slot-Machine-2/
 │   ├── ai-use-log.md
 │   ├── personas/
 │   │   ├── README.md
-│   │   ├── persona-1.md
-│   │   └── persona-2.md
+│   │   ├── Daniel-personas.md
+│   │   ├── josh-personas.md
+│   │   ├── waleeds_persona.md
+│   │   └── woosik-personas.md
 │   ├── user-stories/
 │   │   ├── README.md
 │   │   └── user-stories.md
 │   └── raw-research/
 │       ├── README.md
+│       ├── daniel-research.md
+│       ├── josh-research.md
+│       └── waleeds_research.md
 ├── src/
 │   ├── README.md
 │   ├── index.html
-│   ├── styles/
-│   │   └── README.md
+│   ├── package.json
+│   ├── assets/
+│   │   ├── palette.md
+│   │   ├── theme-notes.md
+│   │   ├── audio/
+│   │   ├── icons/
+│   │   └── images/
 │   ├── scripts/
-│   │   ├── README.md
-│   └── assets/
-│       ├── README.md
-└── final-report/
-    ├── FINAL-REPORT.md
-    └── README.md
+│   └── styles/
+└── tests/
+    ├── game.test.js
+    ├── payouts.test.js
+    ├── reels.test.js
+    ├── test-utils.js
 ```
+
+## Quick Links
+
+- Prompting notes: [docs/prompting-notes.md](docs/prompting-notes.md)
+- Winner: `candidate-06` implementation finalized in `src/`
+- Presentation demo (YouTube placeholder): [https://youtu.be/PLACEHOLDER](https://youtu.be/PLACEHOLDER)
+- Presentation PDF: [final-report/presentation.pdf](final-report/presentation.pdf)
+- Presentation video: [final-report/presentation-video.mp4](final-report/presentation-video.mp4)
 
 ## Team Process
 

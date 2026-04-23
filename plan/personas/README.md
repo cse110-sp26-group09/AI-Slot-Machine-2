@@ -1,16 +1,30 @@
 # Personas Directory
 
-This directory contains user personas that represent the kinds of people who may interact with our slot machine application.
+This directory holds user personas developed for the AI Slot Machine project.
 
 ## Purpose
 
-The personas help our team think beyond implementation details and consider:
+Personas represent potential users of the slot machine application. They guide the team in understanding:
 
-- what different users value
-- what frustrates them
-- how they interpret feedback
-- what makes the experience intuitive, fun, or confusing
+- What different users might value in the experience
+- Potential frustrations or pain points
+- How users interpret game feedback and results
+- Elements that make the game intuitive, engaging, or confusing
 
-## Notes
+## Usage
 
-These personas are not meant to be “correct” in an absolute sense. They are design tools that guide research, user stories, prompting, and implementation decisions.
+These personas serve as design tools to inform:
+
+- Research directions
+- User story development
+- AI prompting strategies
+- Implementation choices
+
+They are not definitive profiles but flexible aids for user-centered design decisions.
+
+## Files
+
+- `Daniel-personas.md` — Personas contributed by Daniel
+- `josh-personas.md` — Personas contributed by Josh
+- `waleeds_persona.md` — Persona contributed by Waleed
+- `woosik-personas.md` — Personas contributed by Woosik
