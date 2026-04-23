@@ -1,4 +1,3 @@
-# 🎰 FINAL REPORT: Generative AI as an Engineering Tool
 **Team:** Akatsuki (Team 09)  
 **Project:** AI-Driven Slot Machine Spongebob + Akatsuki  
 **Date:** April 21, 2026  
