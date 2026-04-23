@@ -72,19 +72,18 @@ We focused on three key research areas, especially for "Bikini Bottom Reels."
 We also focused on seven unique user archetypes to make sure my final product addressed lots of behavioral needs.
 
 ### 5a Transparency & Analytical Trust
-* **Spend Transparency:** Users like Adi Zelersteins and Sarah Kim 
-  need a real-time summary of net profit/loss to make 
-  informed decisions.
-* **Budget Tracking:** So, we implemented the "spend 
-  transparency" features where users see session spend alongside 
+* **Spend Transparency:** People like Adi Zelersteins and Sarah Kim 
+  want a real-time summary of net profit/loss to make 
+  informed, logical decisions.
+* **Budget Tracking:** So, we implemented the "spend transparency"
+  features where users see session spend alongside 
   their balance.
 * **Verified Fairness:** For analytically driven players like 
   Jason Hermandre, we focused on transparency with verified RTP percentages.
 
 ### 5b Sensory Feedback & Engagement
 * **Escalating Celebrations:** Players like Jake Smith and Jake 
-  Miller CRAVE the "casino rush," which we addressed with 
-  tiered celebrations.
+  Miller CRAVE the "casino rush," so we did tiered celebrations.
 * **Multi-Sensory Interface:** We added screen shakes and 
   coin fountains to make digital wins feel viscerally 
   rewarding.
@@ -93,15 +92,15 @@ We also focused on seven unique user archetypes to make sure my final product ad
 ### 5c Accessibility & Responsible Play
 * **High-Contrast Needs:** Older folks like Carrie White 
   need high-contrast visuals and large text to play.
-* **Interface Guardrails:** So we added the "large-print." 
+* **Interface Guardrails:** We added the "large-print." 
   interface and accessible controls.
-* **Automatic Limits:** We added a tool that
+* **Automatic Limits:** We added a feature that
   immediately pauses the session when there's a loss limit.
 
 ### 5d Progression & Community
 * **Loyalty Visibility:** Frequent players like Adi and Jake 
-  Miller wants XP balances and reward tiers 
-* **Visual Progress:** We has persistent progression 
+  Miller want XP balances and reward tiers 
+* **Visual Progress:** We have constant progression 
   meters so that the time investment feels rewarding even
   when it may actually isn't.
   
