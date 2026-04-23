@@ -11,6 +11,7 @@ The final report documents the team's outcomes, learnings, and reflections on us
 - `FINAL-REPORT.md` — Comprehensive report covering project results, AI usage analysis, challenges, and recommendations
 - `presentation.pdf` — Slide deck presentation (4-7 slides) summarizing key findings
 - `presentation-video.mp4` — Video demonstration (no longer than 4 minutes) of the project and learnings
+- `demo-video.mp4` — Video demonstration of the final product
 
 ## How to Use
 
