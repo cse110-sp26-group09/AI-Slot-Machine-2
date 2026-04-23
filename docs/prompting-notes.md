@@ -104,7 +104,7 @@ Build this like a team project that may later be extended, tested, linted, and p
 
 Notes: Aligns with the assignment’s emphasis on research, user-centered thinking, documented AI process, and clean-code standards.
 
-Result: 
+Result: Good baseline prompt with the base features
 
 ___
 
@@ -319,6 +319,8 @@ Sound (Web Audio API only, no external files):
 3. esbuild config for production build
 4. README: setup steps, env vars, compliance notes
 ```
+Notes: Was inspired by some online gambling slot machines
+Results: Didn't run great and were a lot of problems
 ___
 
 Prompt 4: 
@@ -426,7 +428,7 @@ OUTPUT CONTRACT
 
 Notes: Expected to produce the most well-rounded version by combining accessibility, transparency, excitement, clarity, persistence, and replay value into one cohesive product. This variation should likely aim for the strongest overall balance between user trust, usability, and polished casino-like engagement.
 
-Result:
+Result: Overall best prompt that encapsulates all the research and the personas with ll the user stories great overall prompt with all the features.
 
 ___
 
@@ -1203,6 +1205,6 @@ On the home screen, change the text color to match the dark text used throughout
 On the age verification screen, remove the second sentence that tells the use to enter in MM/DD/YYYY format, and remove the empty blue box below the input box.
 ```
 
-Notes:
+Notes: Final refinement prompt for the winning candidate to add some features and do checks while running tests to see if everything works as intended
 
-Results:
+Results: Phenomenal final product works as expected
