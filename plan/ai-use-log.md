@@ -1684,8 +1684,10 @@ Use this section only when the team changes how it is using AI.
 ## Summary
 - What kinds of tasks was AI most useful for?
   AI was best at consistently giving baseline slot machines that actually worked. It also did pretty well with iterative improvements. Once we had something decent, we could keep prompting for better visuals, smoother animations, and cleaner UI. The themed outputs, especially SpongeBob and Akatsuki, improved a lot over time as we gave them more direction. On top of that, it did a decent job for small, targeted fixes. When we clearly pointed out an issue, like removing a UI element or adjusting layout, it was usually handled quickly and correctly. Toward the end, it was also useful for merging features from different candidates into one final version.
-  
+
 - Where did AI struggle?
+  AI struggled the most with complex logic and consistency. There were multiple cases where core features broke, like the spin mechanic not working and the spin zone being incorrectly implemented. It also had trouble when prompts were too specific or overloaded. If we tried to do too much in one prompt, the output would sometimes completely fail (like a missing CSS). There was a clear upper limit to how much complexity it could handle at once. UI layout was another weak point. The AI often produced designs with awkward spacing, empty areas, or misaligned elements. Like the AI feels so confident and stubborn in its ideas sometimes. 
+  
 - What required human judgment most often?
 - Did our prompting strategy improve over time?
 - How should AI be used in our future SWE workflow?
