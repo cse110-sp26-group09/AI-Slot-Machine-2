@@ -1683,6 +1683,8 @@ Use this section only when the team changes how it is using AI.
 
 ## Summary
 - What kinds of tasks was AI most useful for?
+  AI was best at consistently giving baseline slot machines that actually worked. It also did pretty well with iterative improvements. Once we had something decent, we could keep prompting for better visuals, smoother animations, and cleaner UI. The themed outputs, especially SpongeBob and Akatsuki, improved a lot over time as we gave them more direction. On top of that, it did a decent job for small, targeted fixes. When we clearly pointed out an issue, like removing a UI element or adjusting layout, it was usually handled quickly and correctly. Toward the end, it was also useful for merging features from different candidates into one final version.
+  
 - Where did AI struggle?
 - What required human judgment most often?
 - Did our prompting strategy improve over time?
