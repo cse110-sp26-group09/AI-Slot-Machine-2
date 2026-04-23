@@ -185,9 +185,9 @@ AI-Slot-Machine-2/
 
 - Prompting notes: [docs/prompting-notes.md](docs/prompting-notes.md)
 - Winner: `candidate-06` implementation finalized in `src/`
-- Presentation demo (YouTube placeholder): [https://youtu.be/PLACEHOLDER](https://youtu.be/PLACEHOLDER)
-- Presentation PDF: [final-report/presentation.pdf](final-report/presentation.pdf)
 - Presentation video: [final-report/presentation-video.mp4](final-report/presentation-video.mp4)
+- Presentation video: [final-report/demo-video.mp4](final-report/demo-video.mp4)
+- Presentation PDF: [final-report/presentation.pdf](final-report/presentation.pdf)
 
 ## Team Process
 
