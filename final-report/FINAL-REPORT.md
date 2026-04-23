@@ -50,25 +50,64 @@ We definitely adopted an AI-first mentality.
 ## 4. Domain-Research-Driven Design
 We focused on three key research areas, especially for "Bikini Bottom Reels."
 
-### 4a Systems & Psychology (Daniel Wu)
+### 4a Systems & Psychology
 * **Engine Realism:** Results are decided by PRNG systems.
   We do reel animations for this process.
 * **Responsible Play:** We did age verification, session spend tracking, 
   and loss-limit guardrails.
 
-### 4b Aesthetics & Math (Josh Victoria)
+### 4b Aesthetics & Math
 * **Volatility & RTP:** Research on **Return to Player** (RTP) influenced 
   payout transparency and paytable visibility.
 * **Near-Miss Effect:** "Anticipation loops" for near-miss outcomes. The idea of "almost winning" is so important to increase engagement without deception.
 
-### 4c UI/UX & Mobile (Waleed Alghaithi)
+### 4c UI/UX & Mobile
 * **Interaction Zones:** Clustered controls for one-handed commute play 
   based on mobile traffic data.
 * **Celebration Tiers:** Tiered celebrations, like coin fountains. They need to escalate in intensity based on payout size.
 
-# End-of-Process Reflection
+---
 
-## Summary
+## 5. Persona-Driven Design Strategies
+We also focused on seven unique user archetypes to make sure my final product addressed lots of behavioral needs.
+
+### Transparency & Analytical Trust
+* **Spend Transparency:** Users like Adi Zelersteins and Sarah Kim 
+  need a real-time summary of net profit/loss to make 
+  informed decisions.
+* **Budget Tracking:** So, we implemented the "spend 
+  transparency" features where users see session spend alongside 
+  their balance.
+* **Verified Fairness:** For analytically driven players like 
+  Jason Hermandre, we focused on transparency with verified RTP percentages.
+
+### Sensory Feedback & Engagement
+* **Escalating Celebrations:** Players like Jake Smith and Jake 
+  Miller CRAVE the "casino rush," which we addressed with 
+  tiered celebrations.
+* **Multi-Sensory Interface:** We added screen shakes and 
+  coin fountains to make digital wins feel viscerally 
+  rewarding.
+* **Expressive Aesthetics:** Entertainment seekers like Sarah Kim and Adi want visually stunning themes.
+  
+### Accessibility & Responsible Play
+* **High-Contrast Needs:** Older folks like Carrie White 
+  need high-contrast visuals and large text to play.
+* **Interface Guardrails:** So we added the "large-print." 
+  interface and accessible controls.
+* **Automatic Limits:** We added a tool that
+  immediately pauses the session when there's a loss limit.
+
+### Progression & Community
+* **Loyalty Visibility:** Frequent players like Adi and Jake 
+  Miller wants XP balances and reward tiers 
+* **Visual Progress:** We has persistent progression 
+  meters so that the time investment feels rewarding even
+  when it may actually isn't.
+  
+## End-of-Process Reflection
+
+### Summary
 - **What kinds of tasks were AI most useful for?** \\
   AI was best at consistently giving baseline slot machines that actually worked. It also did pretty well with iterative improvements. Once we had something decent, we could keep prompting for better visuals, smoother animations, and cleaner UI. The themed outputs, especially SpongeBob and Akatsuki, improved a lot over time as we gave them more direction. On top of that, it did a decent job for small, targeted fixes. When we clearly pointed out an issue, like removing a UI element or adjusting layout, it was usually handled quickly and correctly. Toward the end, it was also useful for merging features from different candidates into one final version.
 
@@ -84,6 +123,6 @@ We focused on three key research areas, especially for "Bikini Bottom Reels."
 - **How should AI be used in our future SWE workflow?** \\
   AI should be used as a tool, not something we rely on completely. It's very effective for generating initial code, speeding up repetitive work, and helping with smaller refinements. But I wouldn't trust it with core logic or major design decisions without verification. I don't want to be taken to a ChatGPT doctor, or a ChatGPT car-repair-person. There needs to be consistent human oversight, especially for debugging and ensuring overall quality. I feel like the best approach is to use AI for iteration and then refine and validate everything manually. Perfecting this balance is what actually leads to a strong, sustainable final product.
 
-## Final Takeaway
+### Final Takeaway
 **Write a short conclusion about whether and how AI was useful in this project.** \\
 There is no doubt in my mind that AI is useful in this project. This project would not be possible without AI. The candidates would have been impossible to create just off the perseverence and sheer will of Team 09 Akatsuki. AI casts such a wide net when I ask it to create something. But it can be tamed if I ask it to. If I refine, refine, refine, prompt engineer, prompt engineer, and prompt engineer, then I can get a better product. But there is an upper limit to how good the outcome is. If I hypothetically really wanted to deploy a slot machine application and used AI exclusively, that program would be awful. AI just makes me a sausage, and I have no idea what's inside a sausage. It's a bunch of ground-up mishmash. It makes so many assumptions that I will never fully know. AI built these programs with an existing knowledge of the internet. Next year, if I ran this same project again, the outputs could look completely different depending on the model, the training data, and even small changes in how I prompt it. This lack of consistency makes it hard to rely on AI as a standalone solution. It needs direction, oversight, and constant babysitting to actually produce something that meets real world standards.
