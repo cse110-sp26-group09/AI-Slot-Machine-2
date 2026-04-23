@@ -44,7 +44,7 @@ function createWindow(windowOverrides) {
 function loadScripts(scriptPaths, options) {
   const config = options || {};
   const windowObject = createWindow(config.windowOverrides);
-  const candidateRoot = path.resolve(__dirname, "candidate-06");
+  const candidateRoot = path.resolve(__dirname, "../src");
 
   const context = vm.createContext({
     window: windowObject,
