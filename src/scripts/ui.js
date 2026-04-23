@@ -210,6 +210,28 @@
       });
     }
 
+    function playAgePassBubbles() {
+      const layer = global.document.createElement("div");
+      layer.className = "age-pass-bubbles";
+
+      for (let index = 0; index < 18; index += 1) {
+        const bubble = global.document.createElement("span");
+        const size = 14 + Math.floor(Math.random() * 50);
+        bubble.className = "age-pass-bubble";
+        bubble.style.width = size + "px";
+        bubble.style.height = size + "px";
+        bubble.style.left = 2 + Math.random() * 95 + "%";
+        bubble.style.animationDelay = Math.floor(Math.random() * 320) + "ms";
+        bubble.style.setProperty("--age-drift", -26 + Math.floor(Math.random() * 52) + "px");
+        layer.appendChild(bubble);
+      }
+
+      global.document.body.appendChild(layer);
+      return waitMs(2000).then(function () {
+        layer.remove();
+      });
+    }
+
     function openInfoModal() {
       elements.infoModal.classList.remove("hidden");
     }
@@ -607,6 +629,9 @@
         if (!elements.gameScreen.classList.contains("active")) {
           return;
         }
+        if (spinControlMode === "idle") {
+          return;
+        }
         const interactive = event.target.closest("button,input,label,a");
         if (interactive) {
           return;
@@ -648,20 +673,8 @@
       });
 
       global.document.addEventListener("keydown", function (event) {
-        const isTypingElement =
-          event.target.tagName === "INPUT" || event.target.tagName === "TEXTAREA";
-
         if (event.code === "Escape") {
           closeInfoModal();
-        }
-
-        if (isTypingElement) {
-          return;
-        }
-
-        if (event.code === "Space" && elements.gameScreen.classList.contains("active")) {
-          event.preventDefault();
-          handlers.onSpin("keyboard");
         }
       });
     }
@@ -694,6 +707,7 @@
       init: init,
       setScreen: setScreen,
       playLoadingSequence: playLoadingSequence,
+      playAgePassBubbles: playAgePassBubbles,
       setOutcome: setOutcome,
       setPaylineText: setPaylineText,
       setAgeMessage: setAgeMessage,

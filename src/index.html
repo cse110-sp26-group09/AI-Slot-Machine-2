@@ -41,9 +41,7 @@
     <section id="age-screen" class="screen age-screen" aria-label="Age verification">
       <div class="age-card panel" role="form" aria-labelledby="age-title">
         <h2 id="age-title">Age Verification</h2>
-        <p class="small-text">
-          This game is restricted to players aged 21 and older. Enter your date of birth in MM/DD/YYYY format.
-        </p>
+        <p class="small-text">This game is restricted to players aged 21 and older.</p>
         <label for="birthdate-input">Date of Birth</label>
         <input id="birthdate-input" type="text" inputmode="numeric" placeholder="MM/DD/YYYY" maxlength="10" />
         <div class="row-buttons">
@@ -74,7 +72,6 @@
         </div>
         <div class="header-actions">
           <button id="back-home-game" class="button secondary" type="button">Home</button>
-          <button id="open-info-game" class="button secondary info-inline" type="button">Info</button>
         </div>
       </header>
 
@@ -143,85 +140,106 @@
           </div>
         </section>
 
-        <div class="support-column">
-          <section class="panel summary-panel" aria-labelledby="summary-title">
-            <h2 id="summary-title">Session Summary</h2>
-            <dl class="summary-grid">
-              <div><dt>Current Balance</dt><dd id="balance-value">0</dd></div>
-              <div><dt>Current Bet</dt><dd id="current-bet-value">0</dd></div>
-              <div><dt>Total Spun</dt><dd id="spend-value">0</dd></div>
-              <div><dt>Total Won</dt><dd id="returned-value">0</dd></div>
-              <div><dt>Session Net</dt><dd id="net-value">0</dd></div>
-              <div><dt>Spins</dt><dd id="spins-value">0</dd></div>
-              <div><dt>Wins</dt><dd id="wins-value">0</dd></div>
-            </dl>
+        <section class="support-zone" aria-labelledby="support-zone-title">
+          <div class="support-zone-head">
+            <h2 id="support-zone-title">Settings, Stats, and Payout Tools</h2>
+            <button id="open-info-game" class="button secondary" type="button">Payouts &amp; Rules</button>
+          </div>
+          <div class="support-column">
+            <section class="panel summary-panel" aria-labelledby="summary-title">
+              <h2 id="summary-title">Session Summary</h2>
+              <dl class="summary-grid">
+                <div><dt>Current Balance</dt><dd id="balance-value">0</dd></div>
+                <div><dt>Current Bet</dt><dd id="current-bet-value">0</dd></div>
+                <div><dt>Total Spun</dt><dd id="spend-value">0</dd></div>
+                <div><dt>Total Won</dt><dd id="returned-value">0</dd></div>
+                <div><dt>Session Net</dt><dd id="net-value">0</dd></div>
+                <div><dt>Spins</dt><dd id="spins-value">0</dd></div>
+                <div><dt>Wins</dt><dd id="wins-value">0</dd></div>
+              </dl>
 
-            <h3 class="subheading">Loyalty Progress</h3>
-            <dl class="summary-grid compact">
-              <div><dt>Tier</dt><dd id="tier-value">Bronze</dd></div>
-              <div><dt>XP</dt><dd id="xp-value">0</dd></div>
-              <div><dt>Next Tier</dt><dd id="next-tier-value">Silver</dd></div>
-            </dl>
-            <div class="progress-track" aria-label="Tier progress">
-              <div id="xp-progress" class="progress-fill"></div>
-            </div>
-            <p id="tier-progress-text" class="small-text">0 XP to Silver</p>
-          </section>
-
-          <section class="panel history-panel" aria-labelledby="history-title">
-            <button id="history-toggle" class="history-toggle" type="button" aria-expanded="true">
-              <span id="history-title">Spin History</span>
-              <span id="history-count">0/20</span>
-            </button>
-            <div id="history-content" class="history-content">
-              <p class="small-text">Last spins with bet, symbols, payout, and net result.</p>
-              <div class="history-wrap">
-                <table>
-                  <thead>
-                    <tr>
-                      <th scope="col">Spin</th>
-                      <th scope="col">Bet</th>
-                      <th scope="col">Result</th>
-                      <th scope="col">Payout</th>
-                      <th scope="col">Net</th>
-                    </tr>
-                  </thead>
-                  <tbody id="history-body"></tbody>
-                </table>
+              <h3 class="subheading">Loyalty Progress</h3>
+              <dl class="summary-grid compact">
+                <div><dt>Tier</dt><dd id="tier-value">Bronze</dd></div>
+                <div><dt>XP</dt><dd id="xp-value">0</dd></div>
+                <div><dt>Next Tier</dt><dd id="next-tier-value">Silver</dd></div>
+              </dl>
+              <div class="progress-track" aria-label="Tier progress">
+                <div id="xp-progress" class="progress-fill"></div>
               </div>
-            </div>
-          </section>
+              <p id="tier-progress-text" class="small-text">0 XP to Silver</p>
+            </section>
 
-          <section class="panel guardrail-panel" aria-labelledby="guardrail-title">
-            <h2 id="guardrail-title">Session Guardrails</h2>
-            <p class="small-text">Gameplay pauses automatically when a limit is reached.</p>
-            <div class="field-grid">
-              <label for="start-balance-input">Starting Balance</label>
-              <input id="start-balance-input" type="number" min="10" step="10" value="200" inputmode="numeric" />
+            <section class="panel history-panel" aria-labelledby="history-title">
+              <button id="history-toggle" class="history-toggle" type="button" aria-expanded="true">
+                <span id="history-title">Spin History</span>
+                <span id="history-count">0/20</span>
+              </button>
+              <div id="history-content" class="history-content">
+                <p class="small-text">Last spins with bet, symbols, payout, and net result.</p>
+                <div class="history-wrap">
+                  <table>
+                    <thead>
+                      <tr>
+                        <th scope="col">Spin</th>
+                        <th scope="col">Bet</th>
+                        <th scope="col">Result</th>
+                        <th scope="col">Payout</th>
+                        <th scope="col">Net</th>
+                      </tr>
+                    </thead>
+                    <tbody id="history-body"></tbody>
+                  </table>
+                </div>
+              </div>
+            </section>
 
-              <label for="budget-cap-input">Spend Budget Cap</label>
-              <input id="budget-cap-input" type="number" min="0" step="10" value="250" inputmode="numeric" />
+            <section class="panel guardrail-panel" aria-labelledby="guardrail-title">
+              <h2 id="guardrail-title">Session Guardrails</h2>
+              <p class="small-text">Gameplay pauses automatically when a limit is reached.</p>
+              <div class="field-grid">
+                <label for="start-balance-input">Starting Balance</label>
+                <input id="start-balance-input" type="number" min="10" step="10" value="200" inputmode="numeric" />
 
-              <label for="loss-limit-input">Loss Limit</label>
-              <input id="loss-limit-input" type="number" min="0" step="10" value="100" inputmode="numeric" />
-            </div>
+                <label for="budget-cap-input">Spend Budget Cap</label>
+                <input id="budget-cap-input" type="number" min="0" step="10" value="250" inputmode="numeric" />
 
-            <div class="row-buttons">
-              <button id="apply-guardrails" class="button secondary" type="button">Apply Limits</button>
-              <button id="reset-session" class="button secondary" type="button">Start New Session</button>
-            </div>
-            <div id="pause-banner" class="pause-banner hidden" role="alert"></div>
-          </section>
+                <label for="loss-limit-input">Loss Limit</label>
+                <input id="loss-limit-input" type="number" min="0" step="10" value="100" inputmode="numeric" />
+              </div>
 
-          <section class="panel settings-panel" aria-labelledby="settings-title">
-            <h2 id="settings-title">Accessibility</h2>
-            <div class="checkbox-grid">
-              <label><input id="toggle-high-contrast" type="checkbox" /> High Contrast Mode</label>
-              <label><input id="toggle-large-print" type="checkbox" /> Large Print Mode</label>
-              <label><input id="toggle-reduced-motion" type="checkbox" /> Reduced Motion</label>
-            </div>
-          </section>
-        </div>
+              <div class="row-buttons">
+                <button id="apply-guardrails" class="button secondary" type="button">Apply Limits</button>
+                <button id="reset-session" class="button secondary" type="button">Start New Session</button>
+              </div>
+              <div id="pause-banner" class="pause-banner hidden" role="alert"></div>
+            </section>
+
+            <section class="panel settings-panel" aria-labelledby="settings-title">
+              <h2 id="settings-title">Accessibility</h2>
+              <div class="checkbox-grid">
+                <label><input id="toggle-high-contrast" type="checkbox" /> High Contrast Mode</label>
+                <label><input id="toggle-large-print" type="checkbox" /> Large Print Mode</label>
+                <label><input id="toggle-reduced-motion" type="checkbox" /> Reduced Motion</label>
+              </div>
+            </section>
+          </div>
+        </section>
+
+        <section class="panel ad-strip" aria-label="Sponsored advertisements">
+          <h2>Sponsored</h2>
+          <div class="ad-grid">
+            <article class="ad-card ad-1" role="img" aria-label="Sponsored ad 1">
+              <span>Sponsored</span>
+            </article>
+            <article class="ad-card ad-2" role="img" aria-label="Sponsored ad 2">
+              <span>Sponsored</span>
+            </article>
+            <article class="ad-card ad-3" role="img" aria-label="Sponsored ad 3">
+              <span>Sponsored</span>
+            </article>
+          </div>
+        </section>
       </main>
     </section>
 

@@ -524,13 +524,13 @@ __________________________________________
 - **What We Learned:**  
  Being specific about key changes and taking the best features from multiple AI candidate runs can produce outstanding results.
 
- __________________________________________
+__________________________________________
 
   **Date:** 04/21/2026
 - **Team Member(s):** Jason Nguyen
 - **Phase:** Debugging
 - **Goal:**  
-    To remove the slot machine lever
+  To remove the slot machine lever
 
 - **Prompt / Request to AI:**  
   can you just remove the lever and the button for it
@@ -557,13 +557,95 @@ __________________________________________
   N/A
 
 - **Reprompt Edit Needed?**
-  No
+  Yes
 
 - **If Yes, Why?:**  
-   N/A
+  Finalize and polish game details to make the app look and feel like a commercial slot-machine app. We want the experience to be enjoyable for extended periods of time to retain users.
 
 - **What We Learned:**  
  Being specific about key changes and taking the best features from multiple AI candidate runs can produce outstanding results. Small changes using the AI are fast and reasonable.
+
+ __________________________________________
+
+  **Date:** 04/22/2026
+- **Team Member(s):** Jason Nguyen
+- **Phase:** Final Refinement
+- **Goal:**  
+  Apply finishing touches to create a seamless, polished experience
+
+- **Prompt / Request to AI:**  
+  Spongebob refinement prompt (final)
+
+- **Why We Used AI Here:**  
+  AI has been working with this project and should be capable of implementing our desired changes very efficiently
+
+- **AI Output Summary:**  
+  Several UI bugs fixed and subtle improvements with a the welcome page animation and added/revamped sound effects
+   
+- **Result:**  
+  Success
+
+- **Issues / Observations:**  
+  UI looks great, with the exception of the layout of the boxes underneath the slots (empty spaces)
+
+- **Decision Made:**  
+  Continue with a reprompt
+
+- **Manual Edit Needed?:**  
+  no
+
+- **If Yes, Why?:**
+  N/A
+
+- **Reprompt Edit Needed?**
+  Yes
+
+- **If Yes, Why?:**  
+  Fix UI layout on the main screen, which are very jarring and inhibit the otherwise clean layout.
+
+- **What We Learned:**  
+  AI tends to do well at implementing specific, actionable changes after it has been working on a project for an extended period.
+
+__________________________________________
+
+  **Date:** 04/22/2026
+- **Team Member(s):** Jason Nguyen
+- **Phase:** Debugging
+- **Goal:**  
+  Fix any final UI bugs so that the layout is clean and uninterrupted
+
+- **Prompt / Request to AI:**  
+  This is almost perfect, but there are empty spaces in the UI layout on the main screen. As a single column, please move the session guardrail and accessibility boxes to fit beside the session summary box. The UI needs to be clean without unfilled areas. Adjust sizes as needed.
+
+- **Why We Used AI Here:**  
+  The scope of the change is minor enough for AI to be able to get it done effectively.
+
+- **AI Output Summary:**  
+  The output moved the box elements exactly as desired, leaving no empty gaps in the layout!
+   
+- **Result:**  
+  Success
+
+- **Issues / Observations:**  
+  The UI has no obvious flaws and looks very nice and well-fit to the Spongebob theme.
+
+- **Decision Made:**  
+  Finish
+
+- **Manual Edit Needed?:**  
+  no
+
+- **If Yes, Why?:**
+  N/A
+
+- **Reprompt Edit Needed?**
+  No
+
+- **If Yes, Why?:**  
+  N/A
+
+- **What We Learned:**  
+  It helps to run AI iteratively over multiple prompts, then address specific fixes in each one. Surprisingly, multiple changes can be requested with AI usually getting them all correct as long as the prompt is detailed enough.
 
 ---
 

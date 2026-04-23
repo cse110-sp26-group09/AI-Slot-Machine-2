@@ -11,6 +11,7 @@
     let enabled = true;
     let volume = 0.45;
     let context = null;
+    let useFirstMinorWin = true;
 
     const bgm = new global.Audio("assets/audio/spongebob-bgm.mp3");
     bgm.loop = true;
@@ -20,7 +21,8 @@
       welcome: "assets/audio/spongebob-welcome.mp3",
       spin: "assets/audio/spongebob-spin.mp3",
       bigWin: "assets/audio/spongebob-bigwin.mp3",
-      win: "assets/audio/spongebob-win.mp3",
+      win1: "assets/audio/spongebob-win1.mp3",
+      win2: "assets/audio/spongebob-win2.mp3",
       loss: "assets/audio/spongebob-loss.mp3"
     };
 
@@ -165,7 +167,9 @@
     }
 
     function playSmallWinChime() {
-      playOneShot(sources.win, 0.68);
+      const minorWinClip = useFirstMinorWin ? sources.win1 : sources.win2;
+      useFirstMinorWin = !useFirstMinorWin;
+      playOneShot(minorWinClip, 0.68);
       playToneSweep({
         type: "triangle",
         fromHz: 740,

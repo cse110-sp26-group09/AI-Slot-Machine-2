@@ -1180,6 +1180,28 @@ Return a complete working version of the project.
 
 ```
 
-Notes: 
+Notes: Implements features from other candidates that are lacking some features to become a complete product and addresses user story concerns.
 
-Result:
+Result: Has many elements of a professional slot-machine app, with fun visuals and gameplay. Though, the overall experience does become tiring after several spins.
+
+___
+
+Refinement prompt for final spongebob candidate 6.
+
+```
+Make the spinning slot machine UI the most prominent thing on the application, spanning the entire width of the screen. Consolidate the settings and ancillary components, like payouts and related stats drop downs, to a section below the slots. The user's main focus should be on the slot machine itself, not the supplementary things. These are also important but not as much as the main machine game action. Keep logic the exact same, only change the existing code to reflect these changes. Don't change other logics.
+
+Additionally, identify any unfilled areas at the bottom of the webpage to insert advertisement assets ad1.png, ad2.png, and ad3.png. Reassign the new audio assets to their respective functions, and alternate between using spongebob-win1.mp3 and spongebob-win2.mp3 for minor wins.
+
+Refactor the event listener for the spin function to ensure it only triggers when the spin button element is specifically clicked rather than any area outside of it. For speedup and slam stop, allow this to occur only when clicked anywhere in the slot area or the button.
+
+When you pass the age verification step, please also include a 2 second bubble animation that goes from the bottom to the top of the screen, and play the spongebob-spin.mp3 sound effect in addition to spongebob-welcome.mp3.
+
+On the home screen, change the text color to match the dark text used throughout the rest of the app so that it is readable.
+
+On the age verification screen, remove the second sentence that tells the use to enter in MM/DD/YYYY format, and remove the empty blue box below the input box.
+```
+
+Notes:
+
+Results:

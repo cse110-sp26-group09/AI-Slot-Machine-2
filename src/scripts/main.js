@@ -237,8 +237,10 @@
       }
 
       ui.setAgeMessage("Age verified. Entering the game...", "positive");
-      ui.setScreen("game");
       audio.playWelcome();
+      audio.playSpinStart();
+      ui.playAgePassBubbles();
+      ui.setScreen("game");
     }
 
     function handleSpinControlsWhileSpinning(source) {
@@ -267,7 +269,14 @@
     }
 
     async function handleSpin(source) {
-      if (activeSpinSession && handleSpinControlsWhileSpinning(source)) {
+      const fromSpinButton = source === "button";
+      const fromSlotArea = source === "tap";
+
+      if (!activeSpinSession && !fromSpinButton) {
+        return;
+      }
+
+      if (activeSpinSession && (fromSpinButton || fromSlotArea) && handleSpinControlsWhileSpinning(source)) {
         return;
       }
 
