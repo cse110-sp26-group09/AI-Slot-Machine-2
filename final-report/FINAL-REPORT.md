@@ -71,7 +71,7 @@ We focused on three key research areas, especially for "Bikini Bottom Reels."
 ## 5. Persona-Driven Design Strategies
 We also focused on seven unique user archetypes to make sure my final product addressed lots of behavioral needs.
 
-### Transparency & Analytical Trust
+### 5a Transparency & Analytical Trust
 * **Spend Transparency:** Users like Adi Zelersteins and Sarah Kim 
   need a real-time summary of net profit/loss to make 
   informed decisions.
@@ -81,7 +81,7 @@ We also focused on seven unique user archetypes to make sure my final product ad
 * **Verified Fairness:** For analytically driven players like 
   Jason Hermandre, we focused on transparency with verified RTP percentages.
 
-### Sensory Feedback & Engagement
+### 5b Sensory Feedback & Engagement
 * **Escalating Celebrations:** Players like Jake Smith and Jake 
   Miller CRAVE the "casino rush," which we addressed with 
   tiered celebrations.
@@ -90,7 +90,7 @@ We also focused on seven unique user archetypes to make sure my final product ad
   rewarding.
 * **Expressive Aesthetics:** Entertainment seekers like Sarah Kim and Adi want visually stunning themes.
   
-### Accessibility & Responsible Play
+### 5c Accessibility & Responsible Play
 * **High-Contrast Needs:** Older folks like Carrie White 
   need high-contrast visuals and large text to play.
 * **Interface Guardrails:** So we added the "large-print." 
@@ -98,7 +98,7 @@ We also focused on seven unique user archetypes to make sure my final product ad
 * **Automatic Limits:** We added a tool that
   immediately pauses the session when there's a loss limit.
 
-### Progression & Community
+### 5d Progression & Community
 * **Loyalty Visibility:** Frequent players like Adi and Jake 
   Miller wants XP balances and reward tiers 
 * **Visual Progress:** We has persistent progression 
