@@ -1665,20 +1665,6 @@ __________________________________________
 
 ---
 
-# Strategy Changes
-
-Use this section only when the team changes how it is using AI.
-
-## Strategy Change 1
-- **Date:**
-- **Previous Approach:**  
-- **New Approach:**  
-- **Reason for Change:**  
-- **What Triggered the Change:**  
-- **Expected Benefit:**
-  
----
-
 # End-of-Process Reflection
 
 ## Summary
